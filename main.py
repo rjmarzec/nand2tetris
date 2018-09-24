@@ -1,4 +1,14 @@
 #########################################
+# Global Variables ######################
+#########################################
+
+
+# Th names of the files need to be manually changed here for different test to be run
+input_file_name = "simpleAdd.vm"
+output_file_name = "simpleAdd.asm"
+
+
+#########################################
 # Main Running Area #####################
 #########################################
 
@@ -125,10 +135,10 @@ def write_push_pop(input_line, command_type):
 #########################################
 
 
-def write_hack_to_file(inputLineList):
-	file = open("test.asm", "w")
+def write_hack_to_file(input_line_list):
+	output_file = open("test.asm", "w")
 	writeString = ""
-	for line in inputLineList:
+	for line in input_line_list:
 		writeString += line + "\n"
 	# writeString += str(line)
 	file.write(writeString)
