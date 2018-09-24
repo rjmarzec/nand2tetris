@@ -90,7 +90,7 @@ def get_command_type(input_line):
 
 def convert_line_to_hack(input_line, command_type):
 	if command_type == "C_ARITHMETIC":
-		return write_arithmetic(input_line, command_type)
+		return write_arithmetic(input_line)
 	elif command_type == "C_PUSH" or command_type == "C_POP":
 		return write_push_pop(input_line, command_type)
 	elif command_type == "C_LABEL":
@@ -109,10 +109,14 @@ def convert_line_to_hack(input_line, command_type):
 		return "ERROR: Command not specified"
 
 
-def write_arithmetic(input_line, command_type):
+# TODO: finish up adding and subtracting here after getting push/pop to work
+def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
-		result_string += "tempAddText"
+		result_string += \
+			"@SP" \
+			"D=M" \
+			""
 	elif "sub" in input_line:
 		result_string += "tempSubText"
 	return result_string
