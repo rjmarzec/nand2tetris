@@ -4,8 +4,8 @@
 
 
 # Th names of the files need to be manually changed here for different test to be run
-input_file_name = "simpleAdd.vm"
-output_file_name = "simpleAdd.asm"
+input_file_name = "testFiles/simpleAdd/simpleAdd.vm"
+output_file_name = "testFiles/simpleAdd/simpleAdd.asm"
 
 
 #########################################
@@ -14,7 +14,8 @@ output_file_name = "simpleAdd.asm"
 
 
 def vm_to_asm():
-	input_file = open("test.vm", "r")
+	global input_file_name
+	input_file = open(input_file_name, "r")
 	raw_file_line_list = get_file_lines_as_list(input_file)
 	cleaned_vm_line_list = clean_line_list(raw_file_line_list)
 	hack_line_list = convert_vm_to_hack(cleaned_vm_line_list)
@@ -106,7 +107,7 @@ def convert_line_to_hack(input_line, command_type):
 	elif command_type == "C_CALL":
 		return
 	else:
-		return "ERROR: Command not specified"
+		return "ERROR: Command not specified?"
 
 
 # TODO: finish up adding and subtracting here after getting push/pop to work
@@ -114,24 +115,53 @@ def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
 		result_string += \
-			"@SP" \
-			"D=M" \
-			""
+			"@SP\n" \
+			"D=M\n" \
+			"(finish arithmetic after push/pop)"
 	elif "sub" in input_line:
 		result_string += "tempSubText"
 	return result_string
 
 
 def write_push_pop(input_line, command_type):
-	result_string = ""
-	edited_string = ""
+	segment_pointer_type = get_segment_pointer_type(input_line)
 	if command_type == "C_PUSH":
-		# editedString =
-		# resultString
-		return
+		push_pop_value = remove_segment_pointer_and_push_pop(input_line, segment_pointer_type).strip()
+		# TODO: finish up this funky statement
+		result_string = push_pop_value + "\n" + "D=A" + "\n" + "@" + segment_pointer_type + "..."
+		return result_string
 	elif command_type == "C_POP":
-		return
-	return result_string
+		input_minus_pop = input_line[input_line.find("pop"):]
+		result_string = ""
+		return result_string
+	return "ERROR: failure when writing push/pop"
+
+
+def get_segment_pointer_type(input_line):
+	if "constant" in input_line:
+		return "P_SP"
+	elif "local" in input_line:
+		return "P_LCL"
+	elif "argument" in input_line:
+		return "P_ARG"
+	elif "this" in input_line:
+		return "P_THIS"
+	elif "that" in input_line:
+		return "P_THAT"
+	return "ERROR: failure when finding pointer segment"
+
+
+def remove_segment_pointer_and_push_pop(input_line, segment_pointer_type):
+	if segment_pointer_type == "P_SP":
+		return input_line[input_line.find("constant"):]
+	elif segment_pointer_type == "P_LCL":
+		return input_line[input_line.find("local"):]
+	elif segment_pointer_type == "P_ARG":
+		return input_line[input_line.find("argument"):]
+	elif segment_pointer_type == "P_THIS":
+		return input_line[input_line.find("this"):]
+	elif segment_pointer_type == "P_THAT":
+		return input_line[input_line.find("that"):]
 
 
 #########################################
@@ -140,13 +170,14 @@ def write_push_pop(input_line, command_type):
 
 
 def write_hack_to_file(input_line_list):
-	output_file = open("test.asm", "w")
-	writeString = ""
+	global output_file_name
+	output_file = open(output_file_name, "w")
+	write_string = ""
 	for line in input_line_list:
-		writeString += line + "\n"
+		write_string += line + "\n"
 	# writeString += str(line)
-	file.write(writeString)
-	file.close()
+	output_file.write(write_string)
+	output_file.close()
 
 
 vm_to_asm()
