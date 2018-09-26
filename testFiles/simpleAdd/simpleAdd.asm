@@ -2,4 +2,4 @@
 
 @SP
 D=M
-(finish arithemetic after push/pop)
+(finish arithmetic after push/pop)

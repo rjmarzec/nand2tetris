@@ -23,7 +23,7 @@ def vm_to_asm():
 
 
 #########################################
-# Function Area #########################
+# Cleanup and Convert Functions #########
 #########################################
 
 
@@ -110,6 +110,9 @@ def convert_line_to_hack(input_line, command_type):
 		return "ERROR: Command not specified?"
 
 
+# Arithmetic Code #######################
+
+
 # TODO: finish up adding and subtracting here after getting push/pop to work
 def write_arithmetic(input_line):
 	result_string = ""
@@ -123,10 +126,13 @@ def write_arithmetic(input_line):
 	return result_string
 
 
+# Push/Pop Code #########################
+
+
 def write_push_pop(input_line, command_type):
 	segment_pointer_type = get_segment_pointer_type(input_line)
 	if command_type == "C_PUSH":
-		push_pop_value = remove_segment_pointer_and_push_pop(input_line, segment_pointer_type).strip()
+		push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
 		# TODO: finish up this funky statement
 		result_string = push_pop_value + "\n" + "D=A" + "\n" + "@" + segment_pointer_type + "..."
 		return result_string
@@ -135,6 +141,9 @@ def write_push_pop(input_line, command_type):
 		result_string = ""
 		return result_string
 	return "ERROR: failure when writing push/pop"
+
+
+# Segment Point Code
 
 
 def get_segment_pointer_type(input_line):
@@ -151,7 +160,7 @@ def get_segment_pointer_type(input_line):
 	return "ERROR: failure when finding pointer segment"
 
 
-def remove_segment_pointer_and_push_pop(input_line, segment_pointer_type):
+def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
 	if segment_pointer_type == "P_SP":
 		return input_line[input_line.find("constant"):]
 	elif segment_pointer_type == "P_LCL":
