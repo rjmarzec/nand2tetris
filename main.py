@@ -2,8 +2,7 @@
 # Global Variables ######################
 #########################################
 
-
-# Th names of the files need to be manually changed here for different test to be run
+# Th names of the files need to be manually changed here for different tests to be run
 input_file_name = "testFiles/simpleAdd/simpleAdd.vm"
 output_file_name = "testFiles/simpleAdd/simpleAdd.asm"
 
@@ -69,8 +68,8 @@ def convert_vm_to_hack(input_line_list):
 
 
 def get_command_type(input_line):
-	if "add" or "sub":
-		# add more artimethic commands to the if statement
+	if "add" in input_line or "sub" in input_line:
+		# add more arithmetic commands to the if statement
 		return "C_ARITHMETIC"
 	elif "push" in input_line:
 		return "C_POP"
@@ -84,9 +83,11 @@ def get_command_type(input_line):
 		return "C_FUNCTION"
 	elif "return" in input_line:
 		return "C_RETURN"
-	else:
-		# elif "call" in line:
+	elif "call" in input_line:
 		return "C_CALL"
+	else:
+		print("ERROR: Command type not specified")
+		return "C_ERROR"
 
 
 def convert_line_to_hack(input_line, command_type):
@@ -143,7 +144,7 @@ def write_push_pop(input_line, command_type):
 	return "ERROR: failure when writing push/pop"
 
 
-# Segment Point Code
+# Segment Pointer Code
 
 
 def get_segment_pointer_type(input_line):
