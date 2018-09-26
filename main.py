@@ -72,9 +72,9 @@ def get_command_type(input_line):
 		# add more arithmetic commands to the if statement
 		return "C_ARITHMETIC"
 	elif "push" in input_line:
-		return "C_POP"
-	elif "pop" in input_line:
 		return "C_PUSH"
+	elif "pop" in input_line:
+		return "C_POP"
 	elif "label" in input_line:
 		return "C_GOTO"
 	elif "if" in input_line:
@@ -139,7 +139,7 @@ def write_push_pop(input_line, command_type):
 		return result_string
 	elif command_type == "C_POP":
 		input_minus_pop = input_line[input_line.find("pop"):]
-		result_string = ""
+		result_string = "temp pop result code"
 		return result_string
 	return "ERROR: failure when writing push/pop"
 
