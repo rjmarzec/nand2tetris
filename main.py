@@ -114,14 +114,11 @@ def convert_line_to_hack(input_line, command_type):
 # Arithmetic Code #######################
 
 
-# TODO: finish up adding and subtracting here after getting push/pop to work
 def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
-		result_string += \
-			"@SP\n" \
-			"D=M\n" \
-			"(finish arithmetic after push/pop)"
+		result_string += "@SP" + "\n"
+		result_string += "D=M" + "\n"
 	elif "sub" in input_line:
 		result_string += "tempSubText"
 	return result_string
@@ -132,10 +129,19 @@ def write_arithmetic(input_line):
 
 def write_push_pop(input_line, command_type):
 	segment_pointer_type = get_segment_pointer_type(input_line)
+	push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
+	result_string = ""
+
 	if command_type == "C_PUSH":
-		push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
-		# TODO: finish up this funky statement
-		result_string = push_pop_value + "\n" + "D=A" + "\n" + "@" + segment_pointer_type + "..."
+		# Get the location the stack pointer is pointing, store it, and bump it up by 1
+		result_string += "@" + segment_pointer_type + "\n"
+		result_string += "D=M" + "\n"
+		result_string += "M=M+1" + "\n"
+
+		# Access the value we want to pop, and put that value into the stack
+		result_string += "@" + push_pop_value + "\n"
+		result_string += "M=A" + "\t\t//" + input_line
+
 		return result_string
 	elif command_type == "C_POP":
 		input_minus_pop = input_line[input_line.find("pop"):]
@@ -149,29 +155,30 @@ def write_push_pop(input_line, command_type):
 
 def get_segment_pointer_type(input_line):
 	if "constant" in input_line:
-		return "P_SP"
+		return "SP"
 	elif "local" in input_line:
-		return "P_LCL"
+		return "LCL"
 	elif "argument" in input_line:
-		return "P_ARG"
+		return "ARG"
 	elif "this" in input_line:
-		return "P_THIS"
+		return "THIS"
 	elif "that" in input_line:
-		return "P_THAT"
-	return "ERROR: failure when finding pointer segment"
+		return "THAT"
+	return "ERROR: failure when finding pointer segment type"
 
 
 def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
-	if segment_pointer_type == "P_SP":
-		return input_line[input_line.find("constant"):]
-	elif segment_pointer_type == "P_LCL":
+	if segment_pointer_type == "SP":
+		return input_line[input_line.find("constant") + len("constant"):]
+	elif segment_pointer_type == "LCL":
 		return input_line[input_line.find("local"):]
-	elif segment_pointer_type == "P_ARG":
+	elif segment_pointer_type == "ARG":
 		return input_line[input_line.find("argument"):]
-	elif segment_pointer_type == "P_THIS":
+	elif segment_pointer_type == "THIS":
 		return input_line[input_line.find("this"):]
-	elif segment_pointer_type == "P_THAT":
+	elif segment_pointer_type == "THAT":
 		return input_line[input_line.find("that"):]
+	return "ERROR: Did not find pointer type"
 
 
 #########################################

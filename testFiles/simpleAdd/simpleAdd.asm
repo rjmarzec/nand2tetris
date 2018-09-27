@@ -1,9 +1,13 @@
-constant 7
-D=A
-@P_SP...
-constant 8
-D=A
-@P_SP...
+@SP
+D=M
+M=M+1
+@7
+M=A		//push constant 7
+@SP
+D=M
+M=M+1
+@8
+M=A		//push constant 8
 @SP
 D=M
 (finish arithmetic after push/pop)
