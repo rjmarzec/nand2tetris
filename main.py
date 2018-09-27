@@ -117,8 +117,13 @@ def convert_line_to_hack(input_line, command_type):
 def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
+		# Get the location the stack pointer is pointing, store it, and bump it down by 1
 		result_string += "@SP" + "\n"
 		result_string += "D=M" + "\n"
+		result_string += "M=M-1" + "\n"
+
+		# Move to the stack pointer
+
 	elif "sub" in input_line:
 		result_string += "tempSubText"
 	return result_string
@@ -133,6 +138,14 @@ def write_push_pop(input_line, command_type):
 	result_string = ""
 
 	if command_type == "C_PUSH":
+		# TODO: Actually this doesn't work and needs to get flipped. A value is stored to D and never used
+		# Access the value we want to pop, and store that value for later
+		result_string += "@" + push_pop_value + "\n"
+		result_string += "D=A" + "\n"
+
+
+		# Below is the messed up code
+
 		# Get the location the stack pointer is pointing, store it, and bump it up by 1
 		result_string += "@" + segment_pointer_type + "\n"
 		result_string += "D=M" + "\n"

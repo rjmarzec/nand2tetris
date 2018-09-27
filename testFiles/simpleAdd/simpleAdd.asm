@@ -10,4 +10,5 @@ M=M+1
 M=A		//push constant 8
 @SP
 D=M
-(finish arithmetic after push/pop)
+M=M-1
+
