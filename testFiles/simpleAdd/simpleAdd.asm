@@ -1,13 +1,15 @@
-@SP
-D=M
-M=M+1
 @7
-M=A		//push constant 7
+D=A
 @SP
-D=M
 M=M+1
+A=M-1
+M=D		//push constant 7
 @8
-M=A		//push constant 8
+D=A
+@SP
+M=M+1
+A=M-1
+M=D		//push constant 8
 @SP
 D=M
 M=M-1

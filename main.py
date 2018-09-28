@@ -138,22 +138,19 @@ def write_push_pop(input_line, command_type):
 	result_string = ""
 
 	if command_type == "C_PUSH":
-		# TODO: Actually this doesn't work and needs to get flipped. A value is stored to D and never used
-		# Access the value we want to pop, and store that value for later
+		# Access the value we want to push, and store that value for later
 		result_string += "@" + push_pop_value + "\n"
 		result_string += "D=A" + "\n"
 
-
-		# Below is the messed up code
-
-		# Get the location the stack pointer is pointing, store it, and bump it up by 1
+		# Access the the pointer location and bump up for the next time the stack is called
 		result_string += "@" + segment_pointer_type + "\n"
-		result_string += "D=M" + "\n"
 		result_string += "M=M+1" + "\n"
 
-		# Access the value we want to pop, and put that value into the stack
-		result_string += "@" + push_pop_value + "\n"
-		result_string += "M=A" + "\t\t//" + input_line
+		# Move to the location that the stack pointer referred to before getting bumped up
+		result_string += "A=M-1" + "\n"
+
+		# Store the push value at the top of the stack
+		result_string += "M=D" + "\t\t//" + input_line
 
 		return result_string
 	elif command_type == "C_POP":
