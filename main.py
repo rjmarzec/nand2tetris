@@ -1,11 +1,12 @@
+import file_name_constants
+
 #########################################
 # Global Variables ######################
 #########################################
 
-# Th names of the files need to be manually changed here for different tests to be run
-input_file_name = "testFiles/simpleAdd/simpleAdd.vm"
-output_file_name = "testFiles/simpleAdd/simpleAdd.asm"
-
+# These variables need to be changed to run different test. Refer to the constants file for the names
+input_file_name = file_name_constants.BASIC_TEST_IN
+output_file_name = file_name_constants.BASIC_TEST_OUT
 
 #########################################
 # Main Running Area #####################
