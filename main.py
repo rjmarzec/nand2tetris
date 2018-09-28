@@ -117,13 +117,19 @@ def convert_line_to_hack(input_line, command_type):
 def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
-		# Get the location the stack pointer is pointing, store it, and bump it down by 1
+		# Get the location the stack pointer is pointing
 		result_string += "@SP" + "\n"
-		result_string += "D=M" + "\n"
+
+		# Change the value of the stack pointer down one to where it should be after the computation
 		result_string += "M=M-1" + "\n"
 
-		# Move to the stack pointer
+		# Move to where the stack pointer points to and store the value of the register at that point
+		result_string += "A=M" + "\n"
+		result_string += "D=M" + "\n"
 
+		# Move to the point before the previous value, add the two together, and store the result there
+		result_string += "A=A-1" + "\n"
+		result_string += "M=D+M" + "\t//" + input_line
 	elif "sub" in input_line:
 		result_string += "tempSubText"
 	return result_string
@@ -154,6 +160,7 @@ def write_push_pop(input_line, command_type):
 
 		return result_string
 	elif command_type == "C_POP":
+		# This has yet to be started as it is not yet necessary
 		input_minus_pop = input_line[input_line.find("pop"):]
 		result_string = "temp pop result code"
 		return result_string
