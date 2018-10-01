@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.BASIC_TEST_IN
-output_file_name = file_name_constants.BASIC_TEST_OUT
+input_file_name = file_name_constants.POINTER_TEST_IN
+output_file_name = file_name_constants.POINTER_TEST_OUT
 
 #########################################
 # Main Running Area #####################
@@ -132,7 +132,22 @@ def write_arithmetic(input_line):
 		result_string += "A=A-1" + "\n"
 		result_string += "M=D+M" + "\t//" + input_line
 	elif "sub" in input_line:
-		result_string += "tempSubText"
+		# if the stack is [X, Y, 2, 5], the result should be [X, Y, -3, (5)]
+
+		# Get the location the stack pointer is pointing
+		result_string += "@SP" + "\n"
+
+		# Change the value of the stack pointer down one to where it should be after the computation
+		result_string += "M=M-1" + "\n"
+
+		# Move to the value before where the stack pointer points to and store the value of the register at that point
+		result_string += "A=M" + "\n"
+		result_string += "A=A+1" + "\n"
+		result_string += "D=M" + "\n"
+
+		# Move to the point before the previous value, add the two together, and store the result there
+		result_string += "A=A+1" + "\n"
+		result_string += "M=D-M" + "\t//" + input_line
 	return result_string
 
 
@@ -164,6 +179,8 @@ def write_push_pop(input_line, command_type):
 		# This has yet to be started as it is not yet necessary
 		input_minus_pop = input_line[input_line.find("pop"):]
 		result_string = "temp pop result code"
+
+		result_string = push_pop_value + "@@@@@@@@@@@@@@@@@@"
 		return result_string
 	return "ERROR: failure when writing push/pop"
 
@@ -182,7 +199,7 @@ def get_segment_pointer_type(input_line):
 		return "THIS"
 	elif "that" in input_line:
 		return "THAT"
-	return "ERROR: failure when finding pointer segment type"
+	return "ERROR: could not find pointer type"
 
 
 def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
@@ -196,7 +213,7 @@ def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
 		return input_line[input_line.find("this"):]
 	elif segment_pointer_type == "THAT":
 		return input_line[input_line.find("that"):]
-	return "ERROR: Did not find pointer type"
+	return "ERROR: could not find pointer type"
 
 
 #########################################
