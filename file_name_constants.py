@@ -1,6 +1,14 @@
 # A file containing constants of the project file names so that it is easier to switch between them when testing
 
 #########################################
+# Self Testing Files ###################
+#########################################
+
+# Self Testing Files ####################
+SELF_TESTING_IN = "TestFiles/SelfTesting/SelfTesting.vm"
+SELF_TESTING_OUT = "TestFiles/SelfTesting/SelfTesting.asm"
+
+#########################################
 # Chapter 7 Files #######################
 #########################################
 
