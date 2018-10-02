@@ -132,25 +132,23 @@ def write_arithmetic(input_line):
 		result_string += "A=A-1" + "\n"
 		result_string += "M=D+M" + "\t//" + input_line
 	elif "sub" in input_line:
-		# if the stack is [X, Y, 2, 5], the result should be [X, Y, -3, (5)]
-
 		# Get the location the stack pointer is pointing
 		result_string += "@SP" + "\n"
 
 		# Change the value of the stack pointer down one to where it should be after the computation
 		result_string += "M=M-1" + "\n"
 
-	# Todo: finish up the comments for this section. it is better explained in selftesting.asm
 		# Move to the value before where the stack pointer points to and store the value of the register at that point
 		result_string += "A=M-1" + "\n"
 		result_string += "D=M" + "\n"
-		result_string += "A=A+1" + "\n"
-		# Subtract the two values and store it to D
-		result_string += "D=D-M" + "\n"
-		# Store the subtraction result on
-		result_string += "A=A-1" + "\n"
-		result_string += "M=D" + "\n" + "\t\t//" + input_line
 
+		# Move back up to the value we want to be subtracting, subtract the two in D and M, and store it to D
+		result_string += "A=A+1" + "\n"
+		result_string += "D=D-M" + "\n"
+
+		# Store the value of the subtraction from D to where it should be in the stack
+		result_string += "A=A-1" + "\n"
+		result_string += "M=D" + "\t\t//" + input_line
 	return result_string
 
 
