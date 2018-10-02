@@ -177,11 +177,19 @@ def write_push_pop(input_line, command_type):
 
 		return result_string
 	elif command_type == "C_POP":
-		# This has yet to be started as it is not yet necessary
-		input_minus_pop = input_line[input_line.find("pop"):]
-		result_string = "temp pop result code"
+		# TODO: Finish the pop method here
+		# Access the pointer location and bump down for the next time the stack is called
+		result_string += "@" + segment_pointer_type + "\n"
+		result_string += "M=M-1" + "\n"
 
-		result_string = push_pop_value + "@@@@@@@@@@@@@@@@@@"
+		# Store the value that was at the top of the stack before we moved the pointer
+		result_string += "A=A+1" + "\n"
+		result_string += "D=M" + "\n"
+
+		# Access the register where we want to store the value
+		# ...
+
+		result_string = "@@@@@@@@@@@@@@@@@@ " + push_pop_value + " @@@@@@@@@@@@@@@@@@"
 		return result_string
 	return "ERROR: failure when writing push/pop"
 
@@ -215,6 +223,21 @@ def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
 	elif segment_pointer_type == "THAT":
 		return input_line[input_line.find("that"):]
 	return "ERROR: could not find pointer type"
+
+
+def pointer_type_to_ram_address(segment_pointer_type):
+	if segment_pointer_type == "SP":
+		return "R0"
+	elif segment_pointer_type == "LCL":
+		return "R1"
+	elif segment_pointer_type == "ARG":
+		return "R2"
+	elif segment_pointer_type == "THIS":
+		return "R3"
+	elif segment_pointer_type == "THAT":
+		return "R4"
+	else:
+		return "ERROR: pointer type not found"
 
 
 #########################################
