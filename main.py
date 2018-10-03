@@ -177,19 +177,18 @@ def write_push_pop(input_line, command_type):
 
 		return result_string
 	elif command_type == "C_POP":
-		# TODO: Finish the pop method here
 		# Access the pointer location and bump down for the next time the stack is called
-		result_string += "@" + segment_pointer_type + "\n"
+		result_string += "@" + get_segment_pointer_register(segment_pointer_type) + "\t//" + segment_pointer_type + "\n"
 		result_string += "M=M-1" + "\n"
 
 		# Store the value that was at the top of the stack before we moved the pointer
 		result_string += "A=A+1" + "\n"
 		result_string += "D=M" + "\n"
 
-		# Access the register where we want to store the value
-		# ...
+		# Access the register where we want to store the value and store it there
+		result_string += "@R" + push_pop_value + "\n"
+		result_string += "M=D" + "\t\t//" + input_line
 
-		result_string = "@@@@@@@@@@@@@@@@@@ " + push_pop_value + " @@@@@@@@@@@@@@@@@@"
 		return result_string
 	return "ERROR: failure when writing push/pop"
 
@@ -238,6 +237,23 @@ def pointer_type_to_ram_address(segment_pointer_type):
 		return "R4"
 	else:
 		return "ERROR: pointer type not found"
+
+
+def get_segment_pointer_register(segment_pointer_type):
+	if segment_pointer_type == "SP":
+		return "R0"
+	elif segment_pointer_type == "LCL":
+		return "R1"
+	elif segment_pointer_type == "ARG":
+		return "R2"
+	elif segment_pointer_type == "THIS":
+		return "R3"
+	elif segment_pointer_type == "THAT":
+		return "R4"
+	# temp takes registers 5 to 12
+	# 13 to 15 are used for general purpose functions by the VM implementation
+	else:
+		return "ERROR: Register for pointer not created"
 
 
 #########################################
