@@ -119,7 +119,7 @@ def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
 		# Get the location the stack pointer is pointing
-		result_string += "@SP" + "\n"
+		result_string += pointer_type_to_ram_address("SP") + "\n"
 
 		# Change the value of the stack pointer down one to where it should be after the computation
 		result_string += "M=M-1" + "\n"
@@ -133,7 +133,7 @@ def write_arithmetic(input_line):
 		result_string += "M=D+M" + "\t//" + input_line
 	elif "sub" in input_line:
 		# Get the location the stack pointer is pointing
-		result_string += "@SP" + "\n"
+		result_string += pointer_type_to_ram_address("SP") + "\n"
 
 		# Change the value of the stack pointer down one to where it should be after the computation
 		result_string += "M=M-1" + "\n"
@@ -178,7 +178,7 @@ def write_push_pop(input_line, command_type):
 		return result_string
 	elif command_type == "C_POP":
 		# Access the pointer location and bump down for the next time the stack is called
-		result_string += "@" + get_segment_pointer_register(segment_pointer_type) + "\t//" + segment_pointer_type + "\n"
+		result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\t//" + segment_pointer_type + "\n"
 		result_string += "M=M-1" + "\n"
 
 		# Store the value that was at the top of the stack before we moved the pointer
@@ -207,6 +207,8 @@ def get_segment_pointer_type(input_line):
 		return "THIS"
 	elif "that" in input_line:
 		return "THAT"
+	elif "pointer" in input_line:
+		return "POINTER"
 	return "ERROR: could not find pointer type"
 
 
@@ -231,29 +233,14 @@ def pointer_type_to_ram_address(segment_pointer_type):
 		return "R1"
 	elif segment_pointer_type == "ARG":
 		return "R2"
-	elif segment_pointer_type == "THIS":
-		return "R3"
-	elif segment_pointer_type == "THAT":
-		return "R4"
-	else:
-		return "ERROR: pointer type not found"
-
-
-def get_segment_pointer_register(segment_pointer_type):
-	if segment_pointer_type == "SP":
-		return "R0"
-	elif segment_pointer_type == "LCL":
-		return "R1"
-	elif segment_pointer_type == "ARG":
-		return "R2"
-	elif segment_pointer_type == "THIS":
+	elif segment_pointer_type == "THIS" or segment_pointer_type == "POINTER":
 		return "R3"
 	elif segment_pointer_type == "THAT":
 		return "R4"
 	# temp takes registers 5 to 12
 	# 13 to 15 are used for general purpose functions by the VM implementation
 	else:
-		return "ERROR: Register for pointer not created"
+		return "ERROR: register for pointer type not found"
 
 
 #########################################
@@ -267,7 +254,6 @@ def write_hack_to_file(input_line_list):
 	write_string = ""
 	for line in input_line_list:
 		write_string += line + "\n"
-	# writeString += str(line)
 	output_file.write(write_string)
 	output_file.close()
 

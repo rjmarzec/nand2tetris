@@ -1,20 +1,12 @@
-@2
-D=A
-@SP
-M=M+1
-A=M-1
-M=D		//push constant 2
-@5
-D=A
-@SP
-M=M+1
-A=M-1
-M=D		//push constant 5
-@SP
+@R0	//SP
 M=M-1
-A=M-1
-D=M
 A=A+1
-D=D-M
-A=A-1
-M=D		//sub
+D=M
+@R2
+M=D		//pop constant 2
+@R0	//SP
+M=M-1
+A=A+1
+D=M
+@R5
+M=D		//pop constant 5
