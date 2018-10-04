@@ -18,6 +18,10 @@ SELF_TESTING_OUT = "TestFiles/SelfTesting/SelfTesting.asm"
 SIMPLE_ADD_IN = "TestFiles/StackArithmetic/SimpleAdd/SimpleAdd.vm"
 SIMPLE_ADD_OUT = "TestFiles/StackArithmetic/SimpleAdd/SimpleAdd.asm"
 
+# StackTest
+STACK_TEST_IN = "TestFiles/StackArithmetic/StackTest/StackTest.vm"
+STACK_TEST_OUT = "TestFiles/StackArithmetic/StackTest/StackTest.asm"
+
 # Memory Access #########################
 
 # BasicTest

@@ -117,6 +117,8 @@ def convert_line_to_hack(input_line, command_type):
 
 def write_arithmetic(input_line):
 	result_string = ""
+	# The first line of each if statement describes what the result of the operation should look like
+	# y = M(@SP) - 1, and x = M(@SP) - 2
 	if "add" in input_line:
 		# x + y
 
