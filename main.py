@@ -118,6 +118,8 @@ def convert_line_to_hack(input_line, command_type):
 def write_arithmetic(input_line):
 	result_string = ""
 	if "add" in input_line:
+		# x + y
+
 		# Get the location the stack pointer is pointing
 		result_string += pointer_type_to_ram_address("SP") + "\n"
 
@@ -132,6 +134,8 @@ def write_arithmetic(input_line):
 		result_string += "A=A-1" + "\n"
 		result_string += "M=D+M" + "\t//" + input_line
 	elif "sub" in input_line:
+		# x - y
+
 		# Get the location the stack pointer is pointing
 		result_string += pointer_type_to_ram_address("SP") + "\n"
 
@@ -149,6 +153,30 @@ def write_arithmetic(input_line):
 		# Store the value of the subtraction from D to where it should be in the stack
 		result_string += "A=A-1" + "\n"
 		result_string += "M=D" + "\t\t//" + input_line
+	elif "neg" in input_line:
+		# - y
+		result_string += ""
+	elif "eq" in input_line:
+		# true (-1) if x = y, false (0) otherwise
+		result_string += ""
+	elif "gt" in input_line:
+		# true (-1) if x > y and false (0) otherwise
+		result_string += ""
+	elif "lt" in input_line:
+		# true (-1) if x < y and false (0) otherwise
+		result_string += ""
+	elif "and" in input_line:
+		# x And y (bit-wise)
+		result_string += ""
+	elif "or" in input_line:
+		# x Or y (bit-wise)
+		result_string += ""
+	elif "not" in input_line:
+		# Not y (bit-wise)
+		result_string += ""
+	else:
+		result_string += "ERROR: tried to write arithmetic but command was not found"
+		result_string += "" # This line is here so that I can close this else statement in the IDE
 	return result_string
 
 
