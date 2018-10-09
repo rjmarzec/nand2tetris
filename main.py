@@ -5,13 +5,15 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.STACK_TEST_IN
-output_file_name = file_name_constants.STACK_TEST_OUT
+input_file_name = file_name_constants.SELF_TESTING_IN
+output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
 # TODO: Finish the eq, gt, and lt sections of the write_arithmetic functions
 
+# A list of all the arithmetic functions to make them easy to reference
+arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", "not"]
 
 #########################################
 # Main Running Area #####################
@@ -74,8 +76,7 @@ def convert_vm_to_hack(input_line_list):
 
 
 def get_command_type(input_line):
-	if "add" in input_line or "sub" in input_line:
-		# add more arithmetic commands to the if statement
+	if input_line in arithmetic_function_list:
 		return "C_ARITHMETIC"
 	elif "push" in input_line:
 		return "C_PUSH"
@@ -165,10 +166,10 @@ def write_arithmetic(input_line):
 		result_string += ""
 	elif "eq" in input_line or "gt" in input_line or "lt" in input_line:
 		global asm_jump_counter
-		# true (-1) if x = y, false (0) otherwise
+		# this first section does x - y, which is useful later
 
 		# Access the stack pointer and bump it to where it should be after the operation
-		result_string += pointer_type_to_ram_address("SP") + "\n"
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 		result_string += "M=M-1" + "\n"
 		result_string += "A=M" + "\n"
 
@@ -178,28 +179,86 @@ def write_arithmetic(input_line):
 
 		# Continue with whatever function we want to do:
 		if "eq" in input_line:
+			# true (-1) if x = y, false (0) otherwise
+
 			# Subtract the two values and check if the result is equal to 0
 			result_string += "D=D-M" + "\n"
 			result_string += "@EQJUMP" + str(asm_jump_counter) + "\n"
 
 			# Jump ahead if the values are not equal
 			result_string += "D;JNE" + "\n"
-			# code that stores a -1 in the stack here
-			# After this section executes, jump based that code below
 
+			# This only runs if the values are equal
+			result_string += "M=-1" + "\n"
+
+			# After this section executes, jump passed the code below
+			result_string += "@EQFINISH" + str(asm_jump_counter) + "\n"
+
+			# Jump to this line if the the values are not equal
 			result_string += "(EQJUMP" + str(asm_jump_counter) + ")" + "\n"
-			# code that stores a 0 in the stack here
 
+			# This only runs if the values are not equal
+			result_string += "M=0" + "\n"
 
+			# Jump to this line when we are done with the comparison
+			result_string += "(EQFINISH" + str(asm_jump_counter) + ")" + "\t//eq"
+
+			# Bump up the counter so that are jumps are not repeated
 			asm_jump_counter += 1
-
-
-
-
 		elif "gt" in input_line:
-			result_string += "" + "\n"
+			# true (-1) if x > y, false (0) otherwise
+
+			# Subtract the two values and check if the result is greater than 0
+			result_string += "D=D-M" + "\n"
+			result_string += "@GTJUMP" + str(asm_jump_counter) + "\n"
+
+			# Jump ahead if the result is not greater than 0
+			result_string += "D;JGT" + "\n"
+
+			# This only runs the result is greater than 0
+			result_string += "M=-1" + "\n"
+
+			# After this section executes, jump passed the code below
+			result_string += "@GTFINISH" + str(asm_jump_counter) + "\n"
+
+			# Jump to this line if the the resulting value is not greater than 0
+			result_string += "(GTJUMP" + str(asm_jump_counter) + ")" + "\n"
+
+			# This only runs if the result is not greater than 0
+			result_string += "M=0" + "\n"
+
+			# Jump to this line when we are done with the comparison
+			result_string += "(GTFINISH" + str(asm_jump_counter) + ")" + "\t//gt"
+
+			# Bump up the counter so that are jumps are not repeated
+			asm_jump_counter += 1
 		elif "lt" in input_line:
-			result_string += "" + "\n"
+			# true (-1) if x < y, false (0) otherwise
+
+			# Subtract the two values and check if the result is less than 0
+			result_string += "D=D-M" + "\n"
+			result_string += "@LTJUMP" + str(asm_jump_counter) + "\n"
+
+			# Jump ahead if the result is not less than 0
+			result_string += "D;JLE" + "\n"
+
+			# This only runs if the result is less than 0
+			result_string += "M=-1" + "\n"
+
+			# After this section executes, jump passed the code below
+			result_string += "@LTFINISH" + str(asm_jump_counter) + "\n"
+
+			# Jump to this line if the the result is not less than 0
+			result_string += "(LTJUMP" + str(asm_jump_counter) + ")" + "\n"
+
+			# This only runs if the result is not less than 0
+			result_string += "M=0" + "\n"
+
+			# Jump to this line when we are done with the comparison
+			result_string += "(LTFINISH" + str(asm_jump_counter) + ")" + "\t//lt"
+
+			# Bump up the counter so that are jumps are not repeated
+			asm_jump_counter += 1
 	elif "and" in input_line:
 		# x And y (bit-wise)
 		result_string += ""
