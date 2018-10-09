@@ -129,7 +129,7 @@ def write_arithmetic(input_line):
 		# x + y
 
 		# Get the location the stack pointer is pointing
-		result_string += pointer_type_to_ram_address("SP") + "\n"
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 
 		# Change the value of the stack pointer down one to where it should be after the computation
 		result_string += "M=M-1" + "\n"
@@ -145,7 +145,7 @@ def write_arithmetic(input_line):
 		# x - y
 
 		# Get the location the stack pointer is pointing
-		result_string += pointer_type_to_ram_address("SP") + "\n"
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 
 		# Change the value of the stack pointer down one to where it should be after the computation
 		result_string += "M=M-1" + "\n"
@@ -193,6 +193,7 @@ def write_arithmetic(input_line):
 
 			# After this section executes, jump passed the code below
 			result_string += "@EQFINISH" + str(asm_jump_counter) + "\n"
+			result_string += "0;JMP" + "\n"
 
 			# Jump to this line if the the values are not equal
 			result_string += "(EQJUMP" + str(asm_jump_counter) + ")" + "\n"
@@ -205,6 +206,8 @@ def write_arithmetic(input_line):
 
 			# Bump up the counter so that are jumps are not repeated
 			asm_jump_counter += 1
+
+			# TODO: To fix the current problem, when jumping past the last bit, get the value stored in M(@SP - 2) and store the result there
 		elif "gt" in input_line:
 			# true (-1) if x > y, false (0) otherwise
 
@@ -220,6 +223,7 @@ def write_arithmetic(input_line):
 
 			# After this section executes, jump passed the code below
 			result_string += "@GTFINISH" + str(asm_jump_counter) + "\n"
+			result_string += "0;JMP" + "\n"
 
 			# Jump to this line if the the resulting value is not greater than 0
 			result_string += "(GTJUMP" + str(asm_jump_counter) + ")" + "\n"
@@ -247,6 +251,7 @@ def write_arithmetic(input_line):
 
 			# After this section executes, jump passed the code below
 			result_string += "@LTFINISH" + str(asm_jump_counter) + "\n"
+			result_string += "0;JMP" + "\n"
 
 			# Jump to this line if the the result is not less than 0
 			result_string += "(LTJUMP" + str(asm_jump_counter) + ")" + "\n"
@@ -288,7 +293,7 @@ def write_push_pop(input_line, command_type):
 		result_string += "D=A" + "\n"
 
 		# Access the the pointer location and bump up for the next time the stack is called
-		result_string += "@" + segment_pointer_type + "\n"
+		result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
 		result_string += "M=M+1" + "\n"
 
 		# Move to the location that the stack pointer referred to before getting bumped up

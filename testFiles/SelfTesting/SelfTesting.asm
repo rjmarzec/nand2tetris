@@ -1,12 +1,26 @@
-@R0	//SP
+@2
+D=A
+@15
+M=M+1
+A=M-1
+M=D		//push constant 2
+@3
+D=A
+@15
+M=M+1
+A=M-1
+M=D		//push constant 3
+@15
 M=M-1
-A=A+1
+A=M
 D=M
-@R2
-M=D		//pop constant 2
-@R0	//SP
-M=M-1
-A=A+1
-D=M
-@R5
-M=D		//pop constant 5
+A=A-1
+D=D-M
+@EQJUMP0
+D;JNE
+M=-1
+@EQFINISH0
+0;JMP
+(EQJUMP0)
+M=0
+(EQFINISH0)	//eq
