@@ -10,7 +10,6 @@ output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
-# TODO: Finish the eq, gt, and lt sections of the write_arithmetic functions
 
 # A list of all the arithmetic functions to make them easy to reference
 arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", "not"]
@@ -166,7 +165,7 @@ def write_arithmetic(input_line):
 		result_string += ""
 	elif "eq" in input_line or "gt" in input_line or "lt" in input_line:
 		global asm_jump_counter
-		# this first section does x - y, which is useful later
+		# this first section gives us x - y, which is useful later
 
 		# Access the stack pointer and bump it to where it should be after the operation
 		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
@@ -276,10 +275,32 @@ def write_arithmetic(input_line):
 		asm_jump_counter += 1
 	elif "and" in input_line:
 		# x And y (bit-wise)
-		result_string += ""
+
+		# Access the stack pointer and bump it to where it should be after the operation
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "M=M-1" + "\n"
+		result_string += "A=M" + "\n"
+
+		# Store y and move to x
+		result_string += "D=M" + "\n"
+		result_string += "A=A-1" + "\n"
+
+		# And the two together and store it to x
+		result_string += "M=D+M"
 	elif "or" in input_line:
 		# x Or y (bit-wise)
-		result_string += ""
+
+		# Access the stack pointer and bump it to where it should be after the operation
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "M=M-1" + "\n"
+		result_string += "A=M" + "\n"
+
+		# Store y and move to x
+		result_string += "D=M" + "\n"
+		result_string += "A=A-1" + "\n"
+
+		# Or the two together and store it to x
+		result_string += "M=D|M"
 	elif "not" in input_line:
 		# Not y (bit-wise)
 		result_string += ""
