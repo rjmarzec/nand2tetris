@@ -1,3 +1,4 @@
-push constant 2
-push constant 3
-gt
+push constant 0
+not
+push constant 0
+not

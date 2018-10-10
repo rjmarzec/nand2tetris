@@ -286,7 +286,7 @@ def write_arithmetic(input_line):
 		result_string += "A=A-1" + "\n"
 
 		# And the two together and store it to x
-		result_string += "M=D+M"
+		result_string += "M=D&M"
 	elif "or" in input_line:
 		# x Or y (bit-wise)
 
@@ -303,7 +303,13 @@ def write_arithmetic(input_line):
 		result_string += "M=D|M"
 	elif "not" in input_line:
 		# Not y (bit-wise)
-		result_string += ""
+
+		# Access the stack pointer and go to the point before it
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "A=M-1" + "\n"
+
+		# Not the value at that point and store it back to where we got it
+		result_string += "M=!M"
 	else:
 		result_string += "ERROR: tried to write arithmetic but command was not found"
 		result_string += "" # This line is here so that I can close this else statement in the IDE
