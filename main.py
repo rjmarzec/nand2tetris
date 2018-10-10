@@ -189,6 +189,8 @@ def write_arithmetic(input_line):
 			result_string += "D;JNE" + "\n"
 
 			# This only runs if the values are equal
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=-1" + "\n"
 
 			# After this section executes, jump passed the code below
@@ -199,15 +201,12 @@ def write_arithmetic(input_line):
 			result_string += "(EQJUMP" + str(asm_jump_counter) + ")" + "\n"
 
 			# This only runs if the values are not equal
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=0" + "\n"
 
 			# Jump to this line when we are done with the comparison
 			result_string += "(EQFINISH" + str(asm_jump_counter) + ")" + "\t//eq"
-
-			# Bump up the counter so that are jumps are not repeated
-			asm_jump_counter += 1
-
-			# TODO: To fix the current problem, when jumping past the last bit, get the value stored in M(@SP - 2) and store the result there
 		elif "gt" in input_line:
 			# true (-1) if x > y, false (0) otherwise
 
@@ -219,6 +218,8 @@ def write_arithmetic(input_line):
 			result_string += "D;JGT" + "\n"
 
 			# This only runs the result is greater than 0
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=-1" + "\n"
 
 			# After this section executes, jump passed the code below
@@ -229,6 +230,8 @@ def write_arithmetic(input_line):
 			result_string += "(GTJUMP" + str(asm_jump_counter) + ")" + "\n"
 
 			# This only runs if the result is not greater than 0
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=0" + "\n"
 
 			# Jump to this line when we are done with the comparison
@@ -247,6 +250,8 @@ def write_arithmetic(input_line):
 			result_string += "D;JLE" + "\n"
 
 			# This only runs if the result is less than 0
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=-1" + "\n"
 
 			# After this section executes, jump passed the code below
@@ -257,6 +262,8 @@ def write_arithmetic(input_line):
 			result_string += "(LTJUMP" + str(asm_jump_counter) + ")" + "\n"
 
 			# This only runs if the result is not less than 0
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=0" + "\n"
 
 			# Jump to this line when we are done with the comparison
@@ -264,6 +271,9 @@ def write_arithmetic(input_line):
 
 			# Bump up the counter so that are jumps are not repeated
 			asm_jump_counter += 1
+
+		# Bump up the counter so that are jumps are not repeated
+		asm_jump_counter += 1
 	elif "and" in input_line:
 		# x And y (bit-wise)
 		result_string += ""
