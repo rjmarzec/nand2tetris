@@ -161,6 +161,7 @@ def write_arithmetic(input_line):
 		result_string += "A=A-1" + "\n"
 		result_string += "M=D" + "\t\t//" + input_line
 	elif "neg" in input_line:
+		# TODO: didn't realize that this wasn't done. Please finish this.
 		# - y
 		result_string += ""
 	elif "eq" in input_line or "gt" in input_line or "lt" in input_line:
@@ -235,9 +236,6 @@ def write_arithmetic(input_line):
 
 			# Jump to this line when we are done with the comparison
 			result_string += "(GTFINISH" + str(asm_jump_counter) + ")" + "\t//gt"
-
-			# Bump up the counter so that are jumps are not repeated
-			asm_jump_counter += 1
 		elif "lt" in input_line:
 			# true (-1) if x < y, false (0) otherwise
 
@@ -267,10 +265,6 @@ def write_arithmetic(input_line):
 
 			# Jump to this line when we are done with the comparison
 			result_string += "(LTFINISH" + str(asm_jump_counter) + ")" + "\t//lt"
-
-			# Bump up the counter so that are jumps are not repeated
-			asm_jump_counter += 1
-
 		# Bump up the counter so that are jumps are not repeated
 		asm_jump_counter += 1
 	elif "and" in input_line:
@@ -423,3 +417,4 @@ def write_hack_to_file(input_line_list):
 
 
 vm_to_asm()
+
