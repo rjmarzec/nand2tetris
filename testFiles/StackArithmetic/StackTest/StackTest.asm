@@ -1,3 +1,8 @@
+@16
+D=A
+@0
+M=D
+
 @17
 D=A
 @R0
@@ -136,6 +141,36 @@ A=M
 D=M
 A=A-1
 D=D-M
+@LTJUMP4
+D;JLE
+@R0
+A=M-1
+M=-1
+@LTFINISH4
+0;JMP
+(LTJUMP4)
+@R0
+A=M-1
+M=0
+(LTFINISH4)	//lt
+@891
+D=A
+@R0
+M=M+1
+A=M-1
+M=D		//push constant 891
+@891
+D=A
+@R0
+M=M+1
+A=M-1
+M=D		//push constant 891
+@R0
+M=M-1
+A=M
+D=M
+A=A-1
+D=D-M
 @LTJUMP5
 D;JLE
 @R0
@@ -148,36 +183,6 @@ M=-1
 A=M-1
 M=0
 (LTFINISH5)	//lt
-@891
-D=A
-@R0
-M=M+1
-A=M-1
-M=D		//push constant 891
-@891
-D=A
-@R0
-M=M+1
-A=M-1
-M=D		//push constant 891
-@R0
-M=M-1
-A=M
-D=M
-A=A-1
-D=D-M
-@LTJUMP7
-D;JLE
-@R0
-A=M-1
-M=-1
-@LTFINISH7
-0;JMP
-(LTJUMP7)
-@R0
-A=M-1
-M=0
-(LTFINISH7)	//lt
 @32767
 D=A
 @R0
@@ -196,18 +201,18 @@ A=M
 D=M
 A=A-1
 D=D-M
-@GTJUMP9
-D;JGT
+@GTJUMP6
+D;JGE
 @R0
 A=M-1
 M=-1
-@GTFINISH9
+@GTFINISH6
 0;JMP
-(GTJUMP9)
+(GTJUMP6)
 @R0
 A=M-1
 M=0
-(GTFINISH9)	//gt
+(GTFINISH6)	//gt
 @32766
 D=A
 @R0
@@ -226,18 +231,18 @@ A=M
 D=M
 A=A-1
 D=D-M
-@GTJUMP11
-D;JGT
+@GTJUMP7
+D;JGE
 @R0
 A=M-1
 M=-1
-@GTFINISH11
+@GTFINISH7
 0;JMP
-(GTJUMP11)
+(GTJUMP7)
 @R0
 A=M-1
 M=0
-(GTFINISH11)	//gt
+(GTFINISH7)	//gt
 @32766
 D=A
 @R0
@@ -256,18 +261,18 @@ A=M
 D=M
 A=A-1
 D=D-M
-@GTJUMP13
-D;JGT
+@GTJUMP8
+D;JGE
 @R0
 A=M-1
 M=-1
-@GTFINISH13
+@GTFINISH8
 0;JMP
-(GTJUMP13)
+(GTJUMP8)
 @R0
 A=M-1
 M=0
-(GTFINISH13)	//gt
+(GTFINISH8)	//gt
 @57
 D=A
 @R0

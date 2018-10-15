@@ -215,7 +215,8 @@ def write_arithmetic(input_line):
 			result_string += "@GTJUMP" + str(asm_jump_counter) + "\n"
 
 			# Jump ahead if the result is not greater than 0
-			result_string += "D;JGT" + "\n"
+			# For some reason the gt function breaks when we write JGT rather than JGE, so we are using JGE
+			result_string += "D;JGE" + "\n"
 
 			# This only runs the result is greater than 0
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
