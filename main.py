@@ -124,7 +124,6 @@ def write_arithmetic(input_line):
 	result_string = ""
 	# The first line of each if statement describes what the result of the operation should look like
 	# y = M(@SP) - 1, and x = M(@SP) - 2
-	# TODO: Add has some issues from the looks of what happens at the end of the StackTest files. Fix that.
 	if "add" in input_line:
 		# x + y
 
@@ -162,9 +161,14 @@ def write_arithmetic(input_line):
 		result_string += "A=A-1" + "\n"
 		result_string += "M=D" + "\t\t//" + input_line
 	elif "neg" in input_line:
-		# TODO: didn't realize that this wasn't done. Please finish this.
 		# - y
-		result_string += ""
+
+		# Get the location in the stack where y is stored
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "A=M-1" + "\n"
+
+		# Negate y and save it to where it should be
+		result_string += "M=-M" + "\t\t//" + input_line
 	elif "eq" in input_line or "gt" in input_line or "lt" in input_line:
 		global asm_jump_counter
 		# this first section gives us x - y, which is useful later
@@ -305,7 +309,8 @@ def write_arithmetic(input_line):
 		result_string += "A=M-1" + "\n"
 
 		# Not the value at that point and store it back to where we got it
-		result_string += "M=!M" + "\t//not"
+		result_string += "D=M" + "\n"
+		result_string += "M=!D" + "\t//not"
 	else:
 		result_string += "ERROR: tried to write arithmetic but command was not found"
 		result_string += "" # This line is here so that I can close this else statement in the IDE
