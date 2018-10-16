@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.STACK_TEST_IN
-output_file_name = file_name_constants.STACK_TEST_OUT
+input_file_name = file_name_constants.STATIC_TEST_IN
+output_file_name = file_name_constants.STATIC_TEST_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -18,7 +18,7 @@ arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", 
 # Main Running Area #####################
 #########################################
 
-
+# TODO: get StaticTest.vm to work. The big thing for it is getting the "static" pointer to work
 def vm_to_asm():
 	global input_file_name
 	input_file = open(input_file_name, "r")
@@ -342,9 +342,14 @@ def write_push_pop(input_line, command_type):
 
 		return result_string
 	elif command_type == "C_POP":
-		# Access the pointer location and bump down for the next time the stack is called
-		result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\t//" + segment_pointer_type + "\n"
-		result_string += "M=M-1" + "\n"
+		# the static pointer is a bit funky so we have to make this section different for it
+		if "static" in input_line:
+			# TODO: This needs to be finished
+		else:
+			# Access the pointer location and bump down for the next time the stack is called
+			result_string += "@" + pointer_type_to_ram_address(
+				segment_pointer_type) + "\t//" + segment_pointer_type + "\n"
+			result_string += "M=M-1" + "\n"
 
 		# Store the value that was at the top of the stack before we moved the pointer
 		result_string += "A=A+1" + "\n"
@@ -374,8 +379,9 @@ def get_segment_pointer_type(input_line):
 		return "THAT"
 	elif "pointer" in input_line:
 		return "POINTER"
+	elif "static" in input_line:
+		return "STATIC"
 	return "ERROR: could not find pointer type"
-
 
 def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
 	if segment_pointer_type == "SP":
@@ -402,8 +408,11 @@ def pointer_type_to_ram_address(segment_pointer_type):
 		return "R3"
 	elif segment_pointer_type == "THAT":
 		return "R4"
+	elif segment_pointer_type == "STATIC":
+		return "R" + str(16 + )
 	# temp takes registers 5 to 12
 	# 13 to 15 are used for general purpose functions by the VM implementation
+	# static refers to the ram addresses starting at R16
 	else:
 		return "ERROR: register for pointer type not found"
 

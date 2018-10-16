@@ -311,7 +311,9 @@ A=A+1
 D=D-M
 A=A-1
 M=D		//sub
-
+@R0
+A=M-1
+M=-M		//neg
 @R0
 M=M-1
 A=M
@@ -332,4 +334,5 @@ A=A-1
 M=D|M	//or
 @R0
 A=M-1
-M=!M	//not
+D=M
+M=!D	//not
