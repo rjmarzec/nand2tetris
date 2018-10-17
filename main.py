@@ -325,40 +325,53 @@ def write_push_pop(input_line, command_type):
 	push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
 	result_string = ""
 
+	# TODO: Finish static push x
+	# The push function for static needs to be fixed
 	if command_type == "C_PUSH":
-		# Access the value we want to push, and store that value for later
-		result_string += "@" + push_pop_value + "\n"
-		result_string += "D=A" + "\n"
+		# the static pointer is a bit funky so we have to make this section different for it
+		if "static" in input_line:
+			# Access the value we want to push, and store that value for later
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=A" + "\n"
+		else:
+			# Access the value we want to push, and store that value for later
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=A" + "\n"
 
-		# Access the the pointer location and bump up for the next time the stack is called
-		result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
-		result_string += "M=M+1" + "\n"
+			# Access the the pointer location and bump up for the next time the stack is called
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=M+1" + "\n"
 
-		# Move to the location that the stack pointer referred to before getting bumped up
-		result_string += "A=M-1" + "\n"
+			# Move to the location that the stack pointer referred to before getting bumped up
+			result_string += "A=M-1" + "\n"
 
-		# Store the push value at the top of the stack
-		result_string += "M=D" + "\t\t//" + input_line
+			# Store the push value at the top of the stack
+			result_string += "M=D" + "\t\t//" + input_line
 
-		return result_string
+			return result_string
 	elif command_type == "C_POP":
 		# the static pointer is a bit funky so we have to make this section different for it
 		if "static" in input_line:
-			# TODO: This needs to be finished
+			# Store the value that was at the top of the stack before we moved the pointer
+			result_string += "A=A+1" + "\n"
+			result_string += "D=M" + "\n"
+
+			# Access the register where we want to store the value and store it there
+			result_string += "@R" + str(int(push_pop_value) + 16) + "\n"
+			result_string += "M=D" + "\t\t//" + input_line
 		else:
 			# Access the pointer location and bump down for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address(
 				segment_pointer_type) + "\t//" + segment_pointer_type + "\n"
 			result_string += "M=M-1" + "\n"
 
-		# Store the value that was at the top of the stack before we moved the pointer
-		result_string += "A=A+1" + "\n"
-		result_string += "D=M" + "\n"
+			# Store the value that was at the top of the stack before we moved the pointer
+			result_string += "A=A+1" + "\n"
+			result_string += "D=M" + "\n"
 
-		# Access the register where we want to store the value and store it there
-		result_string += "@R" + push_pop_value + "\n"
-		result_string += "M=D" + "\t\t//" + input_line
-
+			# Access the register where we want to store the value and store it there
+			result_string += "@R" + push_pop_value + "\n"
+			result_string += "M=D" + "\t\t//" + input_line
 		return result_string
 	return "ERROR: failure when writing push/pop"
 
@@ -383,17 +396,20 @@ def get_segment_pointer_type(input_line):
 		return "STATIC"
 	return "ERROR: could not find pointer type"
 
+
 def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
 	if segment_pointer_type == "SP":
 		return input_line[input_line.find("constant") + len("constant"):]
 	elif segment_pointer_type == "LCL":
-		return input_line[input_line.find("local"):]
+		return input_line[input_line.find("local") + len("local"):]
 	elif segment_pointer_type == "ARG":
-		return input_line[input_line.find("argument"):]
+		return input_line[input_line.find("argument") + len("argument"):]
 	elif segment_pointer_type == "THIS":
-		return input_line[input_line.find("this"):]
+		return input_line[input_line.find("this") + len("this"):]
 	elif segment_pointer_type == "THAT":
-		return input_line[input_line.find("that"):]
+		return input_line[input_line.find("that") + len("that"):]
+	elif segment_pointer_type == "STATIC":
+		return input_line[input_line.find("static") + len("static"):]
 	return "ERROR: could not find pointer type"
 
 
@@ -408,8 +424,6 @@ def pointer_type_to_ram_address(segment_pointer_type):
 		return "R3"
 	elif segment_pointer_type == "THAT":
 		return "R4"
-	elif segment_pointer_type == "STATIC":
-		return "R" + str(16 + )
 	# temp takes registers 5 to 12
 	# 13 to 15 are used for general purpose functions by the VM implementation
 	# static refers to the ram addresses starting at R16
