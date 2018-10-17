@@ -325,7 +325,7 @@ def write_push_pop(input_line, command_type):
 	push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
 	result_string = ""
 
-	# TODO: Finish static push x
+	# TODO: Finish static push x stuff
 	# The push function for static needs to be fixed
 	if command_type == "C_PUSH":
 		# the static pointer is a bit funky so we have to make this section different for it
