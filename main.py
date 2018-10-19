@@ -327,59 +327,48 @@ def write_push_pop(input_line, command_type):
 
 	# TODO: Finish static push x stuff
 	if command_type == "C_PUSH":
-		# the static pointer is a bit funky so we have to make this section different for it
-		# TODO: Delete the block below after getting the reworked block to work
-		if "static_bad" in input_line:
+		# the static keyword is a bit funky, so we have to handle thing differently if it comes up
+		if "static" in input_line:
+			# For the statement "push static z",
+			# access static(z) and put that value to the top of the SP stack
+
 			# Access the value we want to push, and store that value for later
 			result_string += "@" + str(int(push_pop_value) + 16) + "\n"
 			result_string += "D=M" + "\n"
 
-			# Go to the stack pointer register and bump up the value for later use
+			# Access the the pointer location and bump up for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 			result_string += "M=M+1" + "\n"
-			result_string += "A=M-1" + "\n"
-
-			# Put the stored value into that position
-			result_string += "M=D" + "\t\t//" + input_line
 		else:
-			# the static keyword is a bit funky, so we have to handle thing differently if it comes up
-			if "static" in input_line:
-				# Access the value we want to push, and store that value for later
-				result_string += "@" + str(int(push_pop_value) + 16) + "\n"
-				result_string += "D=M" + "\n"
+			# Access the value we want to push, and store that value for later
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=A" + "\n"
 
-				# Access the the pointer location and bump up for the next time the stack is called
-				result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-				result_string += "M=M+1" + "\n"
-			else:
-				# Access the value we want to push, and store that value for later
-				result_string += "@" + push_pop_value + "\n"
-				result_string += "D=A" + "\n"
+			# Access the the pointer location and bump up for the next time the stack is called
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=M+1" + "\n"
+		# Move to the location that the stack pointer referred to before getting bumped up
+		result_string += "A=M-1" + "\n"
 
-				# Access the the pointer location and bump up for the next time the stack is called
-				result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
-				result_string += "M=M+1" + "\n"
-			# Move to the location that the stack pointer referred to before getting bumped up
-			result_string += "A=M-1" + "\n"
-
-			# Store the push value at the top of the stack
-			result_string += "M=D" + "\t\t//" + input_line
+		# Store the push value at the top of the stack
+		result_string += "M=D" + "\t\t//" + input_line
 		return result_string
-	# TODO: get static popping to work. static pushing should work but might need to be fixed still
 	elif command_type == "C_POP":
 		# the static pointer is a bit funky so we have to make this section different for it
 		if "static" in input_line:
+			# For the statement "pop static z",
+			# take the value at the stop of the SP stack and store it to static(z)
+
 			# Access the pointer location and bump down for the next time the stack is called
-			result_string += "@" + pointer_type_to_ram_address(
-				segment_pointer_type) + "\n"
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 			result_string += "M=M-1" + "\n"
 
-			# Store the value that was at the top of the stack before we moved the pointer
-			result_string += "A=A+1" + "\n"
+			# Store the value that was at the top of the stack
+			result_string += "A=M" + "\n"
 			result_string += "D=M" + "\n"
 
 			# Access the register where we want to store the value and store it there
-			result_string += "@R" + str(int(push_pop_value) + 16) + "\n"
+			result_string += "@" + str(int(push_pop_value) + 16) + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
 		else:
 			# Access the pointer location and bump down for the next time the stack is called

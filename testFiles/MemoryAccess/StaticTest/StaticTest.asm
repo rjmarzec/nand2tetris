@@ -16,27 +16,33 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 888
-A=A+1
+@R0
+M=M-1
+A=M
 D=M
-@R24
+@24
 M=D		//pop static 8
-A=A+1
+@R0
+M=M-1
+A=M
 D=M
-@R19
+@19
 M=D		//pop static 3
-A=A+1
+@R0
+M=M-1
+A=M
 D=M
-@R17
+@17
 M=D		//pop static 1
-@3
-D=A
-@ERROR: register for pointer type not found
+@19
+D=M
+@R0
 M=M+1
 A=M-1
 M=D		//push static 3
-@1
-D=A
-@ERROR: register for pointer type not found
+@17
+D=M
+@R0
 M=M+1
 A=M-1
 M=D		//push static 1
@@ -48,9 +54,9 @@ A=A+1
 D=D-M
 A=A-1
 M=D		//sub
-@8
-D=A
-@ERROR: register for pointer type not found
+@24
+D=M
+@R0
 M=M+1
 A=M-1
 M=D		//push static 8
