@@ -1,69 +1,90 @@
 @3030
 D=A
-@SP
+@R0
 M=M+1
 A=M-1
 M=D		//push constant 3030
-ERROR: could not find pointer type@@@@@@@@@@@@@@@@@@
+@R3
+M=M-1
+A=A+1
+D=M
+@R0
+M=D		//pop pointer 0
 @3040
 D=A
-@SP
+@R0
 M=M+1
 A=M-1
 M=D		//push constant 3040
-ERROR: could not find pointer type@@@@@@@@@@@@@@@@@@
+@R3
+M=M-1
+A=A+1
+D=M
+@R1
+M=D		//pop pointer 1
 @32
 D=A
-@SP
+@R0
 M=M+1
 A=M-1
 M=D		//push constant 32
-this 2@@@@@@@@@@@@@@@@@@
+@R3
+M=M-1
+A=A+1
+D=M
+@R2
+M=D		//pop this 2
 @46
 D=A
-@SP
+@R0
 M=M+1
 A=M-1
 M=D		//push constant 46
-that 6@@@@@@@@@@@@@@@@@@
-@ERROR: could not find pointer type
+@R4
+M=M-1
+A=A+1
+D=M
+@R6
+M=D		//pop that 6
+@0
 D=A
-@ERROR: could not find pointer type
+@R3
 M=M+1
 A=M-1
 M=D		//push pointer 0
-@ERROR: could not find pointer type
+@1
 D=A
-@ERROR: could not find pointer type
+@R3
 M=M+1
 A=M-1
 M=D		//push pointer 1
-@SP
+@R0
 M=M-1
 A=M
 D=M
 A=A-1
 M=D+M	//add
-@this 2
+@2
 D=A
-@THIS
+@R3
 M=M+1
 A=M-1
 M=D		//push this 2
-@SP
+@R0
 M=M-1
-A=M
-A=A+1
+A=M-1
 D=M
 A=A+1
-M=D-M	//sub
-@that 6
+D=D-M
+A=A-1
+M=D		//sub
+@6
 D=A
-@THAT
+@R4
 M=M+1
 A=M-1
 M=D		//push that 6
-@SP
+@R0
 M=M-1
 A=M
 D=M

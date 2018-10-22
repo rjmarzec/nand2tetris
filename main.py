@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.STATIC_TEST_IN
-output_file_name = file_name_constants.STATIC_TEST_OUT
+input_file_name = file_name_constants.SELF_TESTING_IN
+output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -18,7 +18,7 @@ arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", 
 # Main Running Area #####################
 #########################################
 
-# TODO: get StaticTest.vm to work. The big thing for it is getting the "static" pointer to work
+# TODO: Finish the pointer push popping. Then and that push popping should be done next
 def vm_to_asm():
 	global input_file_name
 	input_file = open(input_file_name, "r")
@@ -325,10 +325,9 @@ def write_push_pop(input_line, command_type):
 	push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
 	result_string = ""
 
-	# TODO: Finish static push x stuff
 	if command_type == "C_PUSH":
 		# the static keyword is a bit funky, so we have to handle thing differently if it comes up
-		if "static" in input_line:
+		if command_type == "STATIC":
 			# For the statement "push static z",
 			# access static(z) and put that value to the top of the SP stack
 
@@ -337,6 +336,19 @@ def write_push_pop(input_line, command_type):
 			result_string += "D=M" + "\n"
 
 			# Access the the pointer location and bump up for the next time the stack is called
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "M=M+1" + "\n"
+		# Pointer refers to 2 register, so we handle it differently
+		# TODO: This section may or may not be working properly
+		elif command_type == "POINTER":
+			# For the statement "push pointer z" (where z is 1 or 2),
+			# access static(z) and put that value to the top of the SP stack
+
+			# Access the value we want to push, and store that value for later
+			result_string += "@" + str(int(push_pop_value) + 3) + "\n"
+			result_string += "D=M" + "\n"
+
+			# Access the the pointer location and bump it up for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 			result_string += "M=M+1" + "\n"
 		else:
@@ -355,7 +367,7 @@ def write_push_pop(input_line, command_type):
 		return result_string
 	elif command_type == "C_POP":
 		# the static pointer is a bit funky so we have to make this section different for it
-		if "static" in input_line:
+		if segment_pointer_type == "STATIC":
 			# For the statement "pop static z",
 			# take the value at the stop of the SP stack and store it to static(z)
 
@@ -369,6 +381,21 @@ def write_push_pop(input_line, command_type):
 
 			# Access the register where we want to store the value and store it there
 			result_string += "@" + str(int(push_pop_value) + 16) + "\n"
+			result_string += "M=D" + "\t\t//" + input_line
+		elif segment_pointer_type == "POINTER":
+			# For the statement "pop pointer z",
+			# take the value at the stop of the SP stack and store it to pointer(z)
+
+			# Access the SP pointer location and bump down for the next time the stack is called
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "M=M-1" + "\n"
+
+			# Store the value that was at the top of the stack
+			result_string += "A=M" + "\n"
+			result_string += "D=M" + "\n"
+
+			# Access the register where we want to store the value and store it there
+			result_string += "@" + str(int(push_pop_value) + 3) + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
 		else:
 			# Access the pointer location and bump down for the next time the stack is called
@@ -421,6 +448,8 @@ def remove_segment_pointer_and_earlier(input_line, segment_pointer_type):
 		return input_line[input_line.find("that") + len("that"):]
 	elif segment_pointer_type == "STATIC":
 		return input_line[input_line.find("static") + len("static"):]
+	elif segment_pointer_type == "POINTER":
+		return input_line[input_line.find("pointer") + len("pointer"):]
 	return "ERROR: could not find pointer type"
 
 
@@ -431,10 +460,12 @@ def pointer_type_to_ram_address(segment_pointer_type):
 		return "R1"
 	elif segment_pointer_type == "ARG":
 		return "R2"
-	elif segment_pointer_type == "THIS" or segment_pointer_type == "POINTER":
+	elif segment_pointer_type == "THIS":
 		return "R3"
 	elif segment_pointer_type == "THAT":
 		return "R4"
+	elif segment_pointer_type == "POINTER":
+		return "R3"
 	# temp takes registers 5 to 12
 	# 13 to 15 are used for general purpose functions by the VM implementation
 	# static refers to the ram addresses starting at R16
