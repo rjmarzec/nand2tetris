@@ -18,7 +18,7 @@ arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", 
 # Main Running Area #####################
 #########################################
 
-# TODO: Finish the pointer push popping. Then and that push popping should be done next
+
 def vm_to_asm():
 	global input_file_name
 	input_file = open(input_file_name, "r")
@@ -327,7 +327,7 @@ def write_push_pop(input_line, command_type):
 
 	if command_type == "C_PUSH":
 		# the static keyword is a bit funky, so we have to handle thing differently if it comes up
-		if command_type == "STATIC":
+		if segment_pointer_type == "STATIC":
 			# For the statement "push static z",
 			# access static(z) and put that value to the top of the SP stack
 
@@ -338,9 +338,14 @@ def write_push_pop(input_line, command_type):
 			# Access the the pointer location and bump up for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 			result_string += "M=M+1" + "\n"
+
+			# Move to the location that the stack pointer referred to before getting bumped up
+			result_string += "A=M-1" + "\n"
+
+			# Store the push value at the top of the stack
+			result_string += "M=D" + "\t\t//" + input_line
 		# Pointer refers to 2 register, so we handle it differently
-		# TODO: This section may or may not be working properly
-		elif command_type == "POINTER":
+		elif segment_pointer_type == "POINTER":
 			# For the statement "push pointer z" (where z is 1 or 2),
 			# access static(z) and put that value to the top of the SP stack
 
@@ -351,6 +356,12 @@ def write_push_pop(input_line, command_type):
 			# Access the the pointer location and bump it up for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 			result_string += "M=M+1" + "\n"
+
+			# Move to the location that the stack pointer referred to before getting bumped up
+			result_string += "A=M-1" + "\n"
+
+			# Store the push value at the top of the stack
+			result_string += "M=D" + "\t\t//" + input_line
 		else:
 			# Access the value we want to push, and store that value for later
 			result_string += "@" + push_pop_value + "\n"
@@ -359,11 +370,12 @@ def write_push_pop(input_line, command_type):
 			# Access the the pointer location and bump up for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
 			result_string += "M=M+1" + "\n"
-		# Move to the location that the stack pointer referred to before getting bumped up
-		result_string += "A=M-1" + "\n"
 
-		# Store the push value at the top of the stack
-		result_string += "M=D" + "\t\t//" + input_line
+			# Move to the location that the stack pointer referred to before getting bumped up
+			result_string += "A=M-1" + "\n"
+
+			# Store the push value at the top of the stack
+			result_string += "M=D" + "\t\t//" + input_line
 		return result_string
 	elif command_type == "C_POP":
 		# the static pointer is a bit funky so we have to make this section different for it
