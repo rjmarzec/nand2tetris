@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SELF_TESTING_IN
-output_file_name = file_name_constants.SELF_TESTING_OUT
+input_file_name = file_name_constants.POINTER_TEST_IN
+output_file_name = file_name_constants.POINTER_TEST_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -409,7 +409,7 @@ def write_push_pop(input_line, command_type):
 			# Access the register where we want to store the value and store it there
 			result_string += "@" + str(int(push_pop_value) + 3) + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
-		else:
+		elif segment_pointer_type == "CONSTANT":
 			# Access the pointer location and bump down for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address(
 				segment_pointer_type) + "\n"
@@ -421,6 +421,24 @@ def write_push_pop(input_line, command_type):
 
 			# Access the register where we want to store the value and store it there
 			result_string += "@R" + push_pop_value + "\n"
+			result_string += "M=D" + "\t\t//" + input_line
+		else:
+			# TODO: Finish up this section.
+			# Access the pointer location and bump down for the next time the stack is called
+			result_string += "@" + pointer_type_to_ram_address(
+				segment_pointer_type) + "\n"
+			result_string += "M=M-1" + "\n"
+
+			# Store the value that was at the top of the stack before we moved the pointer
+			result_string += "A=A+1" + "\n"
+			result_string += "D=M" + "\n"
+
+			# Add push_pop_value to the address of the pointer
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=D+A" + "\n"
+
+			# Access the register where we want to store the value (value of D right now) and the value there
+			result_string += "@" + push_pop_value + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
 		return result_string
 	return "ERROR: failure when writing push/pop"

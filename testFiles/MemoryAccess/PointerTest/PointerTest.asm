@@ -4,11 +4,11 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 3030
-@R3
-M=M-1
-A=A+1
-D=M
 @R0
+M=M-1
+A=M
+D=M
+@3
 M=D		//pop pointer 0
 @3040
 D=A
@@ -16,11 +16,11 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 3040
-@R3
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@R1
+@4
 M=D		//pop pointer 1
 @32
 D=A
@@ -46,15 +46,15 @@ A=A+1
 D=M
 @R6
 M=D		//pop that 6
-@0
-D=A
-@R3
+@3
+D=M
+@R0
 M=M+1
 A=M-1
 M=D		//push pointer 0
-@1
-D=A
-@R3
+@4
+D=M
+@R0
 M=M+1
 A=M-1
 M=D		//push pointer 1
