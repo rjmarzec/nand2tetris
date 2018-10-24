@@ -28,24 +28,40 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 32
+@2
+D=A
+@R3
+M=D+M
 @R0
 M=M-1
 A=A+1
 D=M
-@5
-M=D		//pop this 2
+@R3
+M=D
+@2
+D=-A
+@R3
+M=D+M	//pop this 2
 @46
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 46
+@6
+D=A
+@R4
+M=D+M
 @R0
 M=M-1
 A=A+1
 D=M
-@10
-M=D		//pop that 6
+@R4
+M=D
+@6
+D=-A
+@R4
+M=D+M	//pop that 6
 @3
 D=M
 @R0

@@ -453,7 +453,8 @@ def write_push_pop(input_line, command_type):
 			# TODO: Hopefully this is last the last thing that needs fixing.
 
 			# TODO: Do the same thing as what was done for pop: modify the this/that address before and after
-			# TODO: editing the values
+			# TODO: editing the values. Right now it breaks when running the asm file so fix that
+
 			# For pop this/that x:
 			# Take the value at the top of the stack and store it to M(3/4 + x)
 
@@ -472,8 +473,8 @@ def write_push_pop(input_line, command_type):
 			result_string += "D=M" + "\n"
 
 			# Get the address we are storing the value to and store it there
-			result_string += "@" + str(int(pointer_type_to_ram_address(segment_pointer_type).replace("R", "")) + int(push_pop_value)) + "\n"
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=D" + "\n"
 
 			# Subtract the push pop value from the stack register to undo what we did at the start
 			result_string += "@" + push_pop_value + "\n"
