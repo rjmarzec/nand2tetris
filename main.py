@@ -362,7 +362,7 @@ def write_push_pop(input_line, command_type):
 
 			# Store the push value at the top of the stack
 			result_string += "M=D" + "\t\t//" + input_line
-		else:
+		elif segment_pointer_type == "SP":
 			# Access the value we want to push, and store that value for later
 			result_string += "@" + push_pop_value + "\n"
 			result_string += "D=A" + "\n"
@@ -376,6 +376,33 @@ def write_push_pop(input_line, command_type):
 
 			# Store the push value at the top of the stack
 			result_string += "M=D" + "\t\t//" + input_line
+		else:
+			# For push this/that x:
+			# Take the value from M(3/4 + x) and put it at the top of the SP stack
+
+			# Add the push pop value to the stack register so we can access the location without big shenanigans
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=A" + "\n"
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=D+M" + "\n"
+
+			# Get the address from that location and store it to be placed at the top of the stack
+			result_string += "A=M" + "\n"
+			result_string += "D=M" + "\n"
+
+			# Go to the top of the SP stack and bump it up for the next usage of it
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "M=M+1" + "\n"
+
+			# Put the value stored in D stored at the current top of the stack
+			result_string += "A=M-1" + "\n"
+			result_string += "M=D" + "\n"
+
+			# Subtract the push pop value from the stack register to undo what we did at the start
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=-A" + "\n"
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=D+M" + "\t//" + input_line
 		return result_string
 	elif command_type == "C_POP":
 		# the static pointer is a bit funky so we have to make this section different for it
@@ -409,7 +436,7 @@ def write_push_pop(input_line, command_type):
 			# Access the register where we want to store the value and store it there
 			result_string += "@" + str(int(push_pop_value) + 3) + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
-		elif segment_pointer_type == "CONSTANT":
+		elif segment_pointer_type == "SP":
 			# Access the pointer location and bump down for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address(
 				segment_pointer_type) + "\n"
@@ -423,8 +450,18 @@ def write_push_pop(input_line, command_type):
 			result_string += "@R" + push_pop_value + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
 		else:
+			# TODO: Hopefully this is last the last thing that needs fixing.
+
+			# TODO: Do the same thing as what was done for pop: modify the this/that address before and after
+			# TODO: editing the values
 			# For pop this/that x:
 			# Take the value at the top of the stack and store it to M(3/4 + x)
+
+			# Add the push pop value to the stack register so we can access the location without big shenanigans
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=A" + "\n"
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=D+M" + "\n"
 
 			# Access the SP pointer location and bump down for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
@@ -437,6 +474,12 @@ def write_push_pop(input_line, command_type):
 			# Get the address we are storing the value to and store it there
 			result_string += "@" + str(int(pointer_type_to_ram_address(segment_pointer_type).replace("R", "")) + int(push_pop_value)) + "\n"
 			result_string += "M=D" + "\t\t//" + input_line
+
+			# Subtract the push pop value from the stack register to undo what we did at the start
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=-A" + "\n"
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "M=D+M" + "\t//" + input_line
 		return result_string
 	return "ERROR: failure when writing push/pop"
 

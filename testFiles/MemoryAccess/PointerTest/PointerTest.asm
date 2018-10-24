@@ -28,11 +28,11 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 32
-@R3
+@R0
 M=M-1
 A=A+1
 D=M
-@R2
+@5
 M=D		//pop this 2
 @46
 D=A
@@ -40,11 +40,11 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 46
-@R4
+@R0
 M=M-1
 A=A+1
 D=M
-@R6
+@10
 M=D		//pop that 6
 @3
 D=M
@@ -67,9 +67,17 @@ M=D+M	//add
 @2
 D=A
 @R3
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push this 2
+M=D
+@2
+D=-A
+@R3
+M=D+M	//push this 2
 @R0
 M=M-1
 A=M-1
@@ -81,9 +89,17 @@ M=D		//sub
 @6
 D=A
 @R4
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push that 6
+M=D
+@6
+D=-A
+@R4
+M=D+M	//push that 6
 @R0
 M=M-1
 A=M
