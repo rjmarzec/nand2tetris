@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SELF_TESTING_IN
-output_file_name = file_name_constants.SELF_TESTING_OUT
+input_file_name = file_name_constants.POINTER_TEST_IN
+output_file_name = file_name_constants.POINTER_TEST_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
