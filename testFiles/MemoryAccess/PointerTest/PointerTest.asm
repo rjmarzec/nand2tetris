@@ -34,9 +34,10 @@ D=A
 M=D+M
 @R0
 M=M-1
-A=A+1
+A=M+1
 D=M
 @R3
+A=M
 M=D
 @2
 D=-A
@@ -54,9 +55,10 @@ D=A
 M=D+M
 @R0
 M=M-1
-A=A+1
+A=M+1
 D=M
 @R4
+A=M
 M=D
 @6
 D=-A

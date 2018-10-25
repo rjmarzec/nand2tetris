@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.POINTER_TEST_IN
-output_file_name = file_name_constants.POINTER_TEST_OUT
+input_file_name = file_name_constants.SELF_TESTING_IN
+output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -464,7 +464,7 @@ def write_push_pop(input_line, command_type):
 			result_string += "M=M-1" + "\n"
 
 			# Store the value that was at the top of the stack before we moved the pointer
-			result_string += "A=M+1" + "\n"
+			result_string += "A=M" + "\n"
 			result_string += "D=M" + "\n"
 
 			# Get the address we are storing the value to and store it there
