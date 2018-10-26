@@ -34,7 +34,7 @@ D=A
 M=D+M
 @R0
 M=M-1
-A=M+1
+A=M
 D=M
 @R3
 A=M
@@ -55,7 +55,7 @@ D=A
 M=D+M
 @R0
 M=M-1
-A=M+1
+A=M
 D=M
 @R4
 A=M

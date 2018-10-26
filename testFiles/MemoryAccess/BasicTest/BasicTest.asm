@@ -4,12 +4,21 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 10
-@R1	//LCL
+@0
+D=A
+@R1
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@Rlocal 0
-M=D		//pop local 0
+@R1
+A=M
+M=D
+@0
+D=-A
+@R1
+M=D+M	//pop local 0
 @21
 D=A
 @R0
@@ -22,30 +31,57 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 22
-@R2	//ARG
+@2
+D=A
+@R2
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@Rargument 2
-M=D		//pop argument 2
-@R2	//ARG
+@R2
+A=M
+M=D
+@2
+D=-A
+@R2
+M=D+M	//pop argument 2
+@1
+D=A
+@R2
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@Rargument 1
-M=D		//pop argument 1
+@R2
+A=M
+M=D
+@1
+D=-A
+@R2
+M=D+M	//pop argument 1
 @36
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 36
-@R3	//THIS
+@6
+D=A
+@R3
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@Rthis 6
-M=D		//pop this 6
+@R3
+A=M
+M=D
+@6
+D=-A
+@R3
+M=D+M	//pop this 6
 @42
 D=A
 @R0
@@ -58,54 +94,105 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 45
-@R4	//THAT
+@5
+D=A
+@R4
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@Rthat 5
-M=D		//pop that 5
-@R4	//THAT
+@R4
+A=M
+M=D
+@5
+D=-A
+@R4
+M=D+M	//pop that 5
+@2
+D=A
+@R4
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@Rthat 2
-M=D		//pop that 2
+@R4
+A=M
+M=D
+@2
+D=-A
+@R4
+M=D+M	//pop that 2
 @510
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 510
-@ERROR: register for pointer type not found	//ERROR: could not find pointer type
+@ERROR: could not find pointer type
+D=A
+@ERROR: register for pointer type not found
+M=D+M
+@R0
 M=M-1
-A=A+1
+A=M
 D=M
-@RERROR: could not find pointer type
-M=D		//pop temp 6
-@local 0
+@ERROR: register for pointer type not found
+A=M
+M=D
+@ERROR: could not find pointer type
+D=-A
+@ERROR: register for pointer type not found
+M=D+M	//pop temp 6
+@0
 D=A
 @R1
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push local 0
-@that 5
+M=D
+@0
+D=-A
+@R1
+M=D+M	//push local 0
+@5
 D=A
 @R4
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push that 5
+M=D
+@5
+D=-A
+@R4
+M=D+M	//push that 5
 @R0
 M=M-1
 A=M
 D=M
 A=A-1
 M=D+M	//add
-@argument 1
+@1
 D=A
 @R2
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push argument 1
+M=D
+@1
+D=-A
+@R2
+M=D+M	//push argument 1
 @R0
 M=M-1
 A=M-1
@@ -114,18 +201,34 @@ A=A+1
 D=D-M
 A=A-1
 M=D		//sub
-@this 6
+@6
 D=A
 @R3
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push this 6
-@this 6
+M=D
+@6
+D=-A
+@R3
+M=D+M	//push this 6
+@6
 D=A
 @R3
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push this 6
+M=D
+@6
+D=-A
+@R3
+M=D+M	//push this 6
 @R0
 M=M-1
 A=M
@@ -143,9 +246,17 @@ M=D		//sub
 @ERROR: could not find pointer type
 D=A
 @ERROR: register for pointer type not found
+M=D+M
+A=M
+D=M
+@R0
 M=M+1
 A=M-1
-M=D		//push temp 6
+M=D
+@ERROR: could not find pointer type
+D=-A
+@ERROR: register for pointer type not found
+M=D+M	//push temp 6
 @R0
 M=M-1
 A=M
