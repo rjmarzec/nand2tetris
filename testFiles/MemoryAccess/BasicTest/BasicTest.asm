@@ -1,3 +1,7 @@
+@256
+D=A
+@0
+M=D
 @10
 D=A
 @R0
@@ -130,21 +134,12 @@ D=A
 M=M+1
 A=M-1
 M=D		//push constant 510
-@ERROR: could not find pointer type
-D=A
-@ERROR: register for pointer type not found
-M=D+M
 @R0
 M=M-1
 A=M
 D=M
-@ERROR: register for pointer type not found
-A=M
-M=D
-@ERROR: could not find pointer type
-D=-A
-@ERROR: register for pointer type not found
-M=D+M	//pop temp 6
+@11
+M=D		//pop temp 6
 @0
 D=A
 @R1
@@ -243,20 +238,12 @@ A=A+1
 D=D-M
 A=A-1
 M=D		//sub
-@ERROR: could not find pointer type
-D=A
-@ERROR: register for pointer type not found
-M=D+M
-A=M
+@11
 D=M
 @R0
 M=M+1
 A=M-1
-M=D
-@ERROR: could not find pointer type
-D=-A
-@ERROR: register for pointer type not found
-M=D+M	//push temp 6
+M=D		//push temp 6
 @R0
 M=M-1
 A=M
