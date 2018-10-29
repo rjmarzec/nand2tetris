@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.BASIC_TEST_IN
-output_file_name = file_name_constants.BASIC_TEST_OUT
+input_file_name = file_name_constants.STACK_TEST_IN
+output_file_name = file_name_constants.STACK_TEST_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -169,6 +169,7 @@ def write_arithmetic(input_line):
 
 		# Negate y and save it to where it should be
 		result_string += "M=-M" + "\t\t//" + input_line
+	# TODO: This section is causing problems for the StackTest .tst file when ran with the .asm file
 	elif "eq" in input_line or "gt" in input_line or "lt" in input_line:
 		global asm_jump_counter
 		# this first section gives us x - y, which is useful later
@@ -220,8 +221,7 @@ def write_arithmetic(input_line):
 			result_string += "@GTJUMP" + str(asm_jump_counter) + "\n"
 
 			# Jump ahead if the result is not greater than 0
-			# For some reason the gt function breaks when we write JGT rather than JGE, so we are using JGE
-			result_string += "D;JGE" + "\n"
+			result_string += "D;JLE" + "\n"
 
 			# This only runs the result is greater than 0
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
@@ -250,7 +250,7 @@ def write_arithmetic(input_line):
 			result_string += "@LTJUMP" + str(asm_jump_counter) + "\n"
 
 			# Jump ahead if the result is not less than 0
-			result_string += "D;JLE" + "\n"
+			result_string += "D;JLT" + "\n"
 
 			# This only runs if the result is less than 0
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
