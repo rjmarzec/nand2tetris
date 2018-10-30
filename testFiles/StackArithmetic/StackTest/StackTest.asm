@@ -1,8 +1,7 @@
-@16
+@256
 D=A
 @0
 M=D
-
 @17
 D=A
 @R0
@@ -112,7 +111,7 @@ D=M
 A=A-1
 D=D-M
 @LTJUMP3
-D;JLE
+D;JGE
 @R0
 A=M-1
 M=-1
@@ -142,7 +141,7 @@ D=M
 A=A-1
 D=D-M
 @LTJUMP4
-D;JLE
+D;JGE
 @R0
 A=M-1
 M=-1
@@ -172,7 +171,7 @@ D=M
 A=A-1
 D=D-M
 @LTJUMP5
-D;JLE
+D;JGE
 @R0
 A=M-1
 M=-1
@@ -202,7 +201,7 @@ D=M
 A=A-1
 D=D-M
 @GTJUMP6
-D;JGE
+D;JLE
 @R0
 A=M-1
 M=-1
@@ -232,7 +231,7 @@ D=M
 A=A-1
 D=D-M
 @GTJUMP7
-D;JGE
+D;JLE
 @R0
 A=M-1
 M=-1
@@ -262,7 +261,7 @@ D=M
 A=A-1
 D=D-M
 @GTJUMP8
-D;JGE
+D;JLE
 @R0
 A=M-1
 M=-1

@@ -179,16 +179,16 @@ def write_arithmetic(input_line):
 		result_string += "M=M-1" + "\n"
 		result_string += "A=M" + "\n"
 
-		# Store y and move to x
+		# Store y, move to x, and store (x - y) to D
 		result_string += "D=M" + "\n"
 		result_string += "A=A-1" + "\n"
+		result_string += "D=D-M" + "\n"
 
 		# Continue with whatever function we want to do:
 		if "eq" in input_line:
 			# true (-1) if x = y, false (0) otherwise
 
 			# Subtract the two values and check if the result is equal to 0
-			result_string += "D=D-M" + "\n"
 			result_string += "@EQJUMP" + str(asm_jump_counter) + "\n"
 
 			# Jump ahead if the values are not equal
@@ -215,12 +215,12 @@ def write_arithmetic(input_line):
 			result_string += "(EQFINISH" + str(asm_jump_counter) + ")" + "\t//eq"
 		elif "gt" in input_line:
 			# true (-1) if x > y, false (0) otherwise
+			# true (-1) if (x - y) > 0, false (0) otherwise
 
-			# Subtract the two values and check if the result is greater than 0
-			result_string += "D=D-M" + "\n"
+			# Check if the result is greater than 0
 			result_string += "@GTJUMP" + str(asm_jump_counter) + "\n"
 
-			# Jump ahead if the result is not greater than 0
+			# Jump ahead if the result is NOT greater than 0
 			result_string += "D;JLE" + "\n"
 
 			# This only runs the result is greater than 0
@@ -244,13 +244,13 @@ def write_arithmetic(input_line):
 			result_string += "(GTFINISH" + str(asm_jump_counter) + ")" + "\t//gt"
 		elif "lt" in input_line:
 			# true (-1) if x < y, false (0) otherwise
+			# true (-1) if (x - y) < 0, false (0) otherwise
 
-			# Subtract the two values and check if the result is less than 0
-			result_string += "D=D-M" + "\n"
+			# Check if the result is less than 0
 			result_string += "@LTJUMP" + str(asm_jump_counter) + "\n"
 
-			# Jump ahead if the result is not less than 0
-			result_string += "D;JLT" + "\n"
+			# Jump ahead if the result is NOT less than 0
+			result_string += "D;JGE" + "\n"
 
 			# This only runs if the result is less than 0
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
