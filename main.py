@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.STACK_TEST_IN
-output_file_name = file_name_constants.STACK_TEST_OUT
+input_file_name = file_name_constants.BASIC_TEST_IN
+output_file_name = file_name_constants.BASIC_TEST_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -169,7 +169,6 @@ def write_arithmetic(input_line):
 
 		# Negate y and save it to where it should be
 		result_string += "M=-M" + "\t\t//" + input_line
-	# TODO: This section is causing problems for the StackTest .tst file when ran with the .asm file
 	elif "eq" in input_line or "gt" in input_line or "lt" in input_line:
 		global asm_jump_counter
 		# this first section gives us x - y, which is useful later
@@ -177,11 +176,11 @@ def write_arithmetic(input_line):
 		# Access the stack pointer and bump it to where it should be after the operation
 		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 		result_string += "M=M-1" + "\n"
-		result_string += "A=M" + "\n"
+		result_string += "A=M-1" + "\n"
 
-		# Store y, move to x, and store (x - y) to D
+		# Store x, move to y, and store (x - y) to D
 		result_string += "D=M" + "\n"
-		result_string += "A=A-1" + "\n"
+		result_string += "A=A+a1" + "\n"
 		result_string += "D=D-M" + "\n"
 
 		# Continue with whatever function we want to do:
