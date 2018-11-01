@@ -4,6 +4,8 @@
 # Self Testing Files ###################
 #########################################
 
+# TODO: Some of the .vm names for chapter 8 files are not correct. fix them.
+# TODO: The .asm also needs to be created.
 # Self Testing Files ####################
 SELF_TESTING_IN = "TestFiles/SelfTesting/SelfTesting.vm"
 SELF_TESTING_OUT = "TestFiles/SelfTesting/SelfTesting.asm"
