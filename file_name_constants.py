@@ -15,29 +15,52 @@ SELF_TESTING_OUT = "TestFiles/SelfTesting/SelfTesting.asm"
 # Stack Arithmetic ######################
 
 # SimpleAdd
-SIMPLE_ADD_IN = "TestFiles/StackArithmetic/SimpleAdd/SimpleAdd.vm"
-SIMPLE_ADD_OUT = "TestFiles/StackArithmetic/SimpleAdd/SimpleAdd.asm"
+SIMPLE_ADD_IN = "TestFiles/Chapter7/StackArithmetic/SimpleAdd/SimpleAdd.vm"
+SIMPLE_ADD_OUT = "TestFiles/Chapter7/StackArithmetic/SimpleAdd/SimpleAdd.asm"
 
 # StackTest
-STACK_TEST_IN = "TestFiles/StackArithmetic/StackTest/StackTest.vm"
-STACK_TEST_OUT = "TestFiles/StackArithmetic/StackTest/StackTest.asm"
+STACK_TEST_IN = "TestFiles/Chapter7/StackArithmetic/StackTest/StackTest.vm"
+STACK_TEST_OUT = "TestFiles/Chapter7/StackArithmetic/StackTest/StackTest.asm"
 
 # Memory Access #########################
 
 # BasicTest
-BASIC_TEST_IN = "TestFiles/MemoryAccess/BasicTest/BasicTest.vm"
-BASIC_TEST_OUT = "TestFiles/MemoryAccess/BasicTest/BasicTest.asm"
+BASIC_TEST_IN = "TestFiles/Chapter7/MemoryAccess/BasicTest/BasicTest.vm"
+BASIC_TEST_OUT = "TestFiles/Chapter7/MemoryAccess/BasicTest/BasicTest.asm"
 
 # PointerTest
-POINTER_TEST_IN = "TestFiles/MemoryAccess/PointerTest/PointerTest.vm"
-POINTER_TEST_OUT = "TestFiles/MemoryAccess/PointerTest/PointerTest.asm"
+POINTER_TEST_IN = "TestFiles/Chapter7/MemoryAccess/PointerTest/PointerTest.vm"
+POINTER_TEST_OUT = "TestFiles/Chapter7/MemoryAccess/PointerTest/PointerTest.asm"
 
 # StaticTest
-STATIC_TEST_IN = "TestFiles/MemoryAccess/StaticTest/StaticTest.vm"
-STATIC_TEST_OUT = "TestFiles/MemoryAccess/StaticTest/StaticTest.asm"
+STATIC_TEST_IN = "TestFiles/Chapter7/MemoryAccess/StaticTest/StaticTest.vm"
+STATIC_TEST_OUT = "TestFiles/Chapter7/MemoryAccess/StaticTest/StaticTest.asm"
 
 #########################################
 # Chapter 8 Files #######################
 #########################################
 
-# ...
+# Function Calls ########################
+
+# FibonacciElement
+FIBONACCI_ELEMENT_IN = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.vm"
+FIBONACCI_ELEMENT_OUT = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.asm"
+
+# SimpleFunction
+SIMPLE_FUNCTION_IN = "TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.vm"
+SIMPLE_FUNCTION_OUT = "TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.asm"
+
+# StaticsTest
+STATICS_TEST_IN = "TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTest.vm"
+STATICS_TEST_OUT = "TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTest.asm"
+
+# Program Flow ##########################
+
+# BasicLoop
+BASIC_LOOP_IN = "TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.vm"
+BASIC_LOOP_OUT = "TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.asm"
+
+# FibonacciSeries
+FIBONACCI_SERIES_IN = "TestFiles/Chapter8/ProgramFlow/FibonacciSeries/FibonacciSeries.vm"
+FIBONACCI_SERIES_OUT = "TestFiles/Chapter8/ProgramFlow/FibonacciSeries/FibonacciSeries.asm"
+
