@@ -69,11 +69,11 @@ def get_command_type(input_line):
 		return "C_POP"
 	elif "label" in input_line:
 		return "C_LABEL"
+	elif "if-goto" in input_line:
+		return "C_IF"
 	#Everything under this is non-functional
 	elif "goto" in input_line:
 		return "C_GOTO"
-	elif "if" in input_line:
-		return "C_IF"
 	elif "function" in input_line:
 		return "C_FUNCTION"
 	elif "return" in input_line:
@@ -478,7 +478,16 @@ def write_push_pop(input_line, command_type):
 
 
 def write_label(input_line):
-	return "(" + input_line[len("label "):] + ")"
+	return "(" + input_line[len("label "):] + ")" + "\t//" + input_line
+
+
+# TODO: Finish this line. Pop the value from the top of the stack, and jump back into the loop if the value is NOT 0
+def write_if_goto(input_line):
+	label_name = input_line[input_line.find("if-goto") + len("if-goto"):].strip()
+	result_string = ""
+	result_string += ""
+	return result_string + "\t//" + input_line
+
 
 #########################################
 # Segment Pointer Function ##############
