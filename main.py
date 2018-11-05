@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.BASIC_TEST_IN
-output_file_name = file_name_constants.BASIC_TEST_OUT
+input_file_name = file_name_constants.SELF_TESTING_IN
+output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -15,21 +15,7 @@ asm_jump_counter = 0
 arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", "not"]
 
 #########################################
-# Main Running Area #####################
-#########################################
-
-
-def vm_to_asm():
-	global input_file_name
-	input_file = open(input_file_name, "r")
-	raw_file_line_list = get_file_lines_as_list(input_file)
-	cleaned_vm_line_list = clean_line_list(raw_file_line_list)
-	hack_line_list = convert_vm_to_hack(cleaned_vm_line_list)
-	write_hack_to_file(hack_line_list)
-
-
-#########################################
-# Cleanup and Convert Functions #########
+# Cleanup and Start Functions ###########
 #########################################
 
 
@@ -82,6 +68,9 @@ def get_command_type(input_line):
 	elif "pop" in input_line:
 		return "C_POP"
 	elif "label" in input_line:
+		return "C_LABEL"
+	#Everything under this is non-functional
+	elif "goto" in input_line:
 		return "C_GOTO"
 	elif "if" in input_line:
 		return "C_IF"
@@ -91,18 +80,21 @@ def get_command_type(input_line):
 		return "C_RETURN"
 	elif "call" in input_line:
 		return "C_CALL"
+	elif "label" in input_line:
+		return "C_LABEL"
 	else:
 		print("ERROR: Command type not specified")
 		return "C_ERROR"
 
 
 def convert_line_to_hack(input_line, command_type):
+	print(command_type)
 	if command_type == "C_ARITHMETIC":
 		return write_arithmetic(input_line)
 	elif command_type == "C_PUSH" or command_type == "C_POP":
 		return write_push_pop(input_line, command_type)
 	elif command_type == "C_LABEL":
-		return
+		return write_label(input_line)
 	elif command_type == "C_GOTO":
 		return
 	elif command_type == "C_IF":
@@ -117,7 +109,9 @@ def convert_line_to_hack(input_line, command_type):
 		return "ERROR: Command not specified?"
 
 
-# Arithmetic Code #######################
+#########################################
+# Code Conversion Functions #############
+#########################################
 
 
 def write_arithmetic(input_line):
@@ -316,9 +310,6 @@ def write_arithmetic(input_line):
 	return result_string
 
 
-# Push/Pop Code #########################
-
-
 def write_push_pop(input_line, command_type):
 	segment_pointer_type = get_segment_pointer_type(input_line)
 	push_pop_value = remove_segment_pointer_and_earlier(input_line, segment_pointer_type).strip()
@@ -486,7 +477,12 @@ def write_push_pop(input_line, command_type):
 	return "ERROR: failure when writing push/pop"
 
 
-# Segment Pointer Code
+def write_label(input_line):
+	return "(" + input_line[len("label "):] + ")"
+
+#########################################
+# Segment Pointer Function ##############
+#########################################
 
 
 def get_segment_pointer_type(input_line):
@@ -562,8 +558,17 @@ def set_up_stack_pointer():
 
 
 #########################################
-# Testing Area ##########################
+# Main Running Area #####################
 #########################################
+
+
+def vm_to_asm():
+	global input_file_name
+	input_file = open(input_file_name, "r")
+	raw_file_line_list = get_file_lines_as_list(input_file)
+	cleaned_vm_line_list = clean_line_list(raw_file_line_list)
+	hack_line_list = convert_vm_to_hack(cleaned_vm_line_list)
+	write_hack_to_file(hack_line_list)
 
 
 def write_hack_to_file(input_line_list):
@@ -576,5 +581,9 @@ def write_hack_to_file(input_line_list):
 	output_file.close()
 
 
-vm_to_asm()
+#########################################
+# Testing Area ##########################
+#########################################
 
+
+vm_to_asm()
