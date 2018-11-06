@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SELF_TESTING_IN
-output_file_name = file_name_constants.SELF_TESTING_OUT
+input_file_name = file_name_constants.BASIC_LOOP_IN
+output_file_name = file_name_constants.BASIC_LOOP_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -37,7 +37,7 @@ def clean_line_list(input_line_list):
 			temp_line = temp_line[:temp_line.index("//")]
 
 		# clears any starting and ending spaces
-		temp_line.strip()
+		temp_line = temp_line.strip()
 
 		# turns any spaces longer than 1 space into 1 space
 		while "  " in temp_line:
@@ -88,16 +88,15 @@ def get_command_type(input_line):
 
 
 def convert_line_to_hack(input_line, command_type):
-	print(command_type)
 	if command_type == "C_ARITHMETIC":
 		return write_arithmetic(input_line)
 	elif command_type == "C_PUSH" or command_type == "C_POP":
 		return write_push_pop(input_line, command_type)
 	elif command_type == "C_LABEL":
 		return write_label(input_line)
-	elif command_type == "C_GOTO":
-		return
 	elif command_type == "C_IF":
+		return write_if_goto(input_line)
+	elif command_type == "C_GOTO":
 		return
 	elif command_type == "C_FUNCTION":
 		return
@@ -333,7 +332,7 @@ def write_push_pop(input_line, command_type):
 			result_string += "A=M-1" + "\n"
 
 			# Store the push value at the top of the stack
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "M=D"
 		# Pointer refers to 2 register, so we handle it differently. same idea for "Temp"
 		elif segment_pointer_type == "POINTER" or segment_pointer_type == "TEMP":
 			# For the statement "push pointer z" (where z is 1 or 2),
@@ -354,7 +353,7 @@ def write_push_pop(input_line, command_type):
 			result_string += "A=M-1" + "\n"
 
 			# Store the push value at the top of the stack
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "M=D"
 		elif segment_pointer_type == "SP":
 			# Access the value we want to push, and store that value for later
 			result_string += "@" + push_pop_value + "\n"
@@ -368,7 +367,7 @@ def write_push_pop(input_line, command_type):
 			result_string += "A=M-1" + "\n"
 
 			# Store the push value at the top of the stack
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "M=D"
 		else:
 			# For push this/that x:
 			# Take the value from M(3/4 + x) and put it at the top of the SP stack
@@ -395,8 +394,8 @@ def write_push_pop(input_line, command_type):
 			result_string += "@" + push_pop_value + "\n"
 			result_string += "D=-A" + "\n"
 			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
-			result_string += "M=D+M" + "\t//" + input_line
-		return result_string
+			result_string += "M=D+M"
+		return result_string + "\t\t//" + input_line
 	elif command_type == "C_POP":
 		# the static pointer is a bit funky so we have to make this section different for it
 		if segment_pointer_type == "STATIC":
@@ -413,7 +412,7 @@ def write_push_pop(input_line, command_type):
 
 			# Access the register where we want to store the value and store it there
 			result_string += "@" + str(int(push_pop_value) + 16) + "\n"
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "M=D"
 		elif segment_pointer_type == "POINTER" or segment_pointer_type == "TEMP":
 			# For the statement "pop pointer z",
 			# take the value at the stop of the SP stack and store it to pointer(z)
@@ -444,7 +443,7 @@ def write_push_pop(input_line, command_type):
 
 			# Access the register where we want to store the value and store it there
 			result_string += "@R" + push_pop_value + "\n"
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "M=D"
 		else:
 			# For pop this/that x:
 			# Take the value at the top of the stack and store it to M(3/4 + x)
@@ -472,8 +471,8 @@ def write_push_pop(input_line, command_type):
 			result_string += "@" + push_pop_value + "\n"
 			result_string += "D=-A" + "\n"
 			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
-			result_string += "M=D+M" + "\t//" + input_line
-		return result_string
+			result_string += "M=D+M"
+		return result_string + "\t\t//" + input_line
 	return "ERROR: failure when writing push/pop"
 
 
@@ -481,11 +480,25 @@ def write_label(input_line):
 	return "(" + input_line[len("label "):] + ")" + "\t//" + input_line
 
 
-# TODO: Finish this line. Pop the value from the top of the stack, and jump back into the loop if the value is NOT 0
 def write_if_goto(input_line):
+	# Pop the value from the top of the stack, and jump back to the loop if the value is NOT 0
 	label_name = input_line[input_line.find("if-goto") + len("if-goto"):].strip()
 	result_string = ""
-	result_string += ""
+
+	# Get the location the stack pointer is pointing
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+
+	# Change the value of the stack pointer down one to where it should be after the computation
+	result_string += "M=M-1" + "\n"
+
+	# Move to where the stack pointer points to and store the value of the register at that point
+	result_string += "A=M" + "\n"
+	result_string += "D=M" + "\n"
+
+	# Jump to the label if the value stored in D is not 0
+	result_string += "@" + label_name + "\n"
+	result_string += "D;JNE"
+
 	return result_string + "\t//" + input_line
 
 
