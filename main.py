@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.BASIC_LOOP_IN
-output_file_name = file_name_constants.BASIC_LOOP_OUT
+input_file_name = file_name_constants.FIBONACCI_SERIES_IN
+output_file_name = file_name_constants.FIBONACCI_SERIES_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -71,9 +71,9 @@ def get_command_type(input_line):
 		return "C_LABEL"
 	elif "if-goto" in input_line:
 		return "C_IF"
-	#Everything under this is non-functional
 	elif "goto" in input_line:
 		return "C_GOTO"
+	# Everything under this is non-functional
 	elif "function" in input_line:
 		return "C_FUNCTION"
 	elif "return" in input_line:
@@ -97,7 +97,7 @@ def convert_line_to_hack(input_line, command_type):
 	elif command_type == "C_IF":
 		return write_if_goto(input_line)
 	elif command_type == "C_GOTO":
-		return
+		return write_goto(input_line)
 	elif command_type == "C_FUNCTION":
 		return
 	elif command_type == "C_RETURN":
@@ -430,7 +430,7 @@ def write_push_pop(input_line, command_type):
 				result_string += "@" + str(int(push_pop_value) + 3) + "\n"
 			else:
 				result_string += "@" + str(int(push_pop_value) + 5) + "\n"
-			result_string += "M=D" + "\t\t//" + input_line
+			result_string += "M=D"
 		elif segment_pointer_type == "SP":
 			# Access the pointer location and bump down for the next time the stack is called
 			result_string += "@" + pointer_type_to_ram_address(
@@ -481,12 +481,11 @@ def write_label(input_line):
 
 
 def write_if_goto(input_line):
-	# Pop the value from the top of the stack, and jump back to the loop if the value is NOT 0
-	label_name = input_line[input_line.find("if-goto") + len("if-goto"):].strip()
-	result_string = ""
+	# Pop the value from the top of the stack, and jump back to the label if the value is NOT 0
+	label_name = input_line[input_line.find("goto") + len("goto"):].strip()
 
 	# Get the location the stack pointer is pointing
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
 
 	# Change the value of the stack pointer down one to where it should be after the computation
 	result_string += "M=M-1" + "\n"
@@ -498,6 +497,16 @@ def write_if_goto(input_line):
 	# Jump to the label if the value stored in D is not 0
 	result_string += "@" + label_name + "\n"
 	result_string += "D;JNE"
+
+	return result_string + "\t//" + input_line
+
+# TODO: There is a problem with this function or write_if_goto for FibSeries.vm. Fix that
+def write_goto(input_line):
+	# Jump to the label provided always
+	label_name = input_line[input_line.find("if-goto") + len("if-goto"):].strip()
+
+	result_string = "@" + label_name + "\n"
+	result_string += "D;JMP"
 
 	return result_string + "\t//" + input_line
 

@@ -21,7 +21,7 @@ M=M-1
 A=M
 D=M
 @4
-M=D		//pop pointer 1
+M=D		//pop pointer 1		//pop pointer 1
 @0
 D=A
 @R0
@@ -203,7 +203,7 @@ M=M-1
 A=M
 D=M
 @4
-M=D		//pop pointer 1
+M=D		//pop pointer 1		//pop pointer 1
 @0
 D=A
 @R2
