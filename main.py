@@ -500,10 +500,10 @@ def write_if_goto(input_line):
 
 	return result_string + "\t//" + input_line
 
-# TODO: There is a problem with this function or write_if_goto for FibSeries.vm. Fix that
+
 def write_goto(input_line):
 	# Jump to the label provided always
-	label_name = input_line[input_line.find("if-goto") + len("if-goto"):].strip()
+	label_name = input_line[input_line.find("goto") + len("goto"):].strip()
 
 	result_string = "@" + label_name + "\n"
 	result_string += "D;JMP"
