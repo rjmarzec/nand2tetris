@@ -73,7 +73,6 @@ def get_command_type(input_line):
 		return "C_IF"
 	elif "goto" in input_line:
 		return "C_GOTO"
-	# Everything under this is non-functional
 	elif "function" in input_line:
 		return "C_FUNCTION"
 	elif "return" in input_line:
@@ -99,11 +98,11 @@ def convert_line_to_hack(input_line, command_type):
 	elif command_type == "C_GOTO":
 		return write_goto(input_line)
 	elif command_type == "C_FUNCTION":
-		return
+		return write_function(input_line)
 	elif command_type == "C_RETURN":
-		return
+		return write_return(input_line)
 	elif command_type == "C_CALL":
-		return
+		return write_call(input_line)
 	else:
 		return "ERROR: Command not specified?"
 
@@ -509,6 +508,18 @@ def write_goto(input_line):
 	result_string += "D;JMP"
 
 	return result_string + "\t//" + input_line
+
+
+def write_call(input_line):
+	return "WRITE_CALL FUNCTION INCOMPLETE"
+
+
+def write_function(input_line):
+	return "WRITE_FUNCTION FUNCTION INCOMPLETE"
+
+
+def write_return(input_line):
+	return "WRITE_RETURN FUNCTION INCOMPLETE"
 
 
 #########################################
