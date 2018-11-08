@@ -14,6 +14,7 @@ asm_jump_counter = 0
 # A list of all the arithmetic functions to make them easy to reference
 arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", "not"]
 
+
 #########################################
 # Cleanup and Start Functions ###########
 #########################################
@@ -511,15 +512,48 @@ def write_goto(input_line):
 
 
 def write_call(input_line):
+	result_string = ""
+
+	# push return-address
+	# result_string += write_push_pop("push static")
+
+	result_string += "\t" + write_register_push("", "")
+
+	# return result_string + "\t//" + input_line
 	return "WRITE_CALL FUNCTION INCOMPLETE"
 
 
 def write_function(input_line):
+	result_string = ""
+
+	# return result_string + "\t//" + input_line
 	return "WRITE_FUNCTION FUNCTION INCOMPLETE"
 
 
 def write_return(input_line):
+	result_string = ""
+
+	# return result_string + "\t//" + input_line
 	return "WRITE_RETURN FUNCTION INCOMPLETE"
+
+# TODO: Finish this
+def write_register_pop(register_address):
+	result_string = ""
+
+	return result_string
+
+# TODO: Finish this
+def write_register_push(register_address):
+	# Go to the top of the stack and store the value there after bumping it down one
+	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M-1" + "\n"
+	result_string += "A=M"
+	result_string += "D=M"
+
+	# Take the stored value and store it to the passed in address
+
+	return result_string
+
 
 
 #########################################
