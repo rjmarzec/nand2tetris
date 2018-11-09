@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.FIBONACCI_SERIES_IN
-output_file_name = file_name_constants.FIBONACCI_SERIES_OUT
+input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
+output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -517,7 +517,13 @@ def write_call(input_line):
 	# push return-address
 	# result_string += write_push_pop("push static")
 
-	result_string += "\t" + write_register_push("", "")
+	result_string += write_register_push("LCL")
+	result_string += write_register_push("ARG")
+	result_string += write_register_push("THIS")
+	result_string += write_register_push("THAT")
+
+
+
 
 	# return result_string + "\t//" + input_line
 	return "WRITE_CALL FUNCTION INCOMPLETE"
@@ -536,24 +542,35 @@ def write_return(input_line):
 	# return result_string + "\t//" + input_line
 	return "WRITE_RETURN FUNCTION INCOMPLETE"
 
-# TODO: Finish this
+
 def write_register_pop(register_address):
-	result_string = ""
+	# Go to the provided register, take it's value, and plop it at the top of the stack
+	result_string = "@" + str(register_address)
 
-	return result_string
-
-# TODO: Finish this
-def write_register_push(register_address):
-	# Go to the top of the stack and store the value there after bumping it down one
-	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M-1" + "\n"
-	result_string += "A=M"
 	result_string += "D=M"
 
-	# Take the stored value and store it to the passed in address
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1"
+	result_string += "A=M-1"
+	result_string += "M=D"
 
 	return result_string
 
+
+def write_register_push(register_address):
+	# Go to the top of the stack, bump the pointer down, store the value there, and store it to the passed in register
+	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
+
+	result_string += "M=M-1" + "\n"
+
+	result_string += "A=M" + "\n"
+	result_string += "D=M" + "\n"
+
+	# Take the stored value and store it to the passed in address
+	result_string += "@" + str(register_address) + "\n"
+	result_string += "M=D" + "\n"
+
+	return result_string
 
 
 #########################################
