@@ -512,10 +512,23 @@ def write_goto(input_line):
 
 
 def write_call(input_line):
+	# This function should generate the following .asm code:
+	"""
+	push return-address
+	push LCL
+	push ARG
+	push THIS
+	push THAT
+	ARG = SP-n-5
+	LCL = SP
+	goto f
+	(return-address) [as a label]
+	"""
+
 	result_string = ""
 
 	# push return-address
-	# result_string += write_push_pop("push static")
+	# TODO: The above can be done by going result_string += (return-address stuff) + result_string
 
 	result_string += write_register_push("LCL")
 	result_string += write_register_push("ARG")
@@ -523,13 +536,17 @@ def write_call(input_line):
 	result_string += write_register_push("THAT")
 
 
-
-
 	# return result_string + "\t//" + input_line
 	return "WRITE_CALL FUNCTION INCOMPLETE"
 
 
 def write_function(input_line):
+	# This function should generate the following .asm code:
+	"""
+	(f)	[as a label for function entry]
+	repeat k times:
+	push 0
+	"""
 	result_string = ""
 
 	# return result_string + "\t//" + input_line
@@ -537,6 +554,10 @@ def write_function(input_line):
 
 
 def write_return(input_line):
+	# This function should generate the following .asm code:
+	"""
+
+	"""
 	result_string = ""
 
 	# return result_string + "\t//" + input_line
