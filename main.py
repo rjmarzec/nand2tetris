@@ -530,9 +530,8 @@ def write_call(input_line):
 
 	global return_address_counter
 
-	# This code gives us "[call][f][n]" from "call f n"
+	# This code gives us "[call][f][n]" from the input line formatted as "call f n"
 	call_line_as_list = input_line.split(" ")
-	n_value = call_line_as_list[2]
 
 	return_address_label_name = "RETURNADDRESS" + str(return_address_counter)
 
@@ -541,7 +540,7 @@ def write_call(input_line):
 	result_string += write_register_push("ARG")
 	result_string += write_register_push("THIS")
 	result_string += write_register_push("THAT")
-	result_string += write_sp_n_5_to_arg(n_value)
+	result_string += write_sp_n_5_to_arg(call_line_as_list[2])
 	result_string += write_sp_to_lcl()
 	result_string += write_goto(call_line_as_list[1]) + "\n"
 	result_string += "(" + return_address_label_name + ")"
@@ -558,7 +557,11 @@ def write_function(input_line):
 	repeat k times:
 	push 0
 	"""
-	result_string = ""
+
+	# TODO: This is next!
+	function_line_as_list = input_line.split(" ")
+
+	result_string = "(" + function_line_as_list[1] + ")" + "\n"
 
 	# return result_string + "\t//" + input_line
 	return "WRITE_FUNCTION FUNCTION INCOMPLETE"
