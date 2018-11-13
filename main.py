@@ -543,12 +543,12 @@ def write_call(input_line):
 	result_string += write_register_push("THAT")
 	result_string += write_sp_n_5_to_arg(n_value)
 	result_string += write_sp_to_lcl()
-	result_string += write_goto(call_line_as_list[1]) + '\n'
+	result_string += write_goto(call_line_as_list[1]) + "\n"
 	result_string += "(" + return_address_label_name + ")"
 	return_address_counter += 1
 
 	# return result_string + "\t//" + input_line
-	return "WRITE_CALL FUNCTION INCOMPLETE"
+	return result_string + "\t//" + input_line
 
 
 def write_function(input_line):
