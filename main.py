@@ -11,6 +11,9 @@ output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
 
+# Used later in our return addresses so they don't repeat
+return_address_counter = 0
+
 # A list of all the arithmetic functions to make them easy to reference
 arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", "not"]
 
@@ -525,16 +528,24 @@ def write_call(input_line):
 	(return-address) [as a label]
 	"""
 
-	result_string = ""
+	global return_address_counter
 
-	# push return-address
-	# TODO: The above can be done by going result_string += (return-address stuff) + result_string
+	# This code gives us "[call][f][n]" from "call f n"
+	call_line_as_list = input_line.split(" ")
+	n_value = call_line_as_list[2]
 
+	return_address_label_name = "RETURNADDRESS" + str(return_address_counter)
+
+	result_string = write_push_return_address(return_address_label_name)
 	result_string += write_register_push("LCL")
 	result_string += write_register_push("ARG")
 	result_string += write_register_push("THIS")
 	result_string += write_register_push("THAT")
-
+	result_string += write_sp_n_5_to_arg(n_value)
+	result_string += write_sp_to_lcl()
+	result_string += write_goto(call_line_as_list[1]) + '\n'
+	result_string += "(" + return_address_label_name + ")"
+	return_address_counter += 1
 
 	# return result_string + "\t//" + input_line
 	return "WRITE_CALL FUNCTION INCOMPLETE"
@@ -566,14 +577,14 @@ def write_return(input_line):
 
 def write_register_pop(register_address):
 	# Go to the provided register, take it's value, and plop it at the top of the stack
-	result_string = "@" + str(register_address)
+	result_string = "@" + str(register_address) + "\n"
 
-	result_string += "D=M"
+	result_string += "D=M" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M+1"
-	result_string += "A=M-1"
-	result_string += "M=D"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D" + "\n"
 
 	return result_string
 
@@ -589,9 +600,42 @@ def write_register_push(register_address):
 
 	# Take the stored value and store it to the passed in address
 	result_string += "@" + str(register_address) + "\n"
-	result_string += "M=D" + "\n"
+	result_string += "M=D"
 
-	return result_string
+	return result_string + "\n"
+
+
+def write_sp_n_5_to_arg(n_value):
+	# This does ARG = SP-n-5
+
+	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + str(n_value) + "\n"
+	result_string += "D=D-A" + "\n"
+	result_string += "@5" + "\n"
+	result_string += "D=D-A" + "\n"
+
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "M=D"
+	return result_string + "\n"
+
+
+def write_sp_to_lcl():
+	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "M=D" + "\n"
+	return result_string + "\n"
+
+
+def write_push_return_address(return_address_label_name):
+	result_string = "@" + return_address_label_name + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D"
+	return result_string + "\n"
 
 
 #########################################
