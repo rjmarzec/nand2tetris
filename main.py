@@ -530,7 +530,7 @@ def write_call(input_line):
 
 	global return_address_counter
 
-	# This code gives us "[call][f][n]" from the input line formatted as "call f n"
+	# This gives us "[call][f][n]" from the input line formatted as "call f n"
 	call_line_as_list = input_line.split(" ")
 
 	return_address_label_name = "RETURNADDRESS" + str(return_address_counter)
@@ -558,13 +558,18 @@ def write_function(input_line):
 	push 0
 	"""
 
-	# TODO: This is next!
+	# This gives us "[function][f][k]" from the input line formatted as "function f k"
 	function_line_as_list = input_line.split(" ")
 
-	result_string = "(" + function_line_as_list[1] + ")" + "\n"
+	result_string = "(" + function_line_as_list[1] + ")"
+	for i in range(function_line_as_list[2]):
+		# Pushing 0 to the top of the stack here
+		result_string += "\n@0" + "\n"
+		result_string += "D=A" + "\n"
+		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "M=D"
 
-	# return result_string + "\t//" + input_line
-	return "WRITE_FUNCTION FUNCTION INCOMPLETE"
+	return result_string + "\t//" + input_line
 
 
 def write_return(input_line):
