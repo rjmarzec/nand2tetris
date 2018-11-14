@@ -575,9 +575,20 @@ def write_function(input_line):
 def write_return(input_line):
 	# This function should generate the following .asm code:
 	"""
-
+	FRAME = LCL			{FRAME is a temp variable}
+	RET = *(FRAME-5) 	{RET = return address}
+	*ARG = pop()
+	SP = ARG+1
+	THAT = *(FRAME-1)
+	THIS = *(FRAME-2)
+	ARG = *(FRAME-3)
+	LCL = *(FRAME-4)
+	goto RET
 	"""
 	result_string = ""
+
+
+	# TODO: This is next.
 
 	# return result_string + "\t//" + input_line
 	return "WRITE_RETURN FUNCTION INCOMPLETE"
