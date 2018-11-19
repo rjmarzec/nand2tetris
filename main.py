@@ -562,7 +562,7 @@ def write_function(input_line):
 	function_line_as_list = input_line.split(" ")
 
 	result_string = "(" + function_line_as_list[1] + ")"
-	for i in range(function_line_as_list[2]):
+	for i in range(int(function_line_as_list[2])):
 		# Pushing 0 to the top of the stack here
 		result_string += "\n@0" + "\n"
 		result_string += "D=A" + "\n"
@@ -586,14 +586,12 @@ def write_return(input_line):
 	goto RET
 	"""
 
-	# TODO: This is next. push vs pop is getting funky here to I'm this to you, future me!
-
 	# FRAME = LCL
 	result_string = write_register_pop(pointer_type_to_ram_address("LCL"))
 	result_string += write_register_push("13")
 
 	# RET = *(FRAME-5)
-	result_string += write_register_moved_pop("14", 5, "DOWN")
+	result_string += write_register_moved_pop(14, 5, "DOWN")
 	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
 
 	# *ARG = pop()
@@ -601,26 +599,34 @@ def write_return(input_line):
 	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
 
 	# SP = ARG + 1
-
+	result_string += write_register_pop(pointer_type_to_ram_address("ARG"))
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "A=M" + "\n"
+	result_string += "M=M+1" + "\n"
 
 	# THAT = *(FRAME - 1)
-
+	result_string += write_register_moved_pop(13, 1, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("THAT"))
 
 	# THIS = *(FRAME - 2)
-
+	result_string += write_register_moved_pop(13, 2, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("THIS"))
 
 	# ARG = *(FRAME - 3)
-
+	result_string += write_register_moved_pop(13, 3, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
 
 	# LCL = *(FRAME - 4)
-
+	result_string += write_register_moved_pop(13, 4, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("LCL"))
 
 	# goto RET
+	result_string += "@14" + "\n"
+	result_string += "A=M" + "\n"
+	result_string += "0;JMP" + "\n"
 
-
-
-	# return result_string + "\t//" + input_line
-	return "WRITE_RETURN FUNCTION INCOMPLETE"
+	# return "WRITE_RETURN FUNCTION INCOMPLETE"
+	return result_string + "\t//" + input_line
 
 
 def write_register_pop(register_address):
