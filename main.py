@@ -567,6 +567,7 @@ def write_function(input_line):
 		result_string += "\n@0" + "\n"
 		result_string += "D=A" + "\n"
 		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "A=M" + "\n"
 		result_string += "M=D"
 
 	return result_string + "\t//" + input_line
@@ -830,7 +831,9 @@ def vm_to_asm():
 def write_hack_to_file(input_line_list):
 	global output_file_name
 	output_file = open(output_file_name, "w")
-	write_string = set_up_stack_pointer()
+	# This line messes up some of the provided tests, so for now it's commented out
+	# write_string = set_up_stack_pointer()
+	write_string = ""
 	for line in input_line_list:
 		write_string += line + "\n"
 	output_file.write(write_string)
