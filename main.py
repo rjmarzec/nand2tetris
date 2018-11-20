@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
-output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
+input_file_name = file_name_constants.SELF_TESTING_IN
+output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -564,11 +564,10 @@ def write_function(input_line):
 	result_string = "(" + function_line_as_list[1] + ")"
 	for i in range(int(function_line_as_list[2])):
 		# Pushing 0 to the top of the stack here
-		result_string += "\n@0" + "\n"
-		result_string += "D=A" + "\n"
-		result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-		result_string += "A=M" + "\n"
-		result_string += "M=D"
+		result_string += "\n@" + pointer_type_to_ram_address("SP") + "\n"
+		result_string += "M=M+1" + "\n"
+		result_string += "A=M-1" + "\n"
+		result_string += "M=0"
 
 	return result_string + "\t//" + input_line
 

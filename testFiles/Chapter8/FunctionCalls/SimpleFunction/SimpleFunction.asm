@@ -1,12 +1,13 @@
-
 (SimpleFunction.test)
 @0
 D=A
 @R0
+A=M
 M=D
 @0
 D=A
 @R0
+A=M
 M=D	//function SimpleFunction.test 2
 @0
 D=A
