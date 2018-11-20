@@ -558,6 +558,8 @@ def write_function(input_line):
 	push 0
 	"""
 
+	# TODO: Welcome back! Was working on fixing this function in SelfTesting.vm/.asm
+
 	# This gives us "[function][f][k]" from the input line formatted as "function f k"
 	function_line_as_list = input_line.split(" ")
 

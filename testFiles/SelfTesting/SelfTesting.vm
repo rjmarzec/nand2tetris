@@ -1,2 +1,3 @@
 push constant 10
 function test 3
+return
