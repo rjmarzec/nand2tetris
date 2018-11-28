@@ -573,12 +573,12 @@ def write_function(input_line):
 
 	return result_string + "\t//" + input_line
 
-
 def write_return(input_line):
+	# TODO: turns out that this method is the problem child. Fix it without using the "moved_pop" method
 	# This function should generate the following .asm code:
 	"""
 	FRAME = LCL			{FRAME is a temp variable, will be @R13 for this}
-	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this}
+	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this} //Can't we move this down?
 	*ARG = pop()
 	SP = ARG+1
 	THAT = *(FRAME-1)
@@ -591,10 +591,6 @@ def write_return(input_line):
 	# FRAME = LCL
 	result_string = write_register_pop(pointer_type_to_ram_address("LCL"))
 	result_string += write_register_push("13")
-
-	# RET = *(FRAME-5)
-	result_string += write_register_moved_pop(14, 5, "DOWN")
-	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
 
 	# *ARG = pop()
 	result_string += write_register_pop(pointer_type_to_ram_address("SP"))
@@ -622,6 +618,10 @@ def write_return(input_line):
 	result_string += write_register_moved_pop(13, 4, "DOWN")
 	result_string += write_register_push(pointer_type_to_ram_address("LCL"))
 
+	# RET = *(FRAME-5)
+	result_string += write_register_moved_pop(14, 5, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
+
 	# goto RET
 	result_string += "@14" + "\n"
 	result_string += "A=M" + "\n"
@@ -629,6 +629,69 @@ def write_return(input_line):
 
 	# return "WRITE_RETURN FUNCTION INCOMPLETE"
 	return result_string + "\t//" + input_line
+
+
+'''
+# Old, broken version of write_return. Kept in case I need to look back
+
+def write_return(input_line):
+	# This function should generate the following .asm code:
+	"""
+	FRAME = LCL			{FRAME is a temp variable, will be @R13 for this}
+	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this} //Can't we move this down?
+	*ARG = pop()
+	SP = ARG+1
+	THAT = *(FRAME-1)
+	THIS = *(FRAME-2)
+	ARG = *(FRAME-3)
+	LCL = *(FRAME-4)
+	goto RET
+	"""
+
+	# FRAME = LCL
+	result_string = write_register_pop(pointer_type_to_ram_address("LCL"))
+	result_string += write_register_push("13")
+
+	# *ARG = pop()
+	result_string += write_register_pop(pointer_type_to_ram_address("SP"))
+	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
+
+	# SP = ARG + 1
+	result_string += write_register_pop(pointer_type_to_ram_address("ARG"))
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "A=M" + "\n"
+	result_string += "M=M+1" + "\n"
+
+	# THAT = *(FRAME - 1)
+	result_string +
+	
+	result_string += write_register_moved_pop(13, 1, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("THAT"))
+
+	# THIS = *(FRAME - 2)
+	result_string += write_register_moved_pop(13, 2, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("THIS"))
+
+	# ARG = *(FRAME - 3)
+	result_string += write_register_moved_pop(13, 3, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
+
+	# LCL = *(FRAME - 4)
+	result_string += write_register_moved_pop(13, 4, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("LCL"))
+
+	# RET = *(FRAME-5)
+	result_string += write_register_moved_pop(14, 5, "DOWN")
+	result_string += write_register_push(pointer_type_to_ram_address("ARG"))
+
+	# goto RET
+	result_string += "@14" + "\n"
+	result_string += "A=M" + "\n"
+	result_string += "0;JMP" + "\n"
+
+	# return "WRITE_RETURN FUNCTION INCOMPLETE"
+	return result_string + "\t//" + input_line
+'''
 
 
 def write_register_pop(register_address):
@@ -646,21 +709,24 @@ def write_register_pop(register_address):
 
 
 def write_register_moved_pop(register_address, shift_value, shift_up_or_down):
-	# Go to the provided register, take it's value, adjust it, and plop it at the top of the stack
+	# Go to the provided register, take it's value, and plop it at the top of the stack +/- the shift value
+
 	result_string = "@" + str(register_address) + "\n"
 
 	result_string += "D=M" + "\n"
 
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "A=M" + "\n"
+
 	if "UP" in shift_up_or_down:
 		for i in range(shift_value):
-			result_string += "D=D+1" + "\n"
-	elif "DOWN" in shift_up_or_down:
-		for i in range(shift_value):
-			result_string += "D=D-1" + "\n"
+			result_string += "A=A+1" + "\n"
 
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M+1" + "\n"
-	result_string += "A=M-1" + "\n"
+	# elif "DOWN" in shift_up_or_down:
+	else:
+		for i in range(shift_value):
+			result_string += "A=A-1" + "\n"
+
 	result_string += "M=D" + "\n"
 
 	return result_string
@@ -674,29 +740,6 @@ def write_register_push(register_address):
 
 	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
-
-	# Take the stored value and store it to the passed in address
-	result_string += "@" + str(register_address) + "\n"
-	result_string += "M=D"
-
-	return result_string + "\n"
-
-
-def write_moved_register_push(register_address, shift_value, shift_up_or_down):
-	# Go to the top of the stack, bump the pointer down, store the value there, edit it, and store to the input register
-	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
-
-	result_string += "M=M-1" + "\n"
-
-	result_string += "A=M" + "\n"
-	result_string += "D=M" + "\n"
-
-	if "UP" in shift_up_or_down:
-		for i in range(shift_value):
-			result_string += "D=D+1" + "\n"
-	elif "DOWN" in shift_up_or_down:
-		for i in range(shift_value):
-			result_string += "D=D-1" + "\n"
 
 	# Take the stored value and store it to the passed in address
 	result_string += "@" + str(register_address) + "\n"
@@ -736,6 +779,33 @@ def write_push_return_address(return_address_label_name):
 	result_string += "A=M-1" + "\n"
 	result_string += "M=D"
 	return result_string + "\n"
+
+
+'''
+# This method probably doesn't need to exist. Skipped ahead too much when making it but I'll leave it here for now.
+
+def write_moved_register_push(register_address, shift_value, shift_up_or_down):
+	# Go to the top of the stack, bump the pointer down, store the value there, edit it, and store to the input register
+	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
+
+	result_string += "M=M-1" + "\n"
+
+	result_string += "A=M" + "\n"
+	result_string += "D=M" + "\n"
+
+	if "UP" in shift_up_or_down:
+		for i in range(shift_value):
+			result_string += "D=D+1" + "\n"
+	elif "DOWN" in shift_up_or_down:
+		for i in range(shift_value):
+			result_string += "D=D-1" + "\n"
+
+	# Take the stored value and store it to the passed in address
+	result_string += "@" + str(register_address) + "\n"
+	result_string += "M=D"
+
+	return result_string + "\n"
+'''
 
 
 #########################################
@@ -808,7 +878,8 @@ def pointer_type_to_ram_address(segment_pointer_type):
 
 
 def set_up_stack_pointer():
-	result_string = "@256" + "\n"
+	# result_string = "@256" + "\n"
+	result_string = "@16" + "\n"
 	result_string += "D=A" + "\n"
 	result_string += "@0" + "\n"
 	result_string += "M=D" + "\n"
@@ -833,8 +904,8 @@ def write_hack_to_file(input_line_list):
 	global output_file_name
 	output_file = open(output_file_name, "w")
 	# This line messes up some of the provided tests, so for now it's commented out
-	# write_string = set_up_stack_pointer()
-	write_string = ""
+	write_string = set_up_stack_pointer()
+	# write_string = ""
 	for line in input_line_list:
 		write_string += line + "\n"
 	output_file.write(write_string)
