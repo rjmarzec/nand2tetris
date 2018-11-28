@@ -578,7 +578,7 @@ def write_return(input_line):
 	# This function should generate the following .asm code:
 	"""
 	FRAME = LCL			{FRAME is a temp variable, will be @R13 for this}
-	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this} //Can't we move this down?
+	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this}   //Can't we move this down in this list?
 	*ARG = pop()
 	SP = ARG+1
 	THAT = *(FRAME-1)
@@ -589,6 +589,16 @@ def write_return(input_line):
 	"""
 
 	# FRAME = LCL
+	result_string = "@" + pointer_type_to_ram_address("LCL") + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@13" + "\n"
+	result_string += "M=D" + "\n"
+
+	# TODO: #############################################################################################
+	# TODO: EVERYTHING BELOW THIS NEEDS TO BE FIXED ####################################################
+	# TODO: #############################################################################################
+
 	result_string = write_register_pop(pointer_type_to_ram_address("LCL"))
 	result_string += write_register_push("13")
 
