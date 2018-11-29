@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
-output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
+input_file_name = file_name_constants.SELF_TESTING_IN
+output_file_name = file_name_constants.SELF_TESTING_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -609,6 +609,9 @@ def write_return(input_line):
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "D=M+1" + "\n"
 
+	result_string += "@310" + "\n"
+	result_string += "D=A" + "\n"
+
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=D" + "\n"
 
@@ -639,6 +642,7 @@ def write_return(input_line):
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
 
+	# TODO: This is causing the problem I think?
 	# LCL = *(FRAME - 4)
 	result_string += "@13" + "\n"
 	result_string += "M=M-1" + "\n"
