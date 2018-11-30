@@ -5,8 +5,8 @@ import file_name_constants
 #########################################
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SELF_TESTING_IN
-output_file_name = file_name_constants.SELF_TESTING_OUT
+input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
+output_file_name = file_name_constants.S
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -371,6 +371,21 @@ def write_push_pop(input_line, command_type):
 
 			# Store the push value at the top of the stack
 			result_string += "M=D"
+		elif segment_pointer_type == "ARG":
+			# TODO: Finish this piece of code. It might be the thing messing everything up (maybe)
+			# TODO: It's possible that it works now?
+			# Take the value from (M(ARG) + push_pop_value) and store it to the stop of the stack
+			result_string += "@" + push_pop_value + "\n"
+			result_string += "D=A"
+
+			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
+			result_string += "A=D+M" + "\n"
+			result_string += "D=M" + "\n"
+
+			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+			result_string += "M=M+1"
+			result_string += "A=M-1"
+			result_string += "M=D"
 		else:
 			# For push this/that x:
 			# Take the value from M(3/4 + x) and put it at the top of the SP stack
@@ -605,12 +620,9 @@ def write_return(input_line):
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
 
-	# SP = ARG + 1 		//ARG + 1 means [M(ARG) + 1]
+	# SP = ARG + 1 		// ARG + 1 means [M(ARG) + 1]?
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "D=M+1" + "\n"
-
-	result_string += "@310" + "\n"
-	result_string += "D=A" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=D" + "\n"
