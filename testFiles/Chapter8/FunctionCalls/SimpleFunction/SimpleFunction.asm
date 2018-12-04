@@ -48,17 +48,12 @@ M=!D	//not
 @0
 D=A
 @R2
-M=D+M
-A=M
+A=D+M
 D=M
 @R0
 M=M+1
 A=M-1
-M=D
-@0
-D=-A
-@R2
-M=D+M		//push argument 0
+M=D		//push argument 0
 @R0
 M=M-1
 A=M
@@ -68,17 +63,12 @@ M=D+M	//add
 @1
 D=A
 @R2
-M=D+M
-A=M
+A=D+M
 D=M
 @R0
 M=M+1
 A=M-1
-M=D
-@1
-D=-A
-@R2
-M=D+M		//push argument 1
+M=D		//push argument 1
 @R0
 M=M-1
 A=M-1
@@ -99,8 +89,6 @@ D=M
 M=D
 @R2
 D=M+1
-@310
-D=A
 @R0
 M=D
 @13

@@ -6,7 +6,7 @@ import file_name_constants
 
 # These variables need to be changed to run different test. Refer to the constants file for the names
 input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
-output_file_name = file_name_constants.S
+output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -372,19 +372,17 @@ def write_push_pop(input_line, command_type):
 			# Store the push value at the top of the stack
 			result_string += "M=D"
 		elif segment_pointer_type == "ARG":
-			# TODO: Finish this piece of code. It might be the thing messing everything up (maybe)
-			# TODO: It's possible that it works now?
-			# Take the value from (M(ARG) + push_pop_value) and store it to the stop of the stack
+			# Take the value from M(A(ARG) + push_pop_value) and store it to the stop of the stack
 			result_string += "@" + push_pop_value + "\n"
-			result_string += "D=A"
+			result_string += "D=A" + "\n"
 
 			result_string += "@" + pointer_type_to_ram_address(segment_pointer_type) + "\n"
 			result_string += "A=D+M" + "\n"
 			result_string += "D=M" + "\n"
 
 			result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-			result_string += "M=M+1"
-			result_string += "A=M-1"
+			result_string += "M=M+1" + "\n"
+			result_string += "A=M-1" + "\n"
 			result_string += "M=D"
 		else:
 			# For push this/that x:
@@ -588,7 +586,6 @@ def write_function(input_line):
 
 
 def write_return(input_line):
-	# TODO: turns out that this method is the problem child. Fix it without using the "moved_pop" method
 	# This function should generate the following .asm code:
 	"""
 	FRAME = LCL			{FRAME is a temp variable, will be @R13 for this}
@@ -611,7 +608,9 @@ def write_return(input_line):
 	result_string += "@13" + "\n"
 	result_string += "M=D" + "\n"
 
+	# TODO: Is this what I'm messing up? i.e. should be popping the value at arg's stack, not arg itself
 	# *ARG = pop()
+	# Is effectively "pop argument 0"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M-1" + "\n"
 	result_string += "A=M" + "\n"

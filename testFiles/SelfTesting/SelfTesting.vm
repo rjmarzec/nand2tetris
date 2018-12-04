@@ -1,10 +1,12 @@
-function SelfTesting.test 2
-push local 0
-push local 1
-add
-not
-push argument 0
-add
-push argument 1
-sub
+push constant 1
+push constant 1
+push constant 1
+push constant 1
+push constant 1
+
+pop local 0
+pop argument 0
+pop this 0
+pop that 0
+
 //return
