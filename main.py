@@ -4,6 +4,8 @@ import file_name_constants
 # Global Variables ######################
 #########################################
 
+# TODO: http://nand2tetris-questions-and-answers-forum.32033.n3.nabble.com/Global-Stack-Clarification-td4026677.html
+# TODO: ^^^ look into this because it might help to figure out the problem
 # These variables need to be changed to run different test. Refer to the constants file for the names
 input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
 output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
@@ -608,7 +610,20 @@ def write_return(input_line):
 	result_string += "@13" + "\n"
 	result_string += "M=D" + "\n"
 
-	# TODO: Is this what I'm messing up? i.e. should be popping the value at arg's stack, not arg itself
+	# RET = *(FRAME-5)
+	result_string += "@13" + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@5" + "\n"
+	result_string += "D=D-A" + "\n"
+
+	result_string += "A=D" + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@14" + "\n"
+	result_string += "M=D" + "\n"
+
+	# TODO: Should be setting R2 to the value at the top of the global stack
 	# *ARG = pop()
 	# Is effectively "pop argument 0"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
@@ -619,7 +634,7 @@ def write_return(input_line):
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
 
-	# SP = ARG + 1 		// ARG + 1 means [M(ARG) + 1]?
+	# SP = ARG + 1 		// ARG + 1 means [M(R2) + 1]?
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "D=M+1" + "\n"
 
@@ -627,49 +642,68 @@ def write_return(input_line):
 	result_string += "M=D" + "\n"
 
 	# THAT = *(FRAME - 1)
+
 	result_string += "@13" + "\n"
-	result_string += "M=M-1" + "\n"
-	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
+
+	result_string += "@1" + "\n"
+	result_string += "D=D-A" + "\n"
+
+	result_string += "A=D" + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@14" + "\n"
+	result_string += "M=D" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("THAT") + "\n"
 	result_string += "M=D" + "\n"
 
 	# THIS = *(FRAME - 2)
 	result_string += "@13" + "\n"
-	result_string += "M=M-1" + "\n"
-	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
+
+	result_string += "@2" + "\n"
+	result_string += "D=D-A" + "\n"
+
+	result_string += "A=D" + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@14" + "\n"
+	result_string += "M=D" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("THIS") + "\n"
 	result_string += "M=D" + "\n"
 
 	# ARG = *(FRAME - 3)
 	result_string += "@13" + "\n"
-	result_string += "M=M-1" + "\n"
-	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
+
+	result_string += "@3" + "\n"
+	result_string += "D=D-A" + "\n"
+
+	result_string += "A=D" + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@14" + "\n"
+	result_string += "M=D" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
 
-	# TODO: This is causing the problem I think?
 	# LCL = *(FRAME - 4)
 	result_string += "@13" + "\n"
-	result_string += "M=M-1" + "\n"
-	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
 
-	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
-	result_string += "M=D" + "\n"
+	result_string += "@4" + "\n"
+	result_string += "D=D-A" + "\n"
 
-	# RET = *(FRAME-5)
-	result_string += "@13" + "\n"
-	result_string += "M=M-1" + "\n"
-	result_string += "A=M" + "\n"
+	result_string += "A=D" + "\n"
 	result_string += "D=M" + "\n"
 
 	result_string += "@14" + "\n"
+	result_string += "M=D" + "\n"
+
+	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
 	result_string += "M=D" + "\n"
 
 	# goto RET

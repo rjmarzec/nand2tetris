@@ -1,12 +1,11 @@
-push constant 1
+push constant 1000
 push constant 1
 push constant 1
 push constant 1
 push constant 1
 
-pop local 0
-pop argument 0
-pop this 0
-pop that 0
-
-//return
+return
+//pop local 0
+//pop argument 0
+//pop this 0
+//pop that 0
