@@ -594,7 +594,7 @@ def write_return(input_line):
 	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this}
 	*ARG = pop()
 	SP = ARG+1
-	THAT = *(FRAME-1)
+	THAT = *(FRAME-1)	{*(...) means the pointer to that value}
 	THIS = *(FRAME-2)
 	ARG = *(FRAME-3)
 	LCL = *(FRAME-4)
@@ -632,7 +632,20 @@ def write_return(input_line):
 	result_string += "A=M-1" + "\n"
 	result_string += "M=D" + "\n"
 
-	# SP = ARG + 1 		// ARG + 1 means [M(R2) + 1]?
+	# SP = ARG + 1
+	# Is really ARG = M(SP) - 1?
+	# TODO: This might be the problem? I honestly don't know what it needs to be.
+	# TODO: Note: the problem is still R(310) not changing.
+	"""
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "A=M" + "\n"
+	result_string += "A=A-1" + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "M=D" + "\n"
+	"""
+
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "D=M+1" + "\n"
 
