@@ -591,7 +591,7 @@ def write_return(input_line):
 	# This function should generate the following .asm code:
 	"""
 	FRAME = LCL			{FRAME is a temp variable, will be @R13 for this}
-	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this}   //Can't we move this down in this list?
+	RET = *(FRAME-5) 	{RET = return address, will be @R14 for this}
 	*ARG = pop()
 	SP = ARG+1
 	THAT = *(FRAME-1)
@@ -600,8 +600,6 @@ def write_return(input_line):
 	LCL = *(FRAME-4)
 	goto RET
 	"""
-
-	# result_string += "" + "\n"
 
 	# FRAME = LCL
 	result_string = "@" + pointer_type_to_ram_address("LCL") + "\n"
@@ -623,15 +621,15 @@ def write_return(input_line):
 	result_string += "@14" + "\n"
 	result_string += "M=D" + "\n"
 
-	# TODO: Should be setting R2 to the value at the top of the global stack
 	# *ARG = pop()
 	# Is effectively "pop argument 0"
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M-1" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
 
-	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
 	result_string += "M=D" + "\n"
 
 	# SP = ARG + 1 		// ARG + 1 means [M(R2) + 1]?
@@ -642,7 +640,6 @@ def write_return(input_line):
 	result_string += "M=D" + "\n"
 
 	# THAT = *(FRAME - 1)
-
 	result_string += "@13" + "\n"
 	result_string += "D=M" + "\n"
 
