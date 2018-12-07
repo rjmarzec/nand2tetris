@@ -601,8 +601,19 @@ def write_return(input_line):
 	goto RET
 	"""
 
+	result_string = ""
+
+	# A Hardcoded solution
+	"""
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "D=M" + "\n"
+	result_string += "@310" + "\n"
+	result_string += "M=D" + "\n"
+	"""
+
 	# FRAME = LCL
-	result_string = "@" + pointer_type_to_ram_address("LCL") + "\n"
+	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
 	result_string += "D=M" + "\n"
 
 	result_string += "@13" + "\n"
@@ -622,7 +633,18 @@ def write_return(input_line):
 	result_string += "M=D" + "\n"
 
 	# *ARG = pop()
-	# Is effectively "pop argument 0"
+	# TODO: This looks like its the problem.
+	# TODO: I think this works by changing the ARG pointer to the pointer for the local stack?
+	# = pop() gives us the return value of the called function, make ARG a pointer
+	#                                           to the memory address that holds this value
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "D=M" + "\n"
+
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "M=D" + "\n"
+
+	# Code that was working fine but may not be correct?
+	"""
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
@@ -631,21 +653,9 @@ def write_return(input_line):
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
 	result_string += "M=D" + "\n"
+	"""
 
 	# SP = ARG + 1
-	# Is really ARG = M(SP) - 1?
-	# TODO: This might be the problem? I honestly don't know what it needs to be.
-	# TODO: Note: the problem is still R(310) not changing.
-	"""
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "A=M" + "\n"
-	result_string += "A=A-1" + "\n"
-	result_string += "D=M" + "\n"
-
-	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
-	result_string += "M=D" + "\n"
-	"""
-
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "D=M+1" + "\n"
 
@@ -669,6 +679,7 @@ def write_return(input_line):
 	result_string += "M=D" + "\n"
 
 	# THIS = *(FRAME - 2)
+	# this makes THAT a pointer to the same address as before the function call
 	result_string += "@13" + "\n"
 	result_string += "D=M" + "\n"
 
