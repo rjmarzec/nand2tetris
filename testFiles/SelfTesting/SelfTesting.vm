@@ -1,11 +1,10 @@
-push constant 1000
-push constant 1
-push constant 1
-push constant 1
-push constant 1
-
-return
-//pop local 0
-//pop argument 0
-//pop this 0
-//pop that 0
+function SimpleFunction.test 2
+push local 0
+push local 1
+add
+not
+push argument 0
+add
+push argument 1
+sub
+//return

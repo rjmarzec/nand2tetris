@@ -633,27 +633,18 @@ def write_return(input_line):
 	result_string += "M=D" + "\n"
 
 	# *ARG = pop()
-	# TODO: This looks like its the problem.
+	# TODO: This looks like this or the one below is the problem.
 	# TODO: I think this works by changing the ARG pointer to the pointer for the local stack?
 	# = pop() gives us the return value of the called function, make ARG a pointer
 	#                                           to the memory address that holds this value
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "D=M" + "\n"
-
-	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
-	result_string += "M=D" + "\n"
-
-	# Code that was working fine but may not be correct?
-	"""
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "A=M" + "\n"
 	result_string += "D=M" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M+1" + "\n"
-	result_string += "A=M-1" + "\n"
+	result_string += "M=M-1" + "\n"
+	result_string += "A=M+1" + "\n"
 	result_string += "M=D" + "\n"
-	"""
 
 	# SP = ARG + 1
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
@@ -672,9 +663,6 @@ def write_return(input_line):
 	result_string += "A=D" + "\n"
 	result_string += "D=M" + "\n"
 
-	result_string += "@14" + "\n"
-	result_string += "M=D" + "\n"
-
 	result_string += "@" + pointer_type_to_ram_address("THAT") + "\n"
 	result_string += "M=D" + "\n"
 
@@ -689,9 +677,6 @@ def write_return(input_line):
 	result_string += "A=D" + "\n"
 	result_string += "D=M" + "\n"
 
-	result_string += "@14" + "\n"
-	result_string += "M=D" + "\n"
-
 	result_string += "@" + pointer_type_to_ram_address("THIS") + "\n"
 	result_string += "M=D" + "\n"
 
@@ -705,9 +690,6 @@ def write_return(input_line):
 	result_string += "A=D" + "\n"
 	result_string += "D=M" + "\n"
 
-	result_string += "@14" + "\n"
-	result_string += "M=D" + "\n"
-
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
 
@@ -720,9 +702,6 @@ def write_return(input_line):
 
 	result_string += "A=D" + "\n"
 	result_string += "D=M" + "\n"
-
-	result_string += "@14" + "\n"
-	result_string += "M=D" + "\n"
 
 	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
 	result_string += "M=D" + "\n"

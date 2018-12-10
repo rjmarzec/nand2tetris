@@ -93,8 +93,8 @@ M=D
 A=M
 D=M
 @R0
-M=M+1
-A=M-1
+M=M-1
+A=M+1
 M=D
 @R2
 D=M+1
@@ -106,8 +106,6 @@ D=M
 D=D-A
 A=D
 D=M
-@14
-M=D
 @R4
 M=D
 @13
@@ -116,8 +114,6 @@ D=M
 D=D-A
 A=D
 D=M
-@14
-M=D
 @R3
 M=D
 @13
@@ -126,8 +122,6 @@ D=M
 D=D-A
 A=D
 D=M
-@14
-M=D
 @R2
 M=D
 @13
@@ -136,8 +130,6 @@ D=M
 D=D-A
 A=D
 D=M
-@14
-M=D
 @R1
 M=D
 @14
