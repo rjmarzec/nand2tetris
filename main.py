@@ -4,11 +4,9 @@ import file_name_constants
 # Global Variables ######################
 #########################################
 
-# TODO: http://nand2tetris-questions-and-answers-forum.32033.n3.nabble.com/Global-Stack-Clarification-td4026677.html
-# TODO: ^^^ look into this because it might help to figure out the problem
 # These variables need to be changed to run different test. Refer to the constants file for the names
-input_file_name = file_name_constants.SIMPLE_FUNCTION_IN
-output_file_name = file_name_constants.SIMPLE_FUNCTION_OUT
+input_file_name = file_name_constants.NESTED_CALL_IN
+output_file_name = file_name_constants.NESTED_CALL_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -543,25 +541,42 @@ def write_call(input_line):
 	(return-address) [as a label]
 	"""
 
+	# Getting the return address counter to make sure it never gets repeated
 	global return_address_counter
+	return_address_label_name = "RETURNADDRESS" + str(return_address_counter)
 
 	# This gives us "[call][f][n]" from the input line formatted as "call f n"
 	call_line_as_list = input_line.split(" ")
 
-	return_address_label_name = "RETURNADDRESS" + str(return_address_counter)
-
+	# push return-address
 	result_string = write_push_return_address(return_address_label_name)
+
+	# push LCL
 	result_string += write_register_push("LCL")
+
+	# push ARG
 	result_string += write_register_push("ARG")
+
+	# push THIS
 	result_string += write_register_push("THIS")
+
+	# push THAT
 	result_string += write_register_push("THAT")
+
+	# ARG = SP-n-5
 	result_string += write_sp_n_5_to_arg(call_line_as_list[2])
+
+	# LCL = SP
 	result_string += write_sp_to_lcl()
-	result_string += write_goto(call_line_as_list[1]) + "\n"
+
+	# goto f
+	result_string += "@" + call_line_as_list[1] + "\n"
+	result_string += "D;JMP" + "\n"
+
+	# (return-address) [as a label]
 	result_string += "(" + return_address_label_name + ")"
 	return_address_counter += 1
 
-	# return result_string + "\t//" + input_line
 	return result_string + "\t//" + input_line
 
 
@@ -601,19 +616,8 @@ def write_return(input_line):
 	goto RET
 	"""
 
-	result_string = ""
-
-	# A Hardcoded solution
-	"""
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "A=M-1" + "\n"
-	result_string += "D=M" + "\n"
-	result_string += "@310" + "\n"
-	result_string += "M=D" + "\n"
-	"""
-
 	# FRAME = LCL
-	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
+	result_string = "@" + pointer_type_to_ram_address("LCL") + "\n"
 	result_string += "D=M" + "\n"
 
 	result_string += "@13" + "\n"
@@ -663,7 +667,6 @@ def write_return(input_line):
 	result_string += "M=D" + "\n"
 
 	# THIS = *(FRAME - 2)
-	# this makes THAT a pointer to the same address as before the function call
 	result_string += "@13" + "\n"
 	result_string += "D=M" + "\n"
 
@@ -730,7 +733,7 @@ def write_register_push(register_address):
 
 	result_string += "M=M-1" + "\n"
 
-	result_string += "A=M" + "\n"
+	result_string += "A=M+1" + "\n"
 	result_string += "D=M" + "\n"
 
 	# Take the stored value and store it to the passed in address
@@ -757,10 +760,10 @@ def write_sp_n_5_to_arg(n_value):
 
 def write_sp_to_lcl():
 	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
-	return result_string + "\n"
+	return result_string
 
 
 def write_push_return_address(return_address_label_name):

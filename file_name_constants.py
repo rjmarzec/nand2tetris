@@ -50,6 +50,10 @@ STATIC_TEST_OUT = "TestFiles/Chapter7/MemoryAccess/StaticTest/StaticTest.asm"
 FIBONACCI_ELEMENT_IN = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.vm"
 FIBONACCI_ELEMENT_OUT = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.asm"
 
+# NestedCall
+NESTED_CALL_IN = "TestFiles/Chapter8/FunctionCalls/NestedCall/Sys.vm"
+NESTED_CALL_OUT = "TestFiles/Chapter8/FunctionCalls/NestedCall/NestedCall.asm"
+
 # SimpleFunction
 SIMPLE_FUNCTION_IN = "TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.vm"
 SIMPLE_FUNCTION_OUT = "TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.asm"
