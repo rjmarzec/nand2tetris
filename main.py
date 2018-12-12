@@ -548,26 +548,58 @@ def write_call(input_line):
 	# This gives us "[call][f][n]" from the input line formatted as "call f n"
 	call_line_as_list = input_line.split(" ")
 
-	# push return-address
-	result_string = write_push_return_address(return_address_label_name)
+	# Setting up the result_string to return
+	result_string = ""
+
+	# push return-address [uses the label declared below]
+	result_string += "@RETURNADDRESS" + str(return_address_counter) + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D" + "\n"
 
 	# push LCL
-	result_string += write_register_push("LCL")
+	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D" + "\n"
 
 	# push ARG
-	result_string += write_register_push("ARG")
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D" + "\n"
 
 	# push THIS
-	result_string += write_register_push("THIS")
+	result_string += "@" + pointer_type_to_ram_address("THIS") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D" + "\n"
 
 	# push THAT
-	result_string += write_register_push("THAT")
+	result_string += "@" + pointer_type_to_ram_address("THAT") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "M=M+1" + "\n"
+	result_string += "A=M-1" + "\n"
+	result_string += "M=D" + "\n"
 
 	# ARG = SP-n-5
-	result_string += write_sp_n_5_to_arg(call_line_as_list[2])
-
-	# LCL = SP
-	result_string += write_sp_to_lcl()
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "D=A" + "\n"
+	result_string += "@" + str(call_line_as_list[2]) + "\n"
+	result_string += "D=D-A" + "\n"
+	result_string += "@5" + "\n"
+	result_string += "D=D-A" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
+	result_string += "M=D" + "\n"
 
 	# goto f
 	result_string += "@" + call_line_as_list[1] + "\n"
@@ -711,69 +743,6 @@ def write_return(input_line):
 	result_string += "0;JMP"
 
 	return result_string + "\t\t//" + input_line
-
-
-def write_register_pop(register_address):
-	# Go to the provided register, take it's value, and plop it at the top of the stack
-	result_string = "@" + str(register_address) + "\n"
-
-	result_string += "D=M" + "\n"
-
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M+1" + "\n"
-	result_string += "A=M-1" + "\n"
-	result_string += "M=D" + "\n"
-
-	return result_string
-
-
-def write_register_push(register_address):
-	# Go to the top of the stack, bump the pointer down, store the value there, and store it to the passed in register
-	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
-
-	result_string += "M=M-1" + "\n"
-
-	result_string += "A=M+1" + "\n"
-	result_string += "D=M" + "\n"
-
-	# Take the stored value and store it to the passed in address
-	result_string += "@" + str(register_address) + "\n"
-	result_string += "M=D"
-
-	return result_string + "\n"
-
-
-def write_sp_n_5_to_arg(n_value):
-	# This does ARG = SP-n-5
-
-	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "D=A" + "\n"
-	result_string += "@" + str(n_value) + "\n"
-	result_string += "D=D-A" + "\n"
-	result_string += "@5" + "\n"
-	result_string += "D=D-A" + "\n"
-
-	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
-	result_string += "M=D"
-	return result_string + "\n"
-
-
-def write_sp_to_lcl():
-	result_string = "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "D=M" + "\n"
-	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
-	result_string += "M=D" + "\n"
-	return result_string
-
-
-def write_push_return_address(return_address_label_name):
-	result_string = "@" + return_address_label_name + "\n"
-	result_string += "D=A" + "\n"
-	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "M=M+1" + "\n"
-	result_string += "A=M-1" + "\n"
-	result_string += "M=D"
-	return result_string + "\n"
 
 
 #########################################
