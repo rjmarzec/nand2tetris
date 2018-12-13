@@ -522,7 +522,7 @@ def write_goto(input_line):
 	label_name = input_line[input_line.find("goto") + len("goto"):].strip()
 
 	result_string = "@" + label_name + "\n"
-	result_string += "D;JMP"
+	result_string += "0;JMP"
 
 	return result_string + "\t//" + input_line
 
@@ -541,19 +541,19 @@ def write_call(input_line):
 	(return-address) [as a label]
 	"""
 
+	# This gives us "[call][f][n]" from the input line formatted as "call f n"
+	call_line_as_list = input_line.split(" ")
+
 	# Getting the return address counter to make sure it never gets repeated
 	global return_address_counter
 	return_address_label_name = "RETURNADDRESS" + str(return_address_counter)
-
-	# This gives us "[call][f][n]" from the input line formatted as "call f n"
-	call_line_as_list = input_line.split(" ")
 
 	# Setting up the result_string to return
 	result_string = ""
 
 	# push return-address [uses the label declared below]
 	result_string += "@RETURNADDRESS" + str(return_address_counter) + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
@@ -561,7 +561,7 @@ def write_call(input_line):
 
 	# push LCL
 	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
@@ -569,7 +569,7 @@ def write_call(input_line):
 
 	# push ARG
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
@@ -577,7 +577,7 @@ def write_call(input_line):
 
 	# push THIS
 	result_string += "@" + pointer_type_to_ram_address("THIS") + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
@@ -585,7 +585,7 @@ def write_call(input_line):
 
 	# push THAT
 	result_string += "@" + pointer_type_to_ram_address("THAT") + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
@@ -593,7 +593,7 @@ def write_call(input_line):
 
 	# ARG = SP-n-5
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
-	result_string += "D=A" + "\n"
+	result_string += "D=M" + "\n"
 	result_string += "@" + str(call_line_as_list[2]) + "\n"
 	result_string += "D=D-A" + "\n"
 	result_string += "@5" + "\n"
@@ -601,9 +601,15 @@ def write_call(input_line):
 	result_string += "@" + pointer_type_to_ram_address("ARG") + "\n"
 	result_string += "M=D" + "\n"
 
+	# LCL = SP
+	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
+	result_string += "D=M" + "\n"
+	result_string += "@" + pointer_type_to_ram_address("LCL") + "\n"
+	result_string += "M=D" + "\n"
+
 	# goto f
 	result_string += "@" + call_line_as_list[1] + "\n"
-	result_string += "D;JMP" + "\n"
+	result_string += "0;JMP" + "\n"
 
 	# (return-address) [as a label]
 	result_string += "(" + return_address_label_name + ")"
