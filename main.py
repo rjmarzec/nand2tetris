@@ -553,7 +553,7 @@ def write_call(input_line):
 
 	# push return-address [uses the label declared below]
 	result_string += "@RETURNADDRESS" + str(return_address_counter) + "\n"
-	result_string += "D=M" + "\n"
+	result_string += "D=A" + "\n"
 	result_string += "@" + pointer_type_to_ram_address("SP") + "\n"
 	result_string += "M=M+1" + "\n"
 	result_string += "A=M-1" + "\n"
