@@ -1,11 +1,9 @@
 # A file containing constants of the project file names so that it is easier to switch between them when testing
 
 #########################################
-# Self Testing Files ###################
+# Self Testing Files ####################
 #########################################
 
-# TODO: Some of the .vm names for chapter 8 files are not correct. fix them.
-# TODO: The .asm also needs to be created.
 # Self Testing Files ####################
 SELF_TESTING_IN = "TestFiles/SelfTesting/SelfTesting.vm"
 SELF_TESTING_OUT = "TestFiles/SelfTesting/SelfTesting.asm"
@@ -44,10 +42,10 @@ STATIC_TEST_OUT = "TestFiles/Chapter7/MemoryAccess/StaticTest/StaticTest.asm"
 
 # Function Calls ########################
 
-# TODO: The Function Call files consist of multiple .vm files, so account for that
 # FibonacciElement
-FIBONACCI_ELEMENT_IN = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.vm"
+FIBONACCI_ELEMENT_IN = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElementCompiled.vm"
 FIBONACCI_ELEMENT_OUT = "TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.asm"
+FIBONACCI_ELEMENT_FILES = ["TestFiles/Chapter8/FunctionCalls/FibonacciElement/", "Sys.vm", "Main.vm"]
 
 # NestedCall
 NESTED_CALL_IN = "TestFiles/Chapter8/FunctionCalls/NestedCall/Sys.vm"
@@ -58,8 +56,9 @@ SIMPLE_FUNCTION_IN = "TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunc
 SIMPLE_FUNCTION_OUT = "TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.asm"
 
 # StaticsTest
-STATICS_TEST_IN = "TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTest.vm"
+STATICS_TEST_IN = "TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTestCompiled.vm"
 STATICS_TEST_OUT = "TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTest.asm"
+STATICS_TEST_FILES = ["TestFiles/Chapter8/FunctionCalls/StaticsTest/", "Sys.vm", "Class1.vm", "Class2.vm"]
 
 # Program Flow ##########################
 
