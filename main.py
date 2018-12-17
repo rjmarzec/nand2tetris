@@ -6,8 +6,8 @@ import file_name_constants
 
 # These variables need to be changed to run different test. Refer to the constants file for the names.
 
-input_file_name = file_name_constants.NESTED_CALL_IN
-output_file_name = file_name_constants.NESTED_CALL_OUT
+input_file_name = file_name_constants.FIBONACCI_ELEMENT_IN
+output_file_name = file_name_constants.FIBONACCI_ELEMENT_OUT
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -28,13 +28,13 @@ def get_file_lines_as_list(input_file):
 	if "Compiled" in input_file:
 		input_file_list = []
 
-		if "FibonacciElement" in input_file:
+		"""if "FibonacciElement" in input_file:
 			input_file_list = file_name_constants.FIBONACCI_ELEMENT_FILES
 		if "StaticsTest" in input_file_list:
 			input_file_list = file_name_constants.STATICS_TEST_FILES
 
 		for i in range [1, input_file_list.len()]:
-			# TODO: finish translating a bunch of files into one here
+			# TODO: finish translating a bunch of files into one here"""
 
 	return input_file.readlines()
 
