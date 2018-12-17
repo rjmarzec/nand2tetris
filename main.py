@@ -25,16 +25,31 @@ arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", 
 
 
 def get_file_lines_as_list(input_file):
-	if "Compiled" in input_file:
+	if "Compiled" in input_file_name:
 		input_file_list = []
 
-		"""if "FibonacciElement" in input_file:
+		if "FibonacciElement" in input_file_name:
 			input_file_list = file_name_constants.FIBONACCI_ELEMENT_FILES
-		if "StaticsTest" in input_file_list:
+		if "StaticsTest" in input_file_name:
 			input_file_list = file_name_constants.STATICS_TEST_FILES
 
-		for i in range [1, input_file_list.len()]:
-			# TODO: finish translating a bunch of files into one here"""
+		temp_input_file = open(input_file_name, "w")
+
+		number_of_vm_files = len(input_file_list)
+		for i in range (1, number_of_vm_files):
+			vm_file_directory = input_file_list[0] + input_file_list[i]
+			vm_file = open(vm_file_directory, "r")
+			vm_file_line_list = vm_file.readlines()
+
+			vm_file_text = ""
+			for line in vm_file_line_list:
+				vm_file_text += line
+
+			vm_file_text += "\n\n"
+			temp_input_file.write(vm_file_text)
+
+		temp_input_file.close()
+		vm_file.close()
 
 	return input_file.readlines()
 
@@ -188,7 +203,7 @@ def write_arithmetic(input_line):
 
 		# Store x, move to y, and store (x - y) to D
 		result_string += "D=M" + "\n"
-		result_string += "A=A+a1" + "\n"
+		result_string += "A=A+1" + "\n"
 		result_string += "D=D-M" + "\n"
 
 		# Continue with whatever function we want to do:
