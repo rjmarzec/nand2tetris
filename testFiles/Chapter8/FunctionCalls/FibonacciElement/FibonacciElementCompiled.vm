@@ -1,3 +1,7 @@
+call Sys.init 0
+label LOOP
+goto LOOP
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -13,6 +17,7 @@ push constant 4
 call Main.fibonacci 1   // computes the 4'th fibonacci element
 label WHILE
 goto WHILE              // loops infinitely
+
 
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
@@ -44,3 +49,5 @@ sub
 call Main.fibonacci 1  // computes fib(n-1)
 add                    // returns fib(n-1) + fib(n-2)
 return
+
+

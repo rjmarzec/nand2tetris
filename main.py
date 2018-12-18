@@ -8,6 +8,7 @@ import file_name_constants
 
 input_file_name = file_name_constants.FIBONACCI_ELEMENT_IN
 output_file_name = file_name_constants.FIBONACCI_ELEMENT_OUT
+write_init = False
 
 # Used later for writing jumps in our asm code so that they don't repeat
 asm_jump_counter = 0
@@ -25,6 +26,7 @@ arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", 
 
 
 def get_file_lines_as_list(input_file):
+	global write_init
 	if "Compiled" in input_file_name:
 		input_file_list = []
 
@@ -32,8 +34,10 @@ def get_file_lines_as_list(input_file):
 			input_file_list = file_name_constants.FIBONACCI_ELEMENT_FILES
 		if "StaticsTest" in input_file_name:
 			input_file_list = file_name_constants.STATICS_TEST_FILES
+		write_init = True
 
 		temp_input_file = open(input_file_name, "w")
+		temp_input_file.write("call Sys.init 0\nlabel LOOP\ngoto LOOP\n\n")
 
 		number_of_vm_files = len(input_file_list)
 		for i in range (1, number_of_vm_files):
@@ -47,10 +51,8 @@ def get_file_lines_as_list(input_file):
 
 			vm_file_text += "\n\n"
 			temp_input_file.write(vm_file_text)
-
+			vm_file.close()
 		temp_input_file.close()
-		vm_file.close()
-
 	return input_file.readlines()
 
 
@@ -876,6 +878,10 @@ def write_hack_to_file(input_line_list):
 	# This line messes up some of the provided tests, so for now it's commented out
 	# write_string = set_up_stack_pointer()
 	write_string = ""
+
+	if write_init:
+		write_string = "@256\nD=A\n@0\nM=D\n" + write_string
+
 	for line in input_line_list:
 		write_string += line + "\n"
 	output_file.write(write_string)
