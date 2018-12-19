@@ -1,17 +1,75 @@
+@256
+D=A
+@0
+M=D
+@RETURNADDRESS0
+D=A
+@R0
+M=M+1
+A=M-1
+M=D
+@R1
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@R2
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@R3
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@R4
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@R0
+D=M
+@0
+D=D-A
+@5
+D=D-A
+@R2
+M=D
+@R0
+D=M
+@R1
+M=D
+@Sys.init
+0;JMP
+(RETURNADDRESS0)	//call Sys.init 0
+
+(LOOP)	//label LOOP
+
+@LOOP
+0;JMP	//goto LOOP
+
 (Sys.init)		//function Sys.init 0
+
 @6
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 6
+
 @8
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 8
-@RETURNADDRESS0
+
+@RETURNADDRESS1
 D=A
 @R0
 M=M+1
@@ -55,26 +113,30 @@ D=M
 M=D
 @Class1.set
 0;JMP
-(RETURNADDRESS0)	//call Class1.set 2
+(RETURNADDRESS1)	//call Class1.set 2
+
 @R0
 M=M-1
 A=M
 D=M
 @5
 M=D		//pop temp 0
+
 @23
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 23
+
 @15
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 15
-@RETURNADDRESS1
+
+@RETURNADDRESS2
 D=A
 @R0
 M=M+1
@@ -118,14 +180,16 @@ D=M
 M=D
 @Class2.set
 0;JMP
-(RETURNADDRESS1)	//call Class2.set 2
+(RETURNADDRESS2)	//call Class2.set 2
+
 @R0
 M=M-1
 A=M
 D=M
 @5
 M=D		//pop temp 0
-@RETURNADDRESS2
+
+@RETURNADDRESS3
 D=A
 @R0
 M=M+1
@@ -169,8 +233,9 @@ D=M
 M=D
 @Class1.get
 0;JMP
-(RETURNADDRESS2)	//call Class1.get 0
-@RETURNADDRESS3
+(RETURNADDRESS3)	//call Class1.get 0
+
+@RETURNADDRESS4
 D=A
 @R0
 M=M+1
@@ -214,11 +279,15 @@ D=M
 M=D
 @Class2.get
 0;JMP
-(RETURNADDRESS3)	//call Class2.get 0
+(RETURNADDRESS4)	//call Class2.get 0
+
 (WHILE)	//label WHILE
+
 @WHILE
 0;JMP	//goto WHILE
+
 (Class1.set)		//function Class1.set 0
+
 @0
 D=A
 @R2
@@ -228,12 +297,14 @@ D=M
 M=M+1
 A=M-1
 M=D		//push argument 0
+
 @R0
 M=M-1
 A=M
 D=M
-@16
-M=D		//pop static 0
+@17
+M=D		//pop static 1
+
 @1
 D=A
 @R2
@@ -243,18 +314,21 @@ D=M
 M=M+1
 A=M-1
 M=D		//push argument 1
+
 @R0
 M=M-1
 A=M
 D=M
-@17
-M=D		//pop static 1
+@18
+M=D		//pop static 2
+
 @0
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 0
+
 @R1
 D=M
 @13
@@ -313,19 +387,23 @@ M=D
 @14
 A=M
 0;JMP		//return
+
 (Class1.get)		//function Class1.get 0
-@16
-D=M
-@R0
-M=M+1
-A=M-1
-M=D		//push static 0
+
 @17
 D=M
 @R0
 M=M+1
 A=M-1
 M=D		//push static 1
+
+@18
+D=M
+@R0
+M=M+1
+A=M-1
+M=D		//push static 2
+
 @R0
 M=M-1
 A=M-1
@@ -334,6 +412,7 @@ A=A+1
 D=D-M
 A=A-1
 M=D		//sub
+
 @R1
 D=M
 @13
@@ -392,7 +471,9 @@ M=D
 @14
 A=M
 0;JMP		//return
+
 (Class2.set)		//function Class2.set 0
+
 @0
 D=A
 @R2
@@ -402,12 +483,14 @@ D=M
 M=M+1
 A=M-1
 M=D		//push argument 0
+
 @R0
 M=M-1
 A=M
 D=M
-@16
-M=D		//pop static 0
+@19
+M=D		//pop static 3
+
 @1
 D=A
 @R2
@@ -417,18 +500,21 @@ D=M
 M=M+1
 A=M-1
 M=D		//push argument 1
+
 @R0
 M=M-1
 A=M
 D=M
-@17
-M=D		//pop static 1
+@20
+M=D		//pop static 4
+
 @0
 D=A
 @R0
 M=M+1
 A=M-1
 M=D		//push constant 0
+
 @R1
 D=M
 @13
@@ -487,19 +573,23 @@ M=D
 @14
 A=M
 0;JMP		//return
+
 (Class2.get)		//function Class2.get 0
-@16
+
+@19
 D=M
 @R0
 M=M+1
 A=M-1
-M=D		//push static 0
-@17
+M=D		//push static 3
+
+@20
 D=M
 @R0
 M=M+1
 A=M-1
-M=D		//push static 1
+M=D		//push static 4
+
 @R0
 M=M-1
 A=M-1
@@ -508,6 +598,7 @@ A=A+1
 D=D-M
 A=A-1
 M=D		//sub
+
 @R1
 D=M
 @13
@@ -566,3 +657,4 @@ M=D
 @14
 A=M
 0;JMP		//return
+

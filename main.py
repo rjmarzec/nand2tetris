@@ -6,8 +6,9 @@ import file_name_constants
 
 # These variables need to be changed to run different test. Refer to the constants file for the names.
 
-input_file_name = file_name_constants.FIBONACCI_ELEMENT_IN
-output_file_name = file_name_constants.FIBONACCI_ELEMENT_OUT
+# TODO: push/pop static x is the problem here now?
+input_file_name = file_name_constants.STATICS_TEST_IN
+output_file_name = file_name_constants.STATICS_TEST_OUT
 write_init = False
 
 # Used later for writing jumps in our asm code so that they don't repeat
@@ -27,6 +28,7 @@ arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", 
 
 def get_file_lines_as_list(input_file):
 	global write_init
+
 	if "Compiled" in input_file_name:
 		input_file_list = []
 
@@ -39,6 +41,10 @@ def get_file_lines_as_list(input_file):
 		temp_input_file = open(input_file_name, "w")
 		temp_input_file.write("call Sys.init 0\nlabel LOOP\ngoto LOOP\n\n")
 
+		# push/pop static regististers need to be different across classes, so we gotta do funky stuff
+		unique_static_counter = 0
+		highest_local_static = 0
+
 		number_of_vm_files = len(input_file_list)
 		for i in range (1, number_of_vm_files):
 			vm_file_directory = input_file_list[0] + input_file_list[i]
@@ -47,12 +53,33 @@ def get_file_lines_as_list(input_file):
 
 			vm_file_text = ""
 			for line in vm_file_line_list:
-				vm_file_text += line
+				temp_line = line
+
+				if "pop static" in line or "push static" in line:
+					temp_line_split = temp_line.split(" ")
+
+					# The line before modifying the static register
+					temp_line = temp_line_split[0] + " " + temp_line_split[1] + " "
+					temp_line += str(int(temp_line_split[2]) + unique_static_counter)
+
+					print(str(temp_line_split[2]) + "..." + str(highest_local_static))
+
+					if int(temp_line_split[2]) > highest_local_static - 1:
+						highest_local_static = int(temp_line_split[2])
+
+					vm_file_text += temp_line + "\n"
+				else:
+					vm_file_text += line
+
+			# TODO: The unique static stuff needs to get fixed up still
+			unique_static_counter += highest_local_static + 1
+			highest_local_static = 0
 
 			vm_file_text += "\n\n"
 			temp_input_file.write(vm_file_text)
 			vm_file.close()
 		temp_input_file.close()
+
 	return input_file.readlines()
 
 
@@ -350,10 +377,10 @@ def write_push_pop(input_line, command_type):
 		# the static keyword is a bit funky, so we have to handle thing differently if it comes up
 		if segment_pointer_type == "STATIC":
 			# For the statement "push static z",
-			# access static(z) and put that value to the top of the SP stack
+			# access M(16 + z) and put that value to the top of the SP stack
 
 			# Access the value we want to push, and store that value for later
-			result_string += "@" + str(int(push_pop_value) + 16) + "\n"
+			result_string += "@" + str(16 + int(push_pop_value)) + "\n"
 			result_string += "D=M" + "\n"
 
 			# Access the the pointer location and bump up for the next time the stack is called
@@ -456,7 +483,7 @@ def write_push_pop(input_line, command_type):
 			result_string += "D=M" + "\n"
 
 			# Access the register where we want to store the value and store it there
-			result_string += "@" + str(int(push_pop_value) + 16) + "\n"
+			result_string += "@" + str(16 + int(push_pop_value)) + "\n"
 			result_string += "M=D"
 		elif segment_pointer_type == "POINTER" or segment_pointer_type == "TEMP":
 			# For the statement "pop pointer z",
@@ -849,15 +876,6 @@ def pointer_type_to_ram_address(segment_pointer_type):
 		return "ERROR: register for pointer type not found"
 
 
-def set_up_stack_pointer():
-	# result_string = "@256" + "\n"
-	result_string = "@16" + "\n"
-	result_string += "D=A" + "\n"
-	result_string += "@0" + "\n"
-	result_string += "M=D" + "\n"
-	return result_string
-
-
 #########################################
 # Main Running Area #####################
 #########################################
@@ -875,15 +893,13 @@ def vm_to_asm():
 def write_hack_to_file(input_line_list):
 	global output_file_name
 	output_file = open(output_file_name, "w")
-	# This line messes up some of the provided tests, so for now it's commented out
-	# write_string = set_up_stack_pointer()
 	write_string = ""
 
 	if write_init:
 		write_string = "@256\nD=A\n@0\nM=D\n" + write_string
 
 	for line in input_line_list:
-		write_string += line + "\n"
+		write_string += line + "\n\n"
 	output_file.write(write_string)
 	output_file.close()
 
