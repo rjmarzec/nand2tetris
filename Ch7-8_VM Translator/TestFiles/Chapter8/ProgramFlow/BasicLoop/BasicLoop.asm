@@ -1,0 +1,152 @@
+@256
+D=A
+@0
+M=D
+@0
+D=A
+@R0
+M=M+1
+A=M-1
+M=D		//push constant 0
+@0
+D=A
+@R1
+M=D+M
+@R0
+M=M-1
+A=M
+D=M
+@R1
+A=M
+M=D
+@0
+D=-A
+@R1
+M=D+M		//pop local 0
+(LOOP_START)	//label LOOP_START
+@0
+D=A
+@R2
+M=D+M
+A=M
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@0
+D=-A
+@R2
+M=D+M		//push argument 0
+@0
+D=A
+@R1
+M=D+M
+A=M
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@0
+D=-A
+@R1
+M=D+M		//push local 0
+@R0
+M=M-1
+A=M
+D=M
+A=A-1
+M=D+M	//add
+@0
+D=A
+@R1
+M=D+M
+@R0
+M=M-1
+A=M
+D=M
+@R1
+A=M
+M=D
+@0
+D=-A
+@R1
+M=D+M		//pop local 0
+@0
+D=A
+@R2
+M=D+M
+A=M
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@0
+D=-A
+@R2
+M=D+M		//push argument 0
+@1
+D=A
+@R0
+M=M+1
+A=M-1
+M=D		//push constant 1
+@R0
+M=M-1
+A=M-1
+D=M
+A=A+1
+D=D-M
+A=A-1
+M=D		//sub
+@0
+D=A
+@R2
+M=D+M
+@R0
+M=M-1
+A=M
+D=M
+@R2
+A=M
+M=D
+@0
+D=-A
+@R2
+M=D+M		//pop argument 0
+@0
+D=A
+@R2
+M=D+M
+A=M
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@0
+D=-A
+@R2
+M=D+M		//push argument 0
+@R0
+M=M-1
+A=M
+D=M
+@LOOP_START
+D;JNE	//if-goto LOOP_START
+@0
+D=A
+@R1
+M=D+M
+A=M
+D=M
+@R0
+M=M+1
+A=M-1
+M=D
+@0
+D=-A
+@R1
+M=D+M		//push local 0

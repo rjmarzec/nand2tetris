@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b7b06f14-94d8-4546-ab6a-df7917a9d3c1" name="Default Changelist" comment="" />
+    <ignored path=".idea/codeStyles/codeStyleConfig.xml" />
+    <ignored path=".idea/dictionaries/rjmarzec.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="102" selection-start-line="6" selection-start-column="102" selection-end-line="6" selection-end-column="102" />
+              <folding>
+                <marker date="1545337772000" expanded="true" signature="20070:20073" ph="..." />
+                <marker date="1545337772000" expanded="false" signature="20969:20971" ph="..." />
+                <marker date="1545337772000" expanded="true" signature="20969:27412" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/file_name_constants.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-631">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/StaticsTest/Class1.vm">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTest.asm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="855">
+              <caret line="57" column="2" selection-start-line="57" selection-start-column="2" selection-end-line="57" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTestCompiled.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="53" column="60" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>R0</find>
+      <find>write_push_pop</find>
+      <find>segment_pointer_type</find>
+      <find>@R</find>
+      <find>pointer_type_to_ram_address</find>
+      <find>CONSTANT</find>
+      <find>this</find>
+      <find>@10</find>
+      <find>remove</find>
+      <find>temp</find>
+      <find>argument</find>
+      <find>gt</find>
+      <find>D;JGE</find>
+      <find>&quot;\t//&quot; + input_line</find>
+      <find>print</find>
+      <find>write_if_goto</find>
+      <find>M=M-1</find>
+      <find>goto</find>
+      <find>return_address_counter</find>
+      <find>set_up_s</find>
+      <find>lcl</find>
+      <find>D=D-A</find>
+      <find>(Sys.add12)</find>
+      <find>returnadd</find>
+      <find>sys.main</find>
+      <find>A=A+a1</find>
+      <find>@2</find>
+      <find>A=M</find>
+      <find>@14</find>
+      <find>while</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../nand2tetris" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/testFiles/simpleAdd/simpleAdd.vm" />
+        <option value="$PROJECT_DIR$/testFiles/simpleAdd/simpleAddAnswer.asm" />
+        <option value="$PROJECT_DIR$/testFiles/simpleAdd/simpleAdd.asm" />
+        <option value="$PROJECT_DIR$/TestFiles/file_name_constants.py" />
+        <option value="$PROJECT_DIR$/TestFiles/StackArithmetic/SimpleAdd/simpleAdd.asm" />
+        <option value="$PROJECT_DIR$/TestFiles/NonProjectTest/NonProjectTest.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/SelfTesting/SelfTesting.asm" />
+        <option value="$PROJECT_DIR$/TestFiles/StackArithmetic/StackTest/StackTest.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/StackArithmetic/StackTest/StackTest.asm" />
+        <option value="$PROJECT_DIR$/TestFiles/MemoryAccess/StaticTest/StaticTest.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.out" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.asm" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/SelfTesting/SelfTesting.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElementCompiled.vm" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.asm" />
+        <option value="$PROJECT_DIR$/TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTestCompiled.vm" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/file_name_constants.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="280" />
+    <option name="y" value="22" />
+    <option name="width" value="1400" />
+    <option name="height" value="941" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Spelling</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="nand2tetris" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nand2tetris" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nand2tetris" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nand2tetris" type="462c0819:PsiDirectoryNode" />
+              <item name="Ch7-8_VM Translator" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Twisted Trial">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <module name="nand2tetris" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b7b06f14-94d8-4546-ab6a-df7917a9d3c1" name="Default Changelist" comment="" />
+      <created>1537472711433</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1537472711433</updated>
+    </task>
+    <task id="LOCAL-00053" summary="More attempts at fixing StackTest test problems I'm running into">
+      <created>1540930433426</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1540930433426</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Fixed the StackTest issues; Chapter 7 is done! (All tests completed successfully)">
+      <created>1541014791489</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1541014791491</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Added the chapter 8 files and updated chapter 7 files paths">
+      <created>1541102987058</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1541102987059</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Added some notes for future me">
+      <created>1541103220126</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1541103220127</updated>
+    </task>
+    <task id="LOCAL-00057" summary="updated the test files again and added more notes for myself">
+      <created>1541103322373</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1541103322373</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Formatting changes and the label function">
+      <created>1541451398902</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1541451398903</updated>
+    </task>
+    <task id="LOCAL-00059" summary="More minor change and notes for my future self">
+      <created>1541452431482</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1541452431483</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Working code for the BasicLoop.vm translation">
+      <created>1541538092153</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1541538092157</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Committing a .out file">
+      <created>1541538138209</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1541538138209</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Small Changes and some notes to myself">
+      <created>1541538907986</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1541538907986</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Fixed a small error with writing goto. FibSeries.vm now translates">
+      <created>1541623100746</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1541623100748</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Setup framework for the call, function, and return functions">
+      <created>1541624126593</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1541624126593</updated>
+    </task>
+    <task id="LOCAL-00065" summary="added framework for my write_call method">
+      <created>1541711742451</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1541711742452</updated>
+    </task>
+    <task id="LOCAL-00066" summary="register pushing and popping functions and some other small stuff">
+      <created>1541797121709</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1541797121710</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Added comments on what needs to be added">
+      <created>1541797844571</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1541797844571</updated>
+    </task>
+    <task id="LOCAL-00068" summary="first pass through writing the write_call function">
+      <created>1542143371599</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1542143371600</updated>
+    </task>
+    <task id="LOCAL-00069" summary="small fix to a return statement">
+      <created>1542143488631</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1542143488631</updated>
+    </task>
+    <task id="LOCAL-00070" summary="A small bit of work and notes on what needs to be done for my future self">
+      <created>1542143681003</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1542143681004</updated>
+    </task>
+    <task id="LOCAL-00071" summary="first pass through the write_function method">
+      <created>1542229474701</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1542229474701</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Wrote some framework and notes for the write_return function">
+      <created>1542229898420</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1542229898421</updated>
+    </task>
+    <task id="LOCAL-00073" summary="More progress on framework on the write_return function">
+      <created>1542402628139</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1542402628143</updated>
+    </task>
+    <task id="LOCAL-00074" summary="First completed pass through of the write_function method">
+      <created>1542660886639</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1542660886641</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Add a .out file I missed earlier">
+      <created>1542660920568</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1542660920568</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Some progress on bug fixing">
+      <created>1542662081431</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1542662081431</updated>
+    </task>
+    <task id="LOCAL-00077" summary="fixes to the write_function method">
+      <created>1542746657640</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1542746657640</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Added a note for my future self after break">
+      <created>1542747400092</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1542747400092</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Outlined the problematic method and noted it so I don't forget">
+      <created>1543439324082</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1543439324083</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Small edits on write_return">
+      <created>1543439725519</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1543439725519</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Updated write_return to work better and deleted now unused methods">
+      <created>1543524597027</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1543524597028</updated>
+    </task>
+    <task id="LOCAL-00082" summary="More work fixing up the write_return function">
+      <created>1543526149336</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1543526149336</updated>
+    </task>
+    <task id="LOCAL-00083" summary="more misc work on fixing stuff">
+      <created>1543612582896</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1543612582899</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Added more files to make testing SelfTesting.vm easier">
+      <created>1543956972234</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1543956972235</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Small fixes as I struggle to figure out what's wrong">
+      <created>1544043380705</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1544043380706</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Working version of the *ARG = pop() statement of the return function">
+      <created>1544128959430</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1544128959432</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Misc changes and notes for work for my future self">
+      <created>1544130885347</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1544130885347</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Lots of small fixes as attempts to fix bugs and notes for my future self">
+      <created>1544217313113</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1544217313114</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Fixed a weird statement that messed up the jumping location">
+      <created>1544476354720</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1544476354722</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Working version of the &quot;*ARG = pop()&quot; statement in the return code">
+      <created>1544560420776</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1544560420778</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Working version for translating SimpleFunction.vm to .asm">
+      <created>1544560604658</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1544560604658</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Misc work towards getting NestedCall to translate">
+      <created>1544562624901</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1544562624903</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Added NestedCall files and rewrote methods as plain code for readability">
+      <created>1544648647069</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1544648647070</updated>
+    </task>
+    <task id="LOCAL-00094" summary="More work on the write_call function">
+      <created>1544735401972</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1544735401973</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Working translator for NestedCall.vm">
+      <created>1544819720842</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1544819720844</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Works towards programmatically combining multiple .vm files into one">
+      <created>1544822085463</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1544822085463</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Added a hardcoded version of FibElement.vm">
+      <created>1545078593057</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1545078593059</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Work towards compiling the .vm files programmatically">
+      <created>1545081279853</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1545081279853</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Working version of the FibonacciElement translation">
+      <created>1545166639941</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1545166639942</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Progress on getting static registers unique across different classes">
+      <created>1545253000916</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1545253000917</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Working Translator for the StaticsTests classes">
+      <created>1545337646762</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1545337646763</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="280" y="22" width="1400" height="941" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14285715" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49963742" weight="0.3286219" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48368382" visible="true" weight="0.32744405" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39905548" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32821724" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32821724" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5163162" side_tool="true" weight="0.32744405" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32932693" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14285715" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49963742" weight="0.3286219" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48368382" visible="true" weight="0.32744405" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39905548" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32821724" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32821724" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5163162" side_tool="true" weight="0.32744405" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32932693" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.asm" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.vm" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="fixes to the write_function method" />
+    <MESSAGE value="Added a note for my future self after break" />
+    <MESSAGE value="Outlined the problematic method and noted it so I don't forget" />
+    <MESSAGE value="Small edits on write_return" />
+    <MESSAGE value="Updated write_return to work better and deleted now unused methods" />
+    <MESSAGE value="More work fixing up the write_return function" />
+    <MESSAGE value="more misc work on fixing stuff" />
+    <MESSAGE value="Added more files to make testing SelfTesting.vm easier" />
+    <MESSAGE value="Small fixes as I struggle to figure out what's wrong" />
+    <MESSAGE value="Working version of the *ARG = pop() statement of the return function" />
+    <MESSAGE value="Misc changes and notes for work for my future self" />
+    <MESSAGE value="Lots of small fixes as attempts to fix bugs and notes for my future self" />
+    <MESSAGE value="Fixed a weird statement that messed up the jumping location" />
+    <MESSAGE value="Working version of the &quot;*ARG = pop()&quot; statement in the return code" />
+    <MESSAGE value="Working version for translating SimpleFunction.vm to .asm" />
+    <MESSAGE value="Misc work towards getting NestedCall to translate" />
+    <MESSAGE value="Added NestedCall files and rewrote methods as plain code for readability" />
+    <MESSAGE value="More work on the write_call function" />
+    <MESSAGE value="Working translator for NestedCall.vm" />
+    <MESSAGE value="Works towards programmatically combining multiple .vm files into one" />
+    <MESSAGE value="Added a hardcoded version of FibElement.vm" />
+    <MESSAGE value="Work towards compiling the .vm files programmatically" />
+    <MESSAGE value="Working version of the FibonacciElement translation" />
+    <MESSAGE value="Progress on getting static registers unique across different classes" />
+    <MESSAGE value="Working Translator for the StaticsTests classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working Translator for the StaticsTests classes" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/simpleAdd.asm" />
+    <entry file="file://$PROJECT_DIR$/testFiles/simpleAdd/simpleAddAnswer.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/simpleAdd/simpleAdd.vm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/simpleAdd/simpleAdd.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/StackArithmetic/SimpleAdd/simpleAdd.vm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/StackArithmetic/SimpleAdd/simpleAdd.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/MemoryAccess/PointerTest/PointerTest.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/MemoryAccess/PointerTest/PointerTest.vm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/MemoryAccess/BasicTest/BasicTest.vm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/MemoryAccess/BasicTest/BasicTest.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/StackArithmetic/StackTest/StackTest.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/MemoryAccess/StaticTest/StaticTest.asm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/StackArithmetic/StackTest/StackTest.vm" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/MemoryAccess/StaticTest/StaticTest.vm" />
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.out">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="135" column="3" lean-forward="true" selection-start-line="135" selection-start-column="3" selection-end-line="135" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/ProgramFlow/BasicLoop/BasicLoop.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/ProgramFlow/FibonacciSeries/FibonacciSeries.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3465">
+          <caret line="231" column="5" selection-start-line="231" selection-start-column="5" selection-end-line="231" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/ProgramFlow/FibonacciSeries/FibonacciSeries.vm">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/SelfTesting/SelfTesting.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="72" column="5" lean-forward="true" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/SelfTesting/SelfTesting.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1044">
+          <caret line="37" column="3" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/SimpleFunction/SimpleFunction.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestFiles/SelfTesting/SimpleFunction.cmp" />
+    <entry file="file://$PROJECT_DIR$/TestFiles/SelfTesting/SelfTestingVME.tst" />
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/NestedCall/NestedCall.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="349" column="3" lean-forward="true" selection-start-line="349" selection-start-column="3" selection-end-line="349" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/FibonacciElement/Sys.vm">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/NestedCall/Sys.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/NestedCall/NestedCall.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElement.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5722">
+          <caret line="8" column="3" selection-start-line="8" selection-end-line="8" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/FibonacciElement/FibonacciElementCompiled.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/StaticsTest/Class1.vm">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTestCompiled.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="53" column="60" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/TestFiles/Chapter8/FunctionCalls/StaticsTest/StaticsTest.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="2" selection-start-line="57" selection-start-column="2" selection-end-line="57" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/file_name_constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-631">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../nand2tetris/Ch7-8_VM Translator/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="102" selection-start-line="6" selection-start-column="102" selection-end-line="6" selection-end-column="102" />
+          <folding>
+            <marker date="1545337772000" expanded="true" signature="20070:20073" ph="..." />
+            <marker date="1545337772000" expanded="false" signature="20969:20971" ph="..." />
+            <marker date="1545337772000" expanded="true" signature="20969:27412" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
