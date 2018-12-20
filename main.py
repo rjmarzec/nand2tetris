@@ -6,7 +6,6 @@ import file_name_constants
 
 # These variables need to be changed to run different test. Refer to the constants file for the names.
 
-# TODO: push/pop static x is the problem here now?
 input_file_name = file_name_constants.STATICS_TEST_IN
 output_file_name = file_name_constants.STATICS_TEST_OUT
 write_init = False
@@ -65,14 +64,13 @@ def get_file_lines_as_list(input_file):
 					print(str(temp_line_split[2]) + "..." + str(highest_local_static))
 
 					if int(temp_line_split[2]) > highest_local_static - 1:
-						highest_local_static = int(temp_line_split[2])
+						highest_local_static = int(temp_line_split[2]) + 1
 
 					vm_file_text += temp_line + "\n"
 				else:
 					vm_file_text += line
 
-			# TODO: The unique static stuff needs to get fixed up still
-			unique_static_counter += highest_local_static + 1
+			unique_static_counter += highest_local_static
 			highest_local_static = 0
 
 			vm_file_text += "\n\n"
