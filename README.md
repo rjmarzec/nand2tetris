@@ -1,5 +1,5 @@
-# nand2tetris_Chapter_7-8_VM_Translator
+# nand2tetris
 
-My implementation of the VM translator from Chapter 7 and 8 of the nand2tetris curriculum in Python. 
+My solutions and progress through the nand2tetris curriculum. Work for specific chapters can be found under their respectively named folders.
 
-This project also includes any test files I used to test.
+The curriculum can be found at nand2tetris.org.
