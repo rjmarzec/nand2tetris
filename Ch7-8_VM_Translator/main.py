@@ -60,8 +60,6 @@ def get_file_lines_as_list(input_file):
 					temp_line = temp_line_split[0] + " " + temp_line_split[1] + " "
 					temp_line += str(int(temp_line_split[2]) + unique_static_counter)
 
-					print(str(temp_line_split[2]) + "..." + str(highest_local_static))
-
 					if int(temp_line_split[2]) > highest_local_static - 1:
 						highest_local_static = int(temp_line_split[2]) + 1
 
@@ -139,7 +137,6 @@ def get_command_type(input_line):
 	elif "label" in input_line:
 		return "C_LABEL"
 	else:
-		print("ERROR: Command type not specified")
 		return "C_ERROR"
 
 
