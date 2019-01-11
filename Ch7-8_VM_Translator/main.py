@@ -14,7 +14,7 @@ asm_jump_counter = 0
 
 # Used later in our return addresses so they don't repeat
 return_address_counter = 0
-2
+
 # A list of all the arithmetic functions to make them easy to reference
 arithmetic_function_list = ["add", "sub", "neg", "eq", "lt", "gt", "and", "or", "not"]
 
