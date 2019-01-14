@@ -4,29 +4,26 @@
 // File name: projects/09/Average/Main.jack
 
 // The game 2048, but remade in the Jack language
+
 class Main 
 {
-	function void main() 
-	{  
-		//Initializing the size of the board for use later
-		var int boardSize;
+    field Random random;
+	field int boardSize;
+	field Array boardArrays;
+	field int score;
+
+	method void main() 
+	{
+	    let random = Random.new(0);
 		let boardSize = 4;
-
-		//Initializing the size of the array
-		var Array boardArrays;
 		let array = Array.new(boardSize);
-
-		//Initializing the random number generator
-		var Random random;
-		let random = Random.new(0);
-
-		//Initializing the player's score and high scores
-		var int score;
-		var int highScore;
-		let score = 0;
 		let score = 0;
 
-		//Setting up the 2D array that makes up the game's board so that is formated like:
+		//Loop Variables
+		var int i = 0;
+		var int j = 0;
+
+		//Setting up the 2D array that makes up the game's board so that is formatted like:
 		// [ [0][0], [1][0], [2][0], [3][0] ]
 		// [ [0][1], [1][1], [2][1], [3][1] ]
 		// [ [0][2], [1][2], [2][2], [3][2] ]
@@ -36,16 +33,51 @@ class Main
 		{
 			let boardArrays[i] = Array.new(boardSize);
 		}
+		let i = 0
+		while(i < boardSize)
+		{
+			let j = 0;
+			let innerBoardArray = boardArrays[i]
+			while(j < boardSize)
+			{
+				let innerBoardArray[j] = 0;
+			}
+		}
 
 		//The Main Loop, which handles inputs, block spawning, and more
 		while(true)
 		{
-			
-		}
 
+			//if(keyIsPressed)
+		}
 
 		
 	}
+
+	/*
+	function void spawnBlock()
+	{
+
+	}
+
+	function void clearBoard()
+	{
+
+	}
+
+	// 0-up; 1-left; 2-down; 3-right
+	function void move(int direction)
+	{
+		//Up
+		if(direction = 0)
+		{}
+
+		//Down
+		if(direction = 2)
+		{}
+	}
+	*/
+	
 }
 
 /*
