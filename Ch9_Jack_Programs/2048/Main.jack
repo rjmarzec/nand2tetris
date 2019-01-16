@@ -14,15 +14,17 @@ class Main
 	field int score;
 	field int currentKey;
 
+	field int num1;
+	field int num2;
+
 	//Loop variables
 	field int i;
 	field int j;
 
 	method void main() 
 	{
-		let random = Random.new(0);
+		//let random = Random.new(0);
 		let boardSize = 4;
-		let boardArrays = Array.new(boardSize);
 		let score = 0;
 
 		//Setting up the 2D array that makes up the game's board so that is formatted like:
@@ -42,21 +44,25 @@ class Main
 			{
 				// up
 				do move(0);
+				do printBoard();
 			}
 			if(currentKey = 130)
 			{
 				// left
 				do move(1);
+				do printBoard();
 			}
 			if(currentKey = 133)
 			{
 				// down
 				do move(2);
+				do printBoard();
 			}
 			if(currentKey = 132)
 			{
 				// right
 				do move(3);
+				do printBoard();
 			}
 		}
 		return;
@@ -81,6 +87,9 @@ class Main
 				let innerBoardArray[j] = 0;
 				let j = j+1;
 			}
+			let boardArrays[i] = innerBoardArray;
+			do innerBoardArray.dispose();
+
 			let i = i+1;
 		}
 		return;
@@ -95,18 +104,52 @@ class Main
 		let i = 0;
 		let j = 0;
 
+		let num1 = 0;
+		let num2 = 0;
+
 		//Up
 		if(direction = 0)
 		{
-			while(repeatMove)
-			{
-				let repeatMove = false;
-				let i = 0;
-				let j = 0;
+			let i = 0;
+			let j = 0;
 
-				while(j < boardSize)
+			while(j < boardSize - 1)
+			{
+
+				while(repeatMove)
 				{
-					while()
+					let repeatMove = false;
+					let innerBoardArray = boardArrays[j];
+
+					while(i < boardSize - 2)
+					{
+						let num1 = innerBoardArray[i];
+						let num2 = innerBoardArray[i+1];
+
+						//If the numbers are the same, combine them into one spot
+						if(num1 = num2)
+						{
+							let num1 = num1 + num2;
+							let num2 = 0;
+						}
+
+						if(num1 = 0)
+						{
+							if(~(num2 = 0))
+							{
+								let num1 = num2;
+								let num2 = 0;
+
+								let repeatMove = true;
+							}
+						}
+
+						let innerBoardArray[i] = num1;
+						let innerBoardArray[i+1] = num2;
+
+						let i = i + 1;
+					}
+					let boardArrays[j] = innerBoardArray;
 
 					let j = j+1;
 				}
@@ -133,6 +176,23 @@ class Main
 		return;
 	}
 		
+	method void printBoard()
+	{
+		let i = 0;
+		while(i < boardSize)
+		{
+			let j = 0;
+			let innerBoardArray = boardArrays[i];
+			while(j < boardSize)
+			{
+				do Output.printString(innerBoardArray[j] + "");
+				let j = j+1;
+			}
+			do Output.println();
+			let i = i+1;
+		}
+		return;
+	}
 
 	/*
 	// Method to be implemented at a later point:
