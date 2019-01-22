@@ -1,0 +1,171 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/09/Average/Main.jack
+
+// The game 2048, but remade in the Jack language
+
+class MainOld
+{
+	/*
+    field Random random;
+	field int boardSize;
+	field Array board;
+	field int score;
+	field int currentKey;
+	
+	method void mainOld() 
+	{
+		//let random = Random.new(0);
+		let boardSize = 16;
+		let score = 0;
+
+		//Setting up the 2D array that makes up the game's board so that it is addressable as such:
+		// [ [0],  [1],  [2],  [3]  ]
+		// [ [4],  [5],  [6],  [7]  ]
+		// [ [8],  [9],  [10], [11] ]
+		// [ [12], [13], [14], [15] ]
+
+		let board = Array.new(16);
+		do clearBoard();
+
+		//The Main Loop, which handles inputs, block spawning, and more
+		while(true)
+		{
+			// 130 = left, 131 = up, 132 = right, 133 = down
+			let currentKey = Keyboard.keyPressed();
+			if(currentKey = 131)
+			{
+				// up
+				do move(0);
+				do printBoard();
+			}
+			if(currentKey = 130)
+			{
+				// left
+				do move(1);
+				do printBoard();
+			}
+			if(currentKey = 133)
+			{
+				// down
+				do move(2);
+				do printBoard();
+			}
+			if(currentKey = 132)
+			{
+				// right
+				do move(3);
+				do printBoard();
+			}
+		}
+		return;
+	}
+
+	method void clearBoard()
+	{
+		var int k;
+		let k = 0;
+
+		while(k < 16)
+		{
+			let board[k] = 0;
+		}
+		return;
+	}
+
+
+	// 0-up; 1-left; 2-down; 3-right
+	method void move(int direction)
+	{	
+		var boolean doCombine;
+
+		var int num1;
+		var int num2;
+
+		var int x;
+		var int y;
+		var int passNum;
+
+		//Up
+		if(direction = 0)
+		{}
+
+		//Down
+		if(direction = 2)
+		{}
+
+		//[0], [1], [2], [3]
+		//Left
+		if(direction = 1)
+		{
+			let doCombine = true;
+			let passNum = 0;
+
+			while(passNum < 3)
+			{
+				while(x < boardSize - 1)
+				{
+					let num1 = board[x];
+					let num2 = board[x + 1];
+
+					if(doCombine)
+					{
+						if(num1 - num2 = 0)
+						{
+							let num1 = num1 + num2;
+							let num2 = 0;
+						}
+					}
+
+					if(num1 = 0)
+					{
+						let num1 = num2;
+						let num2 = 0;
+					}
+				}
+				let doCombine = false;
+
+				let passNum = passNum-1;
+			}
+		}
+
+		//Right
+		if(direction = 3)
+		{}
+		return;
+		
+	}
+		
+	method void printBoard()
+	{
+		var int i;
+		let i = 0;
+
+		while(i < 16)
+		{
+			do Output.printString(board[i]);
+
+			//a%b can be done as a-(a/b*b)
+			if(i-(i/boardSize*boardSize))
+			{
+				do Output.println();
+			}
+			let i = i + 1;
+		}
+
+		return;
+	}
+
+
+	// Method to be implemented at a later point:
+
+	method void spawnBlock()
+	{}
+
+	method void drawBoard()
+	{}
+
+	*/
+}
+

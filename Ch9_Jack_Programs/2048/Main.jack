@@ -14,6 +14,10 @@ class Main
 
 		while(~(board.isGameOver()))
 		{
+			//do Output.printInt(Keyboard.keyPressed());
+			//do Output.backSpace();
+			//do Screen.clearScreen();
+
 			do board.updateBoard(Keyboard.keyPressed());
 			if(board.doPrint())
 			{
@@ -22,8 +26,8 @@ class Main
 		}
 
 		do Output.println();
-		do Output.print("Your Final Score: ");
-		do Output.print(board.getScore());
+		do Output.printString("Your Final Score: ");
+		do Output.printString(board.getScore());
 
 		return;
 	}

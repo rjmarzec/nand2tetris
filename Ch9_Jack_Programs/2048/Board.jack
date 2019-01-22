@@ -1,0 +1,105 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/09/Average/Main.jack
+
+// The game 2048, but remade in the Jack language
+
+class Board
+{
+	field int horzSize;
+	field int vertSize;
+	field int baseNum;
+
+	field Array board;
+	field int score;
+	field boolean isGameOver;
+	field boolean doPrint;
+
+    constructor Board new(int horzSizeIn, int vertSizeIn, int baseNumIn)
+    {
+    	let horzSize = horzSizeIn;
+    	let vertSize = vertSizeIn;
+    	let baseNum = baseNumIn;
+    	let doPrint = true;
+    	let board = Array.new(16);
+
+    	do clearBoard();
+
+    	return this;
+    }
+
+    method void updateBoard(int keyPressed)
+    {
+    	return;
+    }
+
+    method void clearBoard()
+    {
+    	var int i;
+    	let i = 0;
+
+    	do board.dispose();
+    	let board = Array.new(16);
+
+    	while(i < 16)
+    	{
+    		let board[i] = 0;
+    		let i = i + 1;
+    	}
+    	return;
+    }
+
+    method void printBoard()
+    {
+    	var int x;
+    	var int y;
+    	let x = 0;
+    	let y = 0;
+
+    	//do Screen.clearScreen();
+  
+  		do Output.moveCursor(0, 0);
+  		/*
+    	while(y < 4)
+    	{
+    		do Output.backSpace();
+    		let y = y + 1;
+    	}
+    	let y = 0;
+    	*/
+
+    	while(y < 4)
+    	{
+    		while(x < 4)
+    		{
+    			do Output.printInt(board[x+(y*4)]);
+    			do Output.printChar(" ");
+    			let x = x + 1;
+    		}
+    		do Output.println();
+    		let y = y + 1;
+    		let x = 0;
+    	}
+
+    	return;
+    }
+
+
+    //Getter methods
+    method boolean doPrint()
+    {
+    	return doPrint;
+    }
+
+    method int getScore()
+    {
+    	return score;
+    }
+
+    method boolean isGameOver()
+    {
+    	return isGameOver;
+    }
+}
+
