@@ -14,10 +14,6 @@ class Main
 
 		while(~(board.isGameOver()))
 		{
-			//do Output.printInt(Keyboard.keyPressed());
-			//do Output.backSpace();
-			//do Screen.clearScreen();
-
 			do board.updateBoard(Keyboard.keyPressed());
 			if(board.doPrint())
 			{

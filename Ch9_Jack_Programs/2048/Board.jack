@@ -16,6 +16,8 @@ class Board
 	field boolean isGameOver;
 	field boolean doPrint;
 
+	field int tempNum;
+
     constructor Board new(int horzSizeIn, int vertSizeIn, int baseNumIn)
     {
     	let horzSize = horzSizeIn;
@@ -23,6 +25,7 @@ class Board
     	let baseNum = baseNumIn;
     	let doPrint = true;
     	let board = Array.new(16);
+    	let tempNum = 0;
 
     	do clearBoard();
 
@@ -31,6 +34,39 @@ class Board
 
     method void updateBoard(int keyPressed)
     {
+    	var int currentKey;
+    	let currentKey = keyPressed;
+
+    	let doPrint = false;
+
+    	//130, 131, 132, and 133 are all valid directional inputs
+    	if(currentKey - 129 > 0)
+    	{
+    		if(134 - currentKey > 0)
+    		{
+    			while(true)
+    			{
+    				//checking for the user to release an arrow key
+    				if(currentKey > 133)
+    				{
+    					do Output.printInt(currentKey);
+    					//let doPrint = true;
+    					//return;
+    				}
+    				/*
+    				else if(currentKey < 130)
+    				{
+    					do Output.printInt(currentKey);
+    					//let doPrint = true;
+    					//return;
+    				}
+    				let currentKey = Keyboard.keyPressed();
+    				*/
+
+    				return;
+    			}
+    		}
+    	}
     	return;
     }
 
@@ -57,18 +93,12 @@ class Board
     	let x = 0;
     	let y = 0;
 
-    	//do Screen.clearScreen();
-  
-  		do Output.moveCursor(0, 0);
-  		/*
-    	while(y < 4)
-    	{
-    		do Output.backSpace();
-    		let y = y + 1;
-    	}
-    	let y = 0;
-    	*/
+    	let doPrint = false;
 
+    	//do Screen.clearScreen();
+  		do Output.moveCursor(0, 0);
+
+  		/*
     	while(y < 4)
     	{
     		while(x < 4)
@@ -81,6 +111,8 @@ class Board
     		let y = y + 1;
     		let x = 0;
     	}
+    	*/
+    	do Output.printInt(tempNum);
 
     	return;
     }
