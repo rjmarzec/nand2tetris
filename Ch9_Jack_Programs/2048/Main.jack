@@ -17,6 +17,7 @@ class Main
 			do board.updateBoard(Keyboard.keyPressed());
 			if(board.doPrint())
 			{
+				do Screen.clearScreen();
 				do board.printBoard();
 			}
 		}

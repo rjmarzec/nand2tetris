@@ -19,6 +19,8 @@ call Board.doPrint 1
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
+call Screen.clearScreen 0
+pop temp 0
 push local 0
 call Board.printBoard 1
 pop temp 0

@@ -35,39 +35,92 @@ class Board
     method void updateBoard(int keyPressed)
     {
     	var int currentKey;
+    	var int previousKey;
     	let currentKey = keyPressed;
+    	let previousKey = currentKey;
 
     	let doPrint = false;
 
     	//130, 131, 132, and 133 are all valid directional inputs
-    	if(currentKey - 129 > 0)
+    	if(currentKey < 134)
     	{
-    		if(134 - currentKey > 0)
+    		if(currentKey > 129)
     		{
     			while(true)
     			{
     				//checking for the user to release an arrow key
     				if(currentKey > 133)
     				{
-    					do Output.printInt(currentKey);
-    					//let doPrint = true;
-    					//return;
+    					do Output.printInt(previousKey);
+    					let doPrint = true;
+    					return;
     				}
-    				/*
-    				else if(currentKey < 130)
+    				if(currentKey < 130)
     				{
-    					do Output.printInt(currentKey);
-    					//let doPrint = true;
-    					//return;
+    					do Output.printInt(previousKey);
+    					let doPrint = true;
+    					return;
     				}
+    				let previousKey = currentKey;
     				let currentKey = Keyboard.keyPressed();
-    				*/
-
-    				return;
     			}
     		}
     	}
     	return;
+    }
+
+    method void moveBoard(int currentKey)
+    {
+    	// 130 = left, 131 = up, 132 = right, 133 = down
+    	if(currentKey = 130)
+    	{
+    		do moveBoardLeftRight(true);
+    		return;
+    	}
+    	if(currentKey = 131)
+    	{
+    		do moveBoardUpDown(true);
+    		return;
+    	}
+    	if(currentKey = 132)
+    	{
+    		do moveBoardLeftRight(false);
+    		return;
+    	}
+    	if(currentKey = 133)
+    	{
+    		do moveBoardUpDown(false);
+    		return;
+    	}
+    	return;
+    }
+
+    method void moveBoardUpDown(boolean directionIsUp)
+    {
+    	//Move Up
+    	if(directionIsUp)
+    	{
+    		return;
+    	}
+    	//Move Down
+    	else
+    	{
+    		return;
+    	}
+    }
+
+    method void moveBoardLeftRight(boolean directionIsLeft)
+    {
+    	//Move Up
+    	if(directionIsLeft)
+    	{
+    		return;
+    	}
+    	//Move Down
+    	else    	
+    	{
+    		return;
+    	}
     }
 
     method void clearBoard()
@@ -95,10 +148,8 @@ class Board
 
     	let doPrint = false;
 
-    	//do Screen.clearScreen();
   		do Output.moveCursor(0, 0);
 
-  		/*
     	while(y < 4)
     	{
     		while(x < 4)
@@ -111,8 +162,6 @@ class Board
     		let y = y + 1;
     		let x = 0;
     	}
-    	*/
-    	do Output.printInt(tempNum);
 
     	return;
     }
