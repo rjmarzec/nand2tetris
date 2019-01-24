@@ -111,9 +111,36 @@ class Board
 
     method void moveBoardLeftRight(boolean directionIsLeft)
     {
+    	var int x;
+    	var int y;
+    	var int currentNum;
+    	var int previousNum;
+
     	//Move Up
     	if(directionIsLeft)
     	{
+    		let x = 1;
+    		let y = 0;
+    		let currentNum = 0;
+    		let previousNum = 0;
+    		
+    		while(x < horzSize - 1)
+    		{
+    			let currentNum = board[x];
+    			if(~(currentNum = 0))
+    			{
+    				if(currentNum = previousNum)
+    				{
+    					let currentNum = currentNum * 2;
+    					let previousNum = 0;
+    				}
+    				else
+    				{
+    					let previousNum = currentNum;
+    				}
+    			}
+    		}
+
     		return;
     	}
     	//Move Down
