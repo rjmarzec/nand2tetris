@@ -115,32 +115,44 @@ class Board
     	var int y;
     	var int currentNum;
     	var int previousNum;
+    	var int previousNumIndex;
 
     	//Move Up
     	if(directionIsLeft)
     	{
-    		let x = 1;
+    		let x = 0;
     		let y = 0;
     		let currentNum = 0;
-    		let previousNum = 0;
+    		let previousNonZeroNum = 0;
+    		let previousNonZeroNumIndex = 0;
     		
+    		if(~(board[x - 1] = 0))
+    		{
+    			prviousNonZeroNum = board[x];
+    			previousNonZeroNumIndex = x;
+    		}
+    		let x = x + 1;
+
     		while(x < horzSize - 1)
     		{
     			let currentNum = board[x];
+
     			if(~(currentNum = 0))
     			{
-    				if(currentNum = previousNum)
+    				if(currentNum = previousNonZeroNum)
     				{
-    					let currentNum = currentNum * 2;
-    					let previousNum = 0;
+    					let board[previousNonZeroNumIndex] = currentNum + previousNonZeroNum;
+
     				}
     				else
     				{
-    					let previousNum = currentNum;
+    					let board[previousNonZeroNumIndex + 1] = currentNum;
     				}
+
+    				let previousNonZeroNum = currentNum;
+    				let previousNonZeroNumIndex = ;
     			}
     		}
-
     		return;
     	}
     	//Move Down
@@ -161,6 +173,14 @@ class Board
     	while(i < 16)
     	{
     		let board[i] = 0;
+    		if(i = 0)
+    		{
+    			let board[i] = 1;
+    		}
+    		if(i = 1)
+    		{
+    			let board[i] = 1;
+    		}
     		let i = i + 1;
     	}
     	return;

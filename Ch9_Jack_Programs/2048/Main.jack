@@ -12,6 +12,7 @@ class Main
 		var Board board;
 		let board = Board.new(4, 4, 1);
 
+        do board.printBoard();
 		while(~(board.isGameOver()))
 		{
 			do board.updateBoard(Keyboard.keyPressed());

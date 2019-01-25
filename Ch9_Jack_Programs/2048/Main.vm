@@ -4,6 +4,9 @@ push constant 4
 push constant 1
 call Board.new 3
 pop local 0
+push local 0
+call Board.printBoard 1
+pop temp 0
 label WHILE_EXP0
 push local 0
 call Board.isGameOver 1
