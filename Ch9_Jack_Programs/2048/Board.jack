@@ -26,6 +26,7 @@ class Board
     	let doPrint = true;
     	let board = Array.new(16);
     	let tempNum = 0;
+        let isGameOver = false;
 
     	do clearBoard();
 
@@ -45,19 +46,21 @@ class Board
     	if(currentKey < 134)
     	{
     		if(currentKey > 129)
-    		{
+    		{ 
     			while(true)
     			{
     				//checking for the user to release an arrow key
     				if(currentKey > 133)
     				{
     					do Output.printInt(previousKey);
+                        do moveBoard(previousKey);
     					let doPrint = true;
     					return;
     				}
     				if(currentKey < 130)
     				{
     					do Output.printInt(previousKey);
+                        do moveBoard(previousKey);
     					let doPrint = true;
     					return;
     				}
@@ -112,6 +115,7 @@ class Board
     method void moveBoardLeftRight(boolean directionIsLeft)
     {
     	var int x;
+        var int i;
     	var int y;
     	var int currentNum;
     	var int previousNum;
@@ -120,41 +124,76 @@ class Board
     	//Move Up
     	if(directionIsLeft)
     	{
-    		let x = 0;
-    		let y = 0;
-    		let currentNum = 0;
-    		let previousNonZeroNum = 0;
-    		let previousNonZeroNumIndex = 0;
-    		
-    		if(~(board[x - 1] = 0))
-    		{
-    			prviousNonZeroNum = board[x];
-    			previousNonZeroNumIndex = x;
-    		}
-    		let x = x + 1;
+            // Logic of how the movement algorithm works
+            /*{
+                New idea for an algorithm! Assume the following diagram:
+                [2][2][4][0]
 
-    		while(x < horzSize - 1)
-    		{
-    			let currentNum = board[x];
+                Start with the first value
+                (2)[2][4][0]
 
-    			if(~(currentNum = 0))
-    			{
-    				if(currentNum = previousNonZeroNum)
-    				{
-    					let board[previousNonZeroNumIndex] = currentNum + previousNonZeroNum;
+                Compare it to the next value
+                (2)(2)[4][0]
 
-    				}
-    				else
-    				{
-    					let board[previousNonZeroNumIndex + 1] = currentNum;
-    				}
+                If they are the same value, combine them
+                [4][0][4][0]
 
-    				let previousNonZeroNum = currentNum;
-    				let previousNonZeroNumIndex = ;
-    			}
-    		}
-    		return;
+                Move on to the next value after an operation
+                [4](0)[4][0]
+
+                If the current value is a zero, find the next non-zero value
+                [4](0)(4)[0]
+
+                Move that value to where the zero was
+                [4][4][0][0]
+                
+                Continue to repeat
+                [4][4](0)[0]
+
+                If the last value is being compared, end the loop
+                [4][4][0][0]
+            }*/
+
+            let y = 0;
+            while(y < vertSize)
+            {
+                let i = y * horzSize;
+                while(i < (horzSize - 1) + (y * horzSize))
+                {
+                    let x = i + 1;
+                    while(x < horzSize + (y * vertSize))
+                    {
+                        if(board[i] = board[x])
+                        {
+                            let board[i] = board[i] + board[x];
+                            let board[x] = 0;
+                            //Manually breaking the loop
+                            let x = x + horzSize;
+                        }
+
+                        if(x < horzSize)
+                        {
+                            if(~(board[x] = 0))
+                            {
+                                if(board[i] = 0)
+                                {
+                                    let board[i] = board[x];
+                                    let board[x] = 0;
+                                }
+                                //Manually breaking the loop
+                                let x = x + horzSize;
+                            }
+                        }
+                        let x = x + 1;
+                    }
+                    let i = i + 1;
+                }
+                let y = y + 1;
+            }
+
+            return;
     	}
+
     	//Move Down
     	else    	
     	{
@@ -181,6 +220,42 @@ class Board
     		{
     			let board[i] = 1;
     		}
+            if(i = 4)
+            {
+                let board[i] = 1;
+            }
+            if(i = 7)
+            {
+                let board[i] = 1;
+            }
+            if(i = 8)
+            {
+                let board[i] = 1;
+            }
+            if(i = 9)
+            {
+                let board[i] = 1;
+            }
+            if(i = 11)
+            {
+                let board[i] = 1;
+            }
+            if(i = 12)
+            {
+                let board[i] = 1;
+            }
+            if(i = 13)
+            {
+                let board[i] = 1;
+            }
+            if(i = 14)
+            {
+                let board[i] = 1;
+            }
+            if(i = 15)
+            {
+                let board[i] = 1;
+            }
     		let i = i + 1;
     	}
     	return;
@@ -230,4 +305,5 @@ class Board
     	return isGameOver;
     }
 }
+
 
