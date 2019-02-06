@@ -1,8 +1,3 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/09/Average/Main.jack
-
 // The game 2048, but remade in the Jack language
 
 class Board
@@ -157,31 +152,37 @@ class Board
             let y = 0;
             while(y < vertSize)
             {
-                let i = y * horzSize;
-                while(i < (horzSize - 1) + (y * horzSize))
+                let i = 0;
+
+                while(i < (horzSize - 1))
                 {
                     let x = i + 1;
-                    while(x < horzSize + (y * vertSize))
+                    while(x < horzSize)
                     {
-                        if(board[i] = board[x])
+                        if(board[i + (y * vertSize)] = board[x + (y * vertSize)])
                         {
-                            let board[i] = board[i] + board[x];
-                            let board[x] = 0;
+                            let board[i + (y * vertSize)] = board[i + (y * vertSize)] + board[x + (y * vertSize)];
+                            let board[x + (y * vertSize)] = 0;
                             //Manually breaking the loop
                             let x = x + horzSize;
                         }
 
                         if(x < horzSize)
                         {
-                            if(~(board[x] = 0))
+                            if(~(board[x + (y * vertSize)] = 0))
                             {
-                                if(board[i] = 0)
+                                if(board[i + (y * vertSize)] = 0)
                                 {
-                                    let board[i] = board[x];
-                                    let board[x] = 0;
+                                    let board[i + (y * vertSize)] = board[x + (y * vertSize)];
+                                    let board[x + (y * vertSize)] = 0;
+                                    let i = i - 1;
+                                    let x = i;
                                 }
-                                //Manually breaking the loop
-                                let x = x + horzSize;
+                                else
+                                {
+                                    //Manually breaking the loop
+                                    let x = x + horzSize;
+                                }
                             }
                         }
                         let x = x + 1;
@@ -214,48 +215,50 @@ class Board
     		let board[i] = 0;
     		if(i = 0)
     		{
-    			let board[i] = 1;
+    			let board[i] = baseNum;
     		}
     		if(i = 1)
     		{
-    			let board[i] = 1;
+    			let board[i] = baseNum;
     		}
-            if(i = 4)
+            if(i = 5)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 7)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 8)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 9)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 11)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
+
             if(i = 12)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 13)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 14)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
             if(i = 15)
             {
-                let board[i] = 1;
+                let board[i] = baseNum;
             }
+
     		let i = i + 1;
     	}
     	return;

@@ -1,7 +1,7 @@
 function Main.main 1
 push constant 4
 push constant 4
-push constant 1
+push constant 2
 call Board.new 3
 pop local 0
 push local 0
