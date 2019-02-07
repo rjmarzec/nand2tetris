@@ -95,15 +95,106 @@ class Board
 
     method void moveBoardUpDown(boolean directionIsUp)
     {
+        var int x;
+        var int i;
+        var int y;
+        var int currentNum;
+        var int previousNum;
+        var int previousNumIndex;
+
     	//Move Up
     	if(directionIsUp)
-    	{
-    		return;
+    	{   
+            let x = 0;
+            while(x < horzSize)
+            {
+                let i = 0;
+
+                while(i < (vertSize - 1))
+                {
+                    let y = i + 1;
+                    while(y < vertSize)
+                    {
+                        if(~(board[x + (i * vertSize)] = 0))
+                        {
+                            if(board[x + (i * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let board[x + (i * vertSize)] = board[x + (i * vertSize)] + board[x + (y * vertSize)];
+                                let board[x + (y * vertSize)] = 0;
+                                //Manually breaking the loop
+                                let y = y + vertSize;
+                            }
+                        }
+
+                        if(y < vertSize)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[x + (i * vertSize)] = 0)
+                                {
+                                    let board[x + (i * vertSize)] = board[x + (y * vertSize)];
+                                    let board[x + (y * vertSize)] = 0;
+                                    let i = i - 1;
+                                    let y = i;
+                                }
+                                //Manually breaking the loop
+                                let y = y + vertSize;
+                            }
+                        }
+                        let y = y + 1;
+                    }
+                    let i = i + 1;
+                }
+                let x = x + 1;
+            }
+            return;
     	}
     	//Move Down
     	else
     	{
-    		return;
+    		let x = 0;
+            while(x < horzSize)
+            {
+                let i = vertSize - 1;
+
+                while(i > 0)
+                {
+                    let y = i - 1;
+                    while(y > -1)
+                    {
+                        if(~(board[x + (i * vertSize)] = 0))
+                        {
+                            if(board[x + (i * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let board[x + (i * vertSize)] = board[x + (i * vertSize)] + board[x + (y * vertSize)];
+                                let board[x + (y * vertSize)] = 0;
+                                //Manually breaking the loop
+                                let y = y - vertSize;
+                            }
+                        }
+
+                        if(y < vertSize)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[x + (i * vertSize)] = 0)
+                                {
+                                    let board[x + (i * vertSize)] = board[x + (y * vertSize)];
+                                    let board[x + (y * vertSize)] = 0;
+                                    let i = i + 1;
+                                    let y = i;
+                                }
+                                //Manually breaking the loop
+                                let y = y - vertSize;
+                            }
+                        }
+                        let y = y - 1;
+                    }
+                    let i = i - 1;
+                }
+                let x = x + 1;
+            }
+            return;
     	}
     }
 
@@ -119,43 +210,6 @@ class Board
     	//Move Up
     	if(directionIsLeft)
     	{
-            // Logic of how the movement algorithm works
-            /*{
-                New idea for an algorithm! Assume the following diagram:
-                [2][2][4][0]
-
-                Start with the first value
-                (2)[2][4][0]
-
-                Compare it to the next value
-                (2)(2)[4][0]
-
-                If they are the same value, combine them
-                [4][0][4][0]
-
-                Move on to the next value after an operation
-                [4](0)[4][0]
-
-                If the current value is a zero, find the next non-zero value
-                [4](0)(4)[0]
-
-                Move that value to where the zero was
-                [4][4][0][0]
-                
-                Continue to repeat
-                [4][4](0)[0]
-
-                If the last value is being compared, end the loop
-                [4][4][0][0]
-            }*/
-
-            //[2][2][0][2]
-            /*
-            i=0
-            x=1
-
-            */
-
             let y = 0;
             while(y < vertSize)
             {
@@ -198,13 +252,54 @@ class Board
                 }
                 let y = y + 1;
             }
-
             return;
     	}
 
     	//Move Down
     	else    	
     	{
+            let y = 0;
+            while(y < vertSize)
+            {
+                let i = horzSize - 1;
+
+                while(i > 0)
+                {
+                    let x = i - 1;
+                    while(x > -1)
+                    {
+                        if(~(board[i + (y * vertSize)] = 0))
+                        {
+                            if(board[i + (y * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let board[i + (y * vertSize)] = board[i + (y * vertSize)] + board[x + (y * vertSize)];
+                                let board[x + (y * vertSize)] = 0;
+                                //Manually breaking the loop
+                                let x = x - horzSize;
+                            }
+                        }
+
+                        if(x > -1)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[i + (y * vertSize)] = 0)
+                                {
+                                    let board[i + (y * vertSize)] = board[x + (y * vertSize)];
+                                    let board[x + (y * vertSize)] = 0;
+                                    let i = i + 1;
+                                    let x = i;
+                                }
+                                //Manually breaking the loop
+                                let x = x - horzSize;
+                            }
+                        }
+                        let x = x - 1;
+                    }
+                    let i = i - 1;
+                }
+                let y = y + 1;
+            }
     		return;
     	}
     }
