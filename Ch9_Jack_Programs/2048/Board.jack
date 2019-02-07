@@ -121,6 +121,9 @@ class Board
                             {
                                 let board[x + (i * vertSize)] = board[x + (i * vertSize)] + board[x + (y * vertSize)];
                                 let board[x + (y * vertSize)] = 0;
+
+                                let score = score + board[x + (i * vertSize)];
+
                                 //Manually breaking the loop
                                 let y = y + vertSize;
                             }
@@ -168,6 +171,9 @@ class Board
                             {
                                 let board[x + (i * vertSize)] = board[x + (i * vertSize)] + board[x + (y * vertSize)];
                                 let board[x + (y * vertSize)] = 0;
+
+                                let score = score + board[x + (i * vertSize)];
+
                                 //Manually breaking the loop
                                 let y = y - vertSize;
                             }
@@ -226,6 +232,9 @@ class Board
                             {
                                 let board[i + (y * vertSize)] = board[i + (y * vertSize)] + board[x + (y * vertSize)];
                                 let board[x + (y * vertSize)] = 0;
+
+                                let score = score + board[i + (y * vertSize)];
+
                                 //Manually breaking the loop
                                 let x = x + horzSize;
                             }
@@ -274,6 +283,9 @@ class Board
                             {
                                 let board[i + (y * vertSize)] = board[i + (y * vertSize)] + board[x + (y * vertSize)];
                                 let board[x + (y * vertSize)] = 0;
+
+                                let score = score + board[i + (y * vertSize)];
+                                
                                 //Manually breaking the loop
                                 let x = x - horzSize;
                             }
