@@ -149,6 +149,13 @@ class Board
                 [4][4][0][0]
             }*/
 
+            //[2][2][0][2]
+            /*
+            i=0
+            x=1
+
+            */
+
             let y = 0;
             while(y < vertSize)
             {
@@ -159,12 +166,15 @@ class Board
                     let x = i + 1;
                     while(x < horzSize)
                     {
-                        if(board[i + (y * vertSize)] = board[x + (y * vertSize)])
+                        if(~(board[i + (y * vertSize)] = 0))
                         {
-                            let board[i + (y * vertSize)] = board[i + (y * vertSize)] + board[x + (y * vertSize)];
-                            let board[x + (y * vertSize)] = 0;
-                            //Manually breaking the loop
-                            let x = x + horzSize;
+                            if(board[i + (y * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let board[i + (y * vertSize)] = board[i + (y * vertSize)] + board[x + (y * vertSize)];
+                                let board[x + (y * vertSize)] = 0;
+                                //Manually breaking the loop
+                                let x = x + horzSize;
+                            }
                         }
 
                         if(x < horzSize)
@@ -178,11 +188,8 @@ class Board
                                     let i = i - 1;
                                     let x = i;
                                 }
-                                else
-                                {
-                                    //Manually breaking the loop
-                                    let x = x + horzSize;
-                                }
+                                //Manually breaking the loop
+                                let x = x + horzSize;
                             }
                         }
                         let x = x + 1;
@@ -213,11 +220,11 @@ class Board
     	while(i < 16)
     	{
     		let board[i] = 0;
-    		if(i = 0)
+    		if(i = 2)
     		{
     			let board[i] = baseNum;
     		}
-    		if(i = 1)
+    		if(i = 3)
     		{
     			let board[i] = baseNum;
     		}
