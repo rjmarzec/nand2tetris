@@ -5,17 +5,22 @@ class Main
 	function void main() 
 	{
 		var Board board;
+		var Random random;		
+
 		let board = Board.new(4, 4, 2);
+		let random = Random.new(board.getSize());
 
         do board.printBoard();
-		while(~(board.isGameOver()))
+		while(~(board.getIsGameOver()))
 		{
 			do board.updateBoard(Keyboard.keyPressed());
-			if(board.doPrint())
+			if(board.getDoPrint())
 			{
 				do Screen.clearScreen();
 				do board.printBoard();
 			}
+			do random.getShift();
+			do board.updateRandom(random);
 		}
 
 		do Output.println();

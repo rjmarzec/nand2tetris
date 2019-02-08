@@ -11,7 +11,7 @@ class Board
 	field boolean isGameOver;
 	field boolean doPrint;
 
-	field int tempNum;
+    field Random random;
 
     constructor Board new(int horzSizeIn, int vertSizeIn, int baseNumIn)
     {
@@ -19,9 +19,10 @@ class Board
     	let vertSize = vertSizeIn;
     	let baseNum = baseNumIn;
     	let doPrint = true;
-    	let board = Array.new(16);
-    	let tempNum = 0;
+    	let board = Array.new(horzSize * vertSize);
         let isGameOver = false;
+
+        let random = Random.new(horzSize * vertSize);
 
     	do clearBoard();
 
@@ -263,7 +264,6 @@ class Board
             }
             return;
     	}
-
     	//Move Down
     	else    	
     	{
@@ -314,6 +314,42 @@ class Board
             }
     		return;
     	}
+    }
+
+    method void spawnNewBlock()
+    {
+        var zeroCounter;
+        var spawnLocation;
+        var blockValue;
+        var i;
+
+        let zeroCounter = 0;
+        let i = 0;
+
+        while(i < vertSize * horzSize)
+        {
+            if(board[i] = 0)
+            {
+                let zeroCounter = zeroCounter + 1;
+            }
+        }
+
+        if(zeroCounter > 0)
+        {
+            let spawnLocation = random.randRange(zeroCounter - 1);
+            let blockValue = random.randRange(3);
+            if(blockValue = 0)
+            {
+                let board[spawnLocation] = baseNum * 2;
+            }
+            else
+            {
+                let board[spawnLocation] = baseNum;
+            }
+        }
+
+
+        return;
     }
 
     method void clearBoard()
@@ -405,9 +441,20 @@ class Board
     	return;
     }
 
+    method void updatedRandom(Random newRandom)
+    {
+        let random = newRandom;
+        return;
+    }
+
 
     //Getter methods
-    method boolean doPrint()
+    method int getSize()
+    {
+        return horzSize * vertSize;
+    }
+
+    method boolean getDoPrint()
     {
     	return doPrint;
     }
@@ -417,7 +464,7 @@ class Board
     	return score;
     }
 
-    method boolean isGameOver()
+    method boolean getIsGameOver()
     {
     	return isGameOver;
     }

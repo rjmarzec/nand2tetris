@@ -1,15 +1,19 @@
-function Main.main 1
+function Main.main 2
 push constant 4
 push constant 4
 push constant 2
 call Board.new 3
 pop local 0
 push local 0
+call Board.getSize 1
+call Random.new 1
+pop local 1
+push local 0
 call Board.printBoard 1
 pop temp 0
 label WHILE_EXP0
 push local 0
-call Board.isGameOver 1
+call Board.getIsGameOver 1
 not
 not
 if-goto WHILE_END0
@@ -18,7 +22,7 @@ call Keyboard.keyPressed 0
 call Board.updateBoard 2
 pop temp 0
 push local 0
-call Board.doPrint 1
+call Board.getDoPrint 1
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -28,6 +32,13 @@ push local 0
 call Board.printBoard 1
 pop temp 0
 label IF_FALSE0
+push local 1
+call Random.getShift 1
+pop temp 0
+push local 0
+push local 1
+call Board.updateRandom 2
+pop temp 0
 goto WHILE_EXP0
 label WHILE_END0
 call Output.println 0
