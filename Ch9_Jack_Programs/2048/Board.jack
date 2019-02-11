@@ -151,7 +151,6 @@ class Board
                 }
                 let x = x + 1;
             }
-            return;
     	}
     	//Move Down
     	else
@@ -201,8 +200,9 @@ class Board
                 }
                 let x = x + 1;
             }
-            return;
     	}
+        do spawnNewBlock();
+        return;
     }
 
     method void moveBoardLeftRight(boolean directionIsLeft)
@@ -262,7 +262,6 @@ class Board
                 }
                 let y = y + 1;
             }
-            return;
     	}
     	//Move Down
     	else    	
@@ -312,43 +311,58 @@ class Board
                 }
                 let y = y + 1;
             }
-    		return;
     	}
+        do spawnNewBlock();
+        return;
     }
 
     method void spawnNewBlock()
     {
-        var zeroCounter;
-        var spawnLocation;
-        var blockValue;
-        var i;
+        var int zeroCounter;
+        var int randInSpawnLocation;
+        var int blockValue;
+        var int newBlockLocation;
+        var int i;
 
         let zeroCounter = 0;
         let i = 0;
 
-        while(i < vertSize * horzSize)
+        while(i < (vertSize * horzSize))
         {
             if(board[i] = 0)
             {
                 let zeroCounter = zeroCounter + 1;
             }
+            let i = i + 1;
         }
 
         if(zeroCounter > 0)
         {
-            let spawnLocation = random.randRange(zeroCounter - 1);
-            let blockValue = random.randRange(3);
-            if(blockValue = 0)
+            let randInSpawnLocation = random.randRange(zeroCounter - 1);
+            let zeroCounter = -1;
+            let i = 0;
+            while(i < (vertSize * horzSize))
             {
-                let board[spawnLocation] = baseNum * 2;
-            }
-            else
-            {
-                let board[spawnLocation] = baseNum;
+                //let board[0] = zeroCounter;
+                if(board[i] = 0)
+                {   
+                    let zeroCounter = zeroCounter + 1;
+                    if(zeroCounter = randInSpawnLocation)
+                    {
+                        let blockValue = random.randRange(3);
+                        if(blockValue = 0)
+                        {
+                            let board[i] = baseNum * 2;
+                        }
+                        else
+                        {
+                            let board[i] = baseNum;
+                        }
+                    }
+                }
+                let i = i + 1;
             }
         }
-
-
         return;
     }
 
@@ -360,6 +374,7 @@ class Board
     	do board.dispose();
     	let board = Array.new(16);
 
+        /*
     	while(i < 16)
     	{
     		let board[i] = 0;
@@ -411,6 +426,8 @@ class Board
 
     		let i = i + 1;
     	}
+        */
+
     	return;
     }
 
@@ -441,12 +458,11 @@ class Board
     	return;
     }
 
-    method void updatedRandom(Random newRandom)
+    method void updateRandom(Random newRandom)
     {
         let random = newRandom;
         return;
     }
-
 
     //Getter methods
     method int getSize()
