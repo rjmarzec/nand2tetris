@@ -13,6 +13,10 @@ class Board
 
     field Random random;
 
+    static String scoreLine;
+    static String space;
+    static String tab;
+
     constructor Board new(int horzSizeIn, int vertSizeIn, int baseNumIn)
     {
     	let horzSize = horzSizeIn;
@@ -21,6 +25,10 @@ class Board
     	let doPrint = true;
     	let board = Array.new(horzSize * vertSize);
         let isGameOver = false;
+
+        let space = " ";
+        let scoreLine = "Score: ";
+        let tab = "\t";
 
         let random = Random.new(horzSize * vertSize);
 
@@ -102,6 +110,9 @@ class Board
         var int currentNum;
         var int previousNum;
         var int previousNumIndex;
+        var bool didMove;
+
+        let didMove = false;
 
     	//Move Up
     	if(directionIsUp)
@@ -127,6 +138,8 @@ class Board
 
                                 //Manually breaking the loop
                                 let y = y + vertSize;
+
+                                let didMove = true;
                             }
                         }
 
@@ -140,6 +153,8 @@ class Board
                                     let board[x + (y * vertSize)] = 0;
                                     let i = i - 1;
                                     let y = i;
+
+                                    let didMove = true;
                                 }
                                 //Manually breaking the loop
                                 let y = y + vertSize;
@@ -176,6 +191,8 @@ class Board
 
                                 //Manually breaking the loop
                                 let y = y - vertSize;
+
+                                let didMove = true;
                             }
                         }
 
@@ -189,6 +206,8 @@ class Board
                                     let board[x + (y * vertSize)] = 0;
                                     let i = i + 1;
                                     let y = i;
+
+                                    let didMove = true;
                                 }
                                 //Manually breaking the loop
                                 let y = y - vertSize;
@@ -201,7 +220,10 @@ class Board
                 let x = x + 1;
             }
     	}
-        do spawnNewBlock();
+        if(didMove)
+        {
+            do spawnNewBlock();
+        }
         return;
     }
 
@@ -213,6 +235,9 @@ class Board
     	var int currentNum;
     	var int previousNum;
     	var int previousNumIndex;
+        var bool didMove;
+
+        let didMove = false;
 
     	//Move Up
     	if(directionIsLeft)
@@ -238,6 +263,8 @@ class Board
 
                                 //Manually breaking the loop
                                 let x = x + horzSize;
+
+                                let didMove = true;
                             }
                         }
 
@@ -251,6 +278,8 @@ class Board
                                     let board[x + (y * vertSize)] = 0;
                                     let i = i - 1;
                                     let x = i;
+
+                                    let didMove = true;
                                 }
                                 //Manually breaking the loop
                                 let x = x + horzSize;
@@ -287,6 +316,8 @@ class Board
                                 
                                 //Manually breaking the loop
                                 let x = x - horzSize;
+
+                                let didMove = true;
                             }
                         }
 
@@ -300,6 +331,8 @@ class Board
                                     let board[x + (y * vertSize)] = 0;
                                     let i = i + 1;
                                     let x = i;
+
+                                    let didMove = true;
                                 }
                                 //Manually breaking the loop
                                 let x = x - horzSize;
@@ -312,7 +345,10 @@ class Board
                 let y = y + 1;
             }
     	}
-        do spawnNewBlock();
+        if(didMove)
+        {
+            do spawnNewBlock();
+        }
         return;
     }
 
@@ -374,59 +410,7 @@ class Board
     	do board.dispose();
     	let board = Array.new(16);
 
-        /*
-    	while(i < 16)
-    	{
-    		let board[i] = 0;
-    		if(i = 2)
-    		{
-    			let board[i] = baseNum;
-    		}
-    		if(i = 3)
-    		{
-    			let board[i] = baseNum;
-    		}
-            if(i = 5)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 7)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 8)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 9)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 11)
-            {
-                let board[i] = baseNum;
-            }
-
-            if(i = 12)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 13)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 14)
-            {
-                let board[i] = baseNum;
-            }
-            if(i = 15)
-            {
-                let board[i] = baseNum;
-            }
-
-    		let i = i + 1;
-    	}
-        */
+        do spawnNewBlock();
 
     	return;
     }
@@ -435,31 +419,71 @@ class Board
     {
     	var int x;
     	var int y;
+        var bool drawLine;
+        var int drawLineCounter;
+
     	let x = 0;
     	let y = 0;
+        let drawLine = true;
+        let drawLineCounter = 0;
 
     	let doPrint = false;
 
   		do Output.moveCursor(0, 0);
 
-    	while(y < 4)
+    	while(y < vertSize)
     	{
-    		while(x < 4)
+    		while(x < horzSize)
     		{
-    			do Output.printInt(board[x+(y*4)]);
-    			do Output.printChar(" ");
-    			let x = x + 1;
+                if(drawLine)
+                {
+                    while(drawLineCounter < (7 * horzSize) + 2)
+                    {
+                        do Output.printString(tab);
+                        let drawLineCounter = drawLineCounter + 1;
+                    }
+                    if(drawLineCounter = (7 * horzSize) + 1)
+                    {
+                        let drawLine = false;
+                    }
+                }
+                else
+                {
+                    do Output.printString(tab);
+                    do Output.printString(space);
+                    if(board[x+(y*4)] < 1000)
+                    {
+                        do Output.printString(space);
+                        if(board[x+(y*4)] < 100)
+                        {
+                            do Output.printString(space);
+                            if(board[x+(y*4)] < 10)
+                            {
+                                do Output.printString(space);
+                            }
+                        }
+                    }
+                    do Output.printInt(board[x+(y*4)]);
+                    do Output.printString(space);
+
+                    let x = x + 1;
+                }
+                let drawLineCounter = 0;
     		}
+            do Output.printString(tab);
     		do Output.println();
     		let y = y + 1;
     		let x = 0;
     	}
+        do Output.printString(scoreLine);
+        do Output.printInt(score);
 
     	return;
     }
 
     method void updateRandom(Random newRandom)
     {
+        //do random.dispose();
         let random = newRandom;
         return;
     }

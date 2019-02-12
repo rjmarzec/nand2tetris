@@ -31,61 +31,15 @@ pop temp 0
 push local 0
 call Board.printBoard 1
 pop temp 0
-label IF_FALSE0
-push local 1
-call Random.getShift 1
-pop temp 0
 push local 0
 push local 1
 call Board.updateRandom 2
 pop temp 0
+label IF_FALSE0
+push local 1
+call Random.rand 1
+pop temp 0
 goto WHILE_EXP0
 label WHILE_END0
-call Output.println 0
-pop temp 0
-push constant 18
-call String.new 1
-push constant 89
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 117
-call String.appendChar 2
-push constant 114
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 70
-call String.appendChar 2
-push constant 105
-call String.appendChar 2
-push constant 110
-call String.appendChar 2
-push constant 97
-call String.appendChar 2
-push constant 108
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 83
-call String.appendChar 2
-push constant 99
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 114
-call String.appendChar 2
-push constant 101
-call String.appendChar 2
-push constant 58
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-call Output.printString 1
-pop temp 0
-push local 0
-call Board.getScore 1
-call Output.printString 1
-pop temp 0
 push constant 0
 return
