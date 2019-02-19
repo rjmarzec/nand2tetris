@@ -41,6 +41,7 @@ class Board
     {
     	var int currentKey;
     	var int previousKey;
+        var boolean canUpdate;
     	let currentKey = keyPressed;
     	let previousKey = currentKey;
 
@@ -56,50 +57,102 @@ class Board
     				//checking for the user to release an arrow key
     				if(currentKey > 133)
     				{
-    					do Output.printInt(previousKey);
-                        do moveBoard(previousKey);
-    					let doPrint = true;
-    					return;
-    				}
-    				if(currentKey < 130)
-    				{
-    					do Output.printInt(previousKey);
-                        do moveBoard(previousKey);
-    					let doPrint = true;
-    					return;
-    				}
+                        // 130 = left, 131 = up, 132 = right, 133 = down
+                        if(previousKey = 130)
+                        {
+                            let canUpdate = canUpdateLeftRight(true);
+                            if(canUpdate)
+                            {
+                                do moveBoardLeftRight(true);
+                                let doPrint = true;
+                            }
+                            let doPrint = true;
+                            let board[0] = 100;
+                            return;
+                        }
+                        if(previousKey = 131)
+                        {
+                            let canUpdate = canUpdateUpDown(true);
+                            if(canUpdate)
+                            {
+                                do moveBoardUpDown(true);
+                                let doPrint = true;
+                            }
+                            return;
+                        }
+                        if(previousKey = 132)
+                        {
+                            let canUpdate = canUpdateLeftRight(false);
+                            if(canUpdate)
+                            {
+                                do moveBoardLeftRight(false);
+                                let doPrint = true;
+                            }
+                            return;
+                        }
+                        if(previousKey = 133)
+                        {
+                            let canUpdate = canUpdateUpDown(false);
+                            if(canUpdate)
+                            {
+                                do moveBoardUpDown(false);
+                                let doPrint = true;
+                            }
+                            return;
+                        }
+                    }
+                    if(currentKey < 130)
+                    {
+                        // 130 = left, 131 = up, 132 = right, 133 = down
+                        if(previousKey = 130)
+                        {
+                            let canUpdate = canUpdateLeftRight(true);
+                            if(canUpdate)
+                            {
+                                do moveBoardLeftRight(true);
+                                let doPrint = true;
+                            }
+                            let doPrint = true;
+                            let board[0] = 100;
+                            return;
+                        }
+                        if(previousKey = 131)
+                        {
+                            let canUpdate = canUpdateUpDown(true);
+                            if(canUpdate)
+                            {
+                                do moveBoardUpDown(true);
+                                let doPrint = true;
+                            }
+                            return;
+                        }
+                        if(previousKey = 132)
+                        {
+                            let canUpdate = canUpdateLeftRight(false);
+                            if(canUpdate)
+                            {
+                                do moveBoardLeftRight(false);
+                                let doPrint = true;
+                            }
+                            return;
+                        }
+                        if(previousKey = 133)
+                        {
+                            let canUpdate = canUpdateUpDown(false);
+                            if(canUpdate)
+                            {
+                                do moveBoardUpDown(false);
+                                let doPrint = true;
+                            }
+                            return;
+                        }
+                    }
     				let previousKey = currentKey;
     				let currentKey = Keyboard.keyPressed();
     			}
     		}
     	}
-    	return;
-    }
-
-    method void moveBoard(int currentKey)
-    {
-    	// 130 = left, 131 = up, 132 = right, 133 = down
-    	if(currentKey = 130)
-    	{
-    		do moveBoardLeftRight(true);
-    		return;
-    	}
-    	if(currentKey = 131)
-    	{
-    		do moveBoardUpDown(true);
-    		return;
-    	}
-    	if(currentKey = 132)
-    	{
-    		do moveBoardLeftRight(false);
-    		return;
-    	}
-    	if(currentKey = 133)
-    	{
-    		do moveBoardUpDown(false);
-    		return;
-    	}
-    	return;
+        return;
     }
 
     method void moveBoardUpDown(boolean directionIsUp)
@@ -227,6 +280,115 @@ class Board
         return;
     }
 
+    method boolean canUpdateUpDown(boolean directionIsUp)
+    {
+        var int x;
+        var int i;
+        var int y;
+        var int currentNum;
+        var int previousNum;
+        var int previousNumIndex;
+        var bool canUpdate;
+
+        let canUpdate = false;
+
+        //Move Up
+        if(directionIsUp)
+        {   
+            let x = 0;
+            while(x < horzSize)
+            {
+                let i = 0;
+
+                while(i < (vertSize - 1))
+                {
+                    let y = i + 1;
+                    while(y < vertSize)
+                    {
+                        if(~(board[x + (i * vertSize)] = 0))
+                        {
+                            if(board[x + (i * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let canUpdate = true;
+
+                                //Manually breaking the loop
+                                let y = y + vertSize;
+                            }
+                        }
+
+                        if(y < vertSize)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[x + (i * vertSize)] = 0)
+                                {
+                                    let canUpdate = true;
+                                }
+                                //Manually breaking the loop
+                                let y = y + vertSize;
+                            }
+                        }
+                        let y = y + 1;
+                    }
+                    let i = i + 1;
+                }
+                let x = x + 1;
+            }
+        }
+        //Move Down
+        else
+        {
+            let x = 0;
+            while(x < horzSize)
+            {
+                let i = vertSize - 1;
+
+                while(i > 0)
+                {
+                    let y = i - 1;
+                    while(y > -1)
+                    {
+                        if(~(board[x + (i * vertSize)] = 0))
+                        {
+                            if(board[x + (i * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let canUpdate = true;
+
+                                //Manually breaking the loop
+                                let y = y - vertSize;
+                            }
+                        }
+
+                        if(y < vertSize)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[x + (i * vertSize)] = 0)
+                                {
+                                    let canUpdate = true;
+                                }
+                                //Manually breaking the loop
+                                let y = y - vertSize;
+                            }
+                        }
+                        let y = y - 1;
+                    }
+                    let i = i - 1;
+                }
+                let x = x + 1;
+            }
+        }
+
+        if(canUpdate)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     method void moveBoardLeftRight(boolean directionIsLeft)
     {
     	var int x;
@@ -239,7 +401,7 @@ class Board
 
         let didMove = false;
 
-    	//Move Up
+    	//Move Left
     	if(directionIsLeft)
     	{
             let y = 0;
@@ -292,7 +454,7 @@ class Board
                 let y = y + 1;
             }
     	}
-    	//Move Down
+    	//Move Right
     	else    	
     	{
             let y = 0;
@@ -350,6 +512,115 @@ class Board
             do spawnNewBlock();
         }
         return;
+    }
+
+    method boolean canUpdateLeftRight(boolean directionIsLeft)
+    {
+        var int x;
+        var int i;
+        var int y;
+        var int currentNum;
+        var int previousNum;
+        var int previousNumIndex;
+        var bool canUpdate;
+
+        let canUpdate = false;
+
+        //Move Left
+        if(directionIsLeft)
+        {
+            let y = 0;
+            while(y < vertSize)
+            {
+                let i = 0;
+
+                while(i < (horzSize - 1))
+                {
+                    let x = i + 1;
+                    while(x < horzSize)
+                    {
+                        if(~(board[i + (y * vertSize)] = 0))
+                        {
+                            if(board[i + (y * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let canUpdate = true;
+
+                                //Manually breaking the loop
+                                let x = x + horzSize;
+                            }
+                        }
+
+                        if(x < horzSize)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[i + (y * vertSize)] = 0)
+                                {
+                                    let canUpdate = true;
+                                }
+                                //Manually breaking the loop
+                                let x = x + horzSize;
+                            }
+                        }
+                        let x = x + 1;
+                    }
+                    let i = i + 1;
+                }
+                let y = y + 1;
+            }
+        }
+        //Move Right
+        else        
+        {
+            let y = 0;
+            while(y < vertSize)
+            {
+                let i = horzSize - 1;
+
+                while(i > 0)
+                {
+                    let x = i - 1;
+                    while(x > -1)
+                    {
+                        if(~(board[i + (y * vertSize)] = 0))
+                        {
+                            if(board[i + (y * vertSize)] = board[x + (y * vertSize)])
+                            {
+                                let canUpdate = true;
+                                
+                                //Manually breaking the loop
+                                let x = x - horzSize;
+                            }
+                        }
+
+                        if(x > -1)
+                        {
+                            if(~(board[x + (y * vertSize)] = 0))
+                            {
+                                if(board[i + (y * vertSize)] = 0)
+                                {
+                                    let canUpdate = true;
+                                }
+                                //Manually breaking the loop
+                                let x = x - horzSize;
+                            }
+                        }
+                        let x = x - 1;
+                    }
+                    let i = i - 1;
+                }
+                let y = y + 1;
+            }
+        }
+
+        if(canUpdate)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     method void spawnNewBlock()
@@ -419,62 +690,58 @@ class Board
     {
     	var int x;
     	var int y;
-        var bool drawLine;
-        var int drawLineCounter;
+        var int i;
 
     	let x = 0;
     	let y = 0;
-        let drawLine = true;
-        let drawLineCounter = 0;
-
-    	let doPrint = false;
+        let i = 0;
 
   		do Output.moveCursor(0, 0);
 
     	while(y < vertSize)
     	{
+            while(i < ((7 * horzSize) + 1))
+            {
+                do Output.printString(tab);
+                let i = i + 1; 
+            }
+            do Output.println();
+            let i = 0;
+
     		while(x < horzSize)
-    		{
-                if(drawLine)
+    		{   
+                do Output.printString(tab);
+                do Output.printString(space);
+                if(board[x+(y*4)] < 1000)
                 {
-                    while(drawLineCounter < (7 * horzSize) + 2)
-                    {
-                        do Output.printString(tab);
-                        let drawLineCounter = drawLineCounter + 1;
-                    }
-                    if(drawLineCounter = (7 * horzSize) + 1)
-                    {
-                        let drawLine = false;
-                    }
-                }
-                else
-                {
-                    do Output.printString(tab);
                     do Output.printString(space);
-                    if(board[x+(y*4)] < 1000)
+                    if(board[x+(y*4)] < 100)
                     {
                         do Output.printString(space);
-                        if(board[x+(y*4)] < 100)
+                        if(board[x+(y*4)] < 10)
                         {
                             do Output.printString(space);
-                            if(board[x+(y*4)] < 10)
-                            {
-                                do Output.printString(space);
-                            }
                         }
                     }
-                    do Output.printInt(board[x+(y*4)]);
-                    do Output.printString(space);
-
-                    let x = x + 1;
                 }
-                let drawLineCounter = 0;
+                do Output.printInt(board[x+(y*4)]);
+                do Output.printString(space);
+
+                let x = x + 1;
     		}
             do Output.printString(tab);
     		do Output.println();
     		let y = y + 1;
     		let x = 0;
     	}
+        while(i < ((7 * horzSize) + 1))
+        {
+            do Output.printString(tab);
+            let i = i + 1; 
+        }
+        do Output.println();
+        let i = 0;
+
         do Output.printString(scoreLine);
         do Output.printInt(score);
 
@@ -509,5 +776,6 @@ class Board
     	return isGameOver;
     }
 }
+
 
 

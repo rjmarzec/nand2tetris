@@ -23,12 +23,6 @@ class Main
 			do random.rand();
 		}
 
-        /*
-		do Output.println();
-		do Output.printString("Your Final Score: ");
-		do Output.printString(board.getScore());
-		*/
-
 		return;
 	}
 }

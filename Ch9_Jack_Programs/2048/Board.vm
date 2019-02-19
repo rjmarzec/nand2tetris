@@ -55,7 +55,7 @@ call Board.clearBoard 1
 pop temp 0
 push pointer 0
 return
-function Board.updateBoard 2
+function Board.updateBoard 3
 push argument 0
 pop pointer 0
 push argument 1
@@ -88,37 +88,243 @@ if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
 push local 1
-call Output.printInt 1
-pop temp 0
+push constant 130
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push pointer 0
-push local 1
-call Board.moveBoard 2
+push constant 0
+not
+call Board.canUpdateLeftRight 2
+pop local 2
+push local 2
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+push constant 0
+not
+call Board.moveBoardLeftRight 2
 pop temp 0
 push constant 0
 not
 pop this 6
+label IF_FALSE4
+push constant 0
+not
+pop this 6
+push constant 0
+push this 3
+add
+push constant 100
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
 push constant 0
 return
+label IF_FALSE3
+push local 1
+push constant 131
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push pointer 0
+push constant 0
+not
+call Board.canUpdateUpDown 2
+pop local 2
+push local 2
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push pointer 0
+push constant 0
+not
+call Board.moveBoardUpDown 2
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE6
+push constant 0
+return
+label IF_FALSE5
+push local 1
+push constant 132
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push pointer 0
+push constant 0
+call Board.canUpdateLeftRight 2
+pop local 2
+push local 2
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push pointer 0
+push constant 0
+call Board.moveBoardLeftRight 2
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE8
+push constant 0
+return
+label IF_FALSE7
+push local 1
+push constant 133
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push pointer 0
+push constant 0
+call Board.canUpdateUpDown 2
+pop local 2
+push local 2
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push pointer 0
+push constant 0
+call Board.moveBoardUpDown 2
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE10
+push constant 0
+return
+label IF_FALSE9
 label IF_FALSE2
 push local 0
 push constant 130
 lt
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
 push local 1
-call Output.printInt 1
-pop temp 0
+push constant 130
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
 push pointer 0
-push local 1
-call Board.moveBoard 2
+push constant 0
+not
+call Board.canUpdateLeftRight 2
+pop local 2
+push local 2
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push pointer 0
+push constant 0
+not
+call Board.moveBoardLeftRight 2
 pop temp 0
 push constant 0
 not
 pop this 6
+label IF_FALSE13
+push constant 0
+not
+pop this 6
+push constant 0
+push this 3
+add
+push constant 100
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
 push constant 0
 return
-label IF_FALSE3
+label IF_FALSE12
+push local 1
+push constant 131
+eq
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push pointer 0
+push constant 0
+not
+call Board.canUpdateUpDown 2
+pop local 2
+push local 2
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push pointer 0
+push constant 0
+not
+call Board.moveBoardUpDown 2
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE15
+push constant 0
+return
+label IF_FALSE14
+push local 1
+push constant 132
+eq
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push pointer 0
+push constant 0
+call Board.canUpdateLeftRight 2
+pop local 2
+push local 2
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push pointer 0
+push constant 0
+call Board.moveBoardLeftRight 2
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE17
+push constant 0
+return
+label IF_FALSE16
+push local 1
+push constant 133
+eq
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push pointer 0
+push constant 0
+call Board.canUpdateUpDown 2
+pop local 2
+push local 2
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push pointer 0
+push constant 0
+call Board.moveBoardUpDown 2
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE19
+push constant 0
+return
+label IF_FALSE18
+label IF_FALSE11
 push local 0
 pop local 1
 call Keyboard.keyPressed 0
@@ -127,65 +333,6 @@ goto WHILE_EXP0
 label WHILE_END0
 label IF_FALSE1
 label IF_FALSE0
-push constant 0
-return
-function Board.moveBoard 0
-push argument 0
-pop pointer 0
-push argument 1
-push constant 130
-eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
-push pointer 0
-push constant 0
-not
-call Board.moveBoardLeftRight 2
-pop temp 0
-push constant 0
-return
-label IF_FALSE0
-push argument 1
-push constant 131
-eq
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
-push pointer 0
-push constant 0
-not
-call Board.moveBoardUpDown 2
-pop temp 0
-push constant 0
-return
-label IF_FALSE1
-push argument 1
-push constant 132
-eq
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
-push pointer 0
-push constant 0
-call Board.moveBoardLeftRight 2
-pop temp 0
-push constant 0
-return
-label IF_FALSE2
-push argument 1
-push constant 133
-eq
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
-push pointer 0
-push constant 0
-call Board.moveBoardUpDown 2
-pop temp 0
-push constant 0
-return
-label IF_FALSE3
 push constant 0
 return
 function Board.moveBoardUpDown 7
@@ -669,6 +816,306 @@ pop temp 0
 label IF_FALSE11
 push constant 0
 return
+function Board.canUpdateUpDown 7
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop local 6
+push argument 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 1
+label WHILE_EXP1
+push local 1
+push this 1
+push constant 1
+sub
+lt
+not
+if-goto WHILE_END1
+push local 1
+push constant 1
+add
+pop local 2
+label WHILE_EXP2
+push local 2
+push this 1
+lt
+not
+if-goto WHILE_END2
+push local 0
+push local 1
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push local 1
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop local 6
+push local 2
+push this 1
+add
+pop local 2
+label IF_FALSE2
+label IF_FALSE1
+push local 2
+push this 1
+lt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 0
+push local 1
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+not
+pop local 6
+label IF_FALSE5
+push local 2
+push this 1
+add
+pop local 2
+label IF_FALSE4
+label IF_FALSE3
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP2
+label WHILE_END2
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+pop local 0
+label WHILE_EXP3
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END3
+push this 1
+push constant 1
+sub
+pop local 1
+label WHILE_EXP4
+push local 1
+push constant 0
+gt
+not
+if-goto WHILE_END4
+push local 1
+push constant 1
+sub
+pop local 2
+label WHILE_EXP5
+push local 2
+push constant 1
+neg
+gt
+not
+if-goto WHILE_END5
+push local 0
+push local 1
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push local 0
+push local 1
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+not
+pop local 6
+push local 2
+push this 1
+sub
+pop local 2
+label IF_FALSE7
+label IF_FALSE6
+push local 2
+push this 1
+lt
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push local 0
+push local 1
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push constant 0
+not
+pop local 6
+label IF_FALSE10
+push local 2
+push this 1
+sub
+pop local 2
+label IF_FALSE9
+label IF_FALSE8
+push local 2
+push constant 1
+sub
+pop local 2
+goto WHILE_EXP5
+label WHILE_END5
+push local 1
+push constant 1
+sub
+pop local 1
+goto WHILE_EXP4
+label WHILE_END4
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP3
+label WHILE_END3
+label IF_END0
+push local 6
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 0
+not
+return
+goto IF_END11
+label IF_FALSE11
+push constant 0
+return
+label IF_END11
 function Board.moveBoardLeftRight 7
 push argument 0
 pop pointer 0
@@ -1151,6 +1598,306 @@ pop temp 0
 label IF_FALSE11
 push constant 0
 return
+function Board.canUpdateLeftRight 7
+push argument 0
+pop pointer 0
+push constant 0
+pop local 6
+push argument 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push this 1
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 1
+label WHILE_EXP1
+push local 1
+push this 0
+push constant 1
+sub
+lt
+not
+if-goto WHILE_END1
+push local 1
+push constant 1
+add
+pop local 0
+label WHILE_EXP2
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END2
+push local 1
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 1
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop local 6
+push local 0
+push this 0
+add
+pop local 0
+label IF_FALSE2
+label IF_FALSE1
+push local 0
+push this 0
+lt
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 1
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+not
+pop local 6
+label IF_FALSE5
+push local 0
+push this 0
+add
+pop local 0
+label IF_FALSE4
+label IF_FALSE3
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP2
+label WHILE_END2
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+pop local 2
+label WHILE_EXP3
+push local 2
+push this 1
+lt
+not
+if-goto WHILE_END3
+push this 0
+push constant 1
+sub
+pop local 1
+label WHILE_EXP4
+push local 1
+push constant 0
+gt
+not
+if-goto WHILE_END4
+push local 1
+push constant 1
+sub
+pop local 0
+label WHILE_EXP5
+push local 0
+push constant 1
+neg
+gt
+not
+if-goto WHILE_END5
+push local 1
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push local 1
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+not
+pop local 6
+push local 0
+push this 0
+sub
+pop local 0
+label IF_FALSE7
+label IF_FALSE6
+push local 0
+push constant 1
+neg
+gt
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push local 0
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push local 1
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push constant 0
+not
+pop local 6
+label IF_FALSE10
+push local 0
+push this 0
+sub
+pop local 0
+label IF_FALSE9
+label IF_FALSE8
+push local 0
+push constant 1
+sub
+pop local 0
+goto WHILE_EXP5
+label WHILE_END5
+push local 1
+push constant 1
+sub
+pop local 1
+goto WHILE_EXP4
+label WHILE_END4
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP3
+label WHILE_END3
+label IF_END0
+push local 6
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 0
+not
+return
+goto IF_END11
+label IF_FALSE11
+push constant 0
+return
+label IF_END11
 function Board.spawnNewBlock 5
 push argument 0
 pop pointer 0
@@ -1290,7 +2037,7 @@ call Board.spawnNewBlock 1
 pop temp 0
 push constant 0
 return
-function Board.printBoard 4
+function Board.printBoard 3
 push argument 0
 pop pointer 0
 push constant 0
@@ -1298,12 +2045,7 @@ pop local 0
 push constant 0
 pop local 1
 push constant 0
-not
 pop local 2
-push constant 0
-pop local 3
-push constant 0
-pop this 6
 push constant 0
 push constant 0
 call Output.moveCursor 2
@@ -1315,49 +2057,34 @@ lt
 not
 if-goto WHILE_END0
 label WHILE_EXP1
+push local 2
+push constant 7
+push this 0
+call Math.multiply 2
+push constant 1
+add
+lt
+not
+if-goto WHILE_END1
+push static 2
+call Output.printString 1
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP1
+label WHILE_END1
+call Output.println 0
+pop temp 0
+push constant 0
+pop local 2
+label WHILE_EXP2
 push local 0
 push this 0
 lt
 not
-if-goto WHILE_END1
-push local 2
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
-label WHILE_EXP2
-push local 3
-push constant 7
-push this 0
-call Math.multiply 2
-lt
-push constant 2
-add
-not
 if-goto WHILE_END2
-push static 2
-call Output.printString 1
-pop temp 0
-push local 3
-push constant 1
-add
-pop local 3
-goto WHILE_EXP2
-label WHILE_END2
-push local 3
-push constant 7
-push this 0
-call Math.multiply 2
-eq
-push constant 1
-add
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
-push constant 0
-pop local 2
-label IF_FALSE1
-goto IF_END0
-label IF_FALSE0
 push static 2
 call Output.printString 1
 pop temp 0
@@ -1375,9 +2102,9 @@ pop pointer 1
 push that 0
 push constant 1000
 lt
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push static 1
 call Output.printString 1
 pop temp 0
@@ -1392,9 +2119,9 @@ pop pointer 1
 push that 0
 push constant 100
 lt
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push static 1
 call Output.printString 1
 pop temp 0
@@ -1409,15 +2136,15 @@ pop pointer 1
 push that 0
 push constant 10
 lt
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push static 1
 call Output.printString 1
 pop temp 0
-label IF_FALSE4
-label IF_FALSE3
 label IF_FALSE2
+label IF_FALSE1
+label IF_FALSE0
 push local 0
 push local 1
 push constant 4
@@ -1436,11 +2163,8 @@ push local 0
 push constant 1
 add
 pop local 0
-label IF_END0
-push constant 0
-pop local 3
-goto WHILE_EXP1
-label WHILE_END1
+goto WHILE_EXP2
+label WHILE_END2
 push static 2
 call Output.printString 1
 pop temp 0
@@ -1454,6 +2178,29 @@ push constant 0
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
+label WHILE_EXP3
+push local 2
+push constant 7
+push this 0
+call Math.multiply 2
+push constant 1
+add
+lt
+not
+if-goto WHILE_END3
+push static 2
+call Output.printString 1
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP3
+label WHILE_END3
+call Output.println 0
+pop temp 0
+push constant 0
+pop local 2
 push static 0
 call Output.printString 1
 pop temp 0
