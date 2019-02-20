@@ -66,8 +66,6 @@ class Board
                                 do moveBoardLeftRight(true);
                                 let doPrint = true;
                             }
-                            let doPrint = true;
-                            let board[0] = 100;
                             return;
                         }
                         if(previousKey = 131)
@@ -112,8 +110,6 @@ class Board
                                 do moveBoardLeftRight(true);
                                 let doPrint = true;
                             }
-                            let doPrint = true;
-                            let board[0] = 100;
                             return;
                         }
                         if(previousKey = 131)
@@ -656,7 +652,7 @@ class Board
                     let zeroCounter = zeroCounter + 1;
                     if(zeroCounter = randInSpawnLocation)
                     {
-                        let blockValue = random.randRange(3);
+                        let blockValue = random.randRange(5);
                         if(blockValue = 0)
                         {
                             let board[i] = baseNum * 2;
@@ -681,6 +677,7 @@ class Board
     	do board.dispose();
     	let board = Array.new(16);
 
+        do spawnNewBlock();
         do spawnNewBlock();
 
     	return;
@@ -750,7 +747,6 @@ class Board
 
     method void updateRandom(Random newRandom)
     {
-        //do random.dispose();
         let random = newRandom;
         return;
     }

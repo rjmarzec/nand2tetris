@@ -112,17 +112,6 @@ not
 pop this 6
 label IF_FALSE4
 push constant 0
-not
-pop this 6
-push constant 0
-push this 3
-add
-push constant 100
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 0
 return
 label IF_FALSE3
 push local 1
@@ -233,17 +222,6 @@ push constant 0
 not
 pop this 6
 label IF_FALSE13
-push constant 0
-not
-pop this 6
-push constant 0
-push this 3
-add
-push constant 100
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
 push constant 0
 return
 label IF_FALSE12
@@ -820,7 +798,6 @@ function Board.canUpdateUpDown 7
 push argument 0
 pop pointer 0
 push constant 0
-not
 pop local 6
 push argument 1
 if-goto IF_TRUE0
@@ -1980,7 +1957,7 @@ if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
 push this 7
-push constant 3
+push constant 5
 call Random.randRange 2
 pop local 2
 push local 2
@@ -2032,6 +2009,9 @@ pop temp 0
 push constant 16
 call Array.new 1
 pop this 3
+push pointer 0
+call Board.spawnNewBlock 1
+pop temp 0
 push pointer 0
 call Board.spawnNewBlock 1
 pop temp 0
