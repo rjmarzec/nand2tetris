@@ -22,11 +22,11 @@ symbol_tokens = ['{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/'
 #########################################
 
 def get_file_lines_as_string(file_path):
-	input_file = open(file_path, "r")
+	input_file = open(file_path, 'r')
 	result_list = input_file.readlines()
 	input_file.close()
 
-	result_string = ""
+	result_string = ''
 	for line in result_list:
 		result_string += line
 
@@ -43,17 +43,46 @@ def tokenize(input_file_string, output_file_path):
 	token_list = []
 
 	while current_index < ending_index:
-		if input_file_string[current_index, current_index + 1] == ' ' or \
-				input_file_string[current_index, current_index + 1] == '\n':
+		# TODO: This needs a condition to increment to current index if no token is found
+
+		if input_file_string[current_index: current_index + 1] == ' ' or \
+				input_file_string[current_index: current_index + 1] == '\n':
 			current_index += 1
 		else:
+			# Tokenizing the keywords
 			for keyword in keyword_tokens:
-				if input_file_string[current_index, current_index + len(keyword)] == keyword:
+				if len(input_file_string[current_index:]) <= len(keyword) and input_file_string[current_index: current_index + len(keyword)] == keyword:
 					current_index += len(keyword)
 					token_list.append(['keyword', keyword])
+			# Tokenizing the symbols
+			for symbol in symbol_tokens:
+				if input_file_string[current_index: current_index + 1] == symbol:
+					current_index += len(symbol)
+
+					# <, >, ", and & can't be displayed normally in xml, so we handle them differently
+					if symbol == '<':
+						token_list.append(['symbol', '&lt;'])
+					elif symbol == '>':
+						token_list.append(['symbol', '&gt;'])
+					elif symbol == '\"':
+						token_list.append(['symbol', '&quot;'])
+					elif symbol == '&':
+						token_list.append(['symbol', '&amp;'])
+					else:
+						token_list.append(['symbol', symbol])
+	write_tokens_to_xml()
 
 
 def write_tokens_to_xml(token_as_list, output_file_path):
+	output_file = open(output_file_path, 'w')
+	output_file.write('<tokens>\n')
+
+	# Tokens in are formatted at [keyword type, data]
+	for token in token_as_list:
+		output_file.write('<' + token[0] + '> ' + str(token[1]) + ' </' + token[0] + '>\n')
+
+	output_file.write('</tokens>')
+	output_file.close()
 	return
 
 
@@ -117,10 +146,12 @@ def compile_op():
 
 print(file_name_constants.ARRAY_TEST_IN[0] + "\n")
 
+temp_string = ''
 for file_path in input_file_path_list:
 	temp_string = get_file_lines_as_string(file_path)
 	print(temp_string)
 
-	# tokenize(temp_string)
+for file_path in output_t_file_path_list:
+	tokenize(temp_string, file_path)
 
 
