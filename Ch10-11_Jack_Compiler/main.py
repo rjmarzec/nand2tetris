@@ -28,7 +28,13 @@ def get_file_lines_as_string(file_path):
 
 	result_string = ''
 	for line in result_list:
-		result_string += line
+		if '//' in line:
+			result_string += line[:line.index('//')]
+		else:
+			result_string += line
+
+	while '/*' in result_string and '*/' in result_string:
+		result_string = result_string[:result_string.index('/*')] + result_string[result_string.index('*/') + 2:]
 
 	return result_string
 
@@ -42,19 +48,22 @@ def tokenize(input_file_string, output_file_path):
 	ending_index = len(input_file_string)
 	token_list = []
 
-	while current_index < ending_index:
-		# TODO: This needs a condition to increment to current index if no token is found
+	temp_flag = False
 
+	while current_index < ending_index:
+		# Ignore spaces and newline characters when tokenizing
 		if input_file_string[current_index: current_index + 1] == ' ' or \
 				input_file_string[current_index: current_index + 1] == '\n':
 			current_index += 1
 		else:
-			# Tokenizing the keywords
+			# Tokenizing keywords
 			for keyword in keyword_tokens:
-				if len(input_file_string[current_index:]) <= len(keyword) and input_file_string[current_index: current_index + len(keyword)] == keyword:
+				if len(input_file_string[current_index:]) >= len(keyword) and input_file_string[current_index: current_index + len(keyword)] == keyword:
 					current_index += len(keyword)
 					token_list.append(['keyword', keyword])
-			# Tokenizing the symbols
+					temp_flag = True
+					break
+			# Tokenizing symbols
 			for symbol in symbol_tokens:
 				if input_file_string[current_index: current_index + 1] == symbol:
 					current_index += len(symbol)
@@ -70,7 +79,23 @@ def tokenize(input_file_string, output_file_path):
 						token_list.append(['symbol', '&amp;'])
 					else:
 						token_list.append(['symbol', symbol])
-	write_tokens_to_xml()
+					temp_flag = True
+					break
+
+			# Tokenizing integerConstants
+
+			# Tokenizing stringConstants
+
+			# Tokenizing identifiers
+
+			# Handling the cases of specified tokens
+			if not temp_flag:
+				print('Non-Specified Token Type Found. Try to account for it in the first search?')
+				current_index += 1
+			else:
+				temp_flag = False
+
+	write_tokens_to_xml(token_list, output_file_path)
 
 
 def write_tokens_to_xml(token_as_list, output_file_path):
