@@ -18,6 +18,9 @@
 <symbol> = </symbol>
 <symbol> . </symbol>
 <symbol> ( </symbol>
+<stringConstant>  </stringConstant>
+<stringConstant>  </stringConstant>
+<stringConstant>  </stringConstant>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
 <symbol> = </symbol>
@@ -37,6 +40,9 @@
 <symbol> = </symbol>
 <symbol> . </symbol>
 <symbol> ( </symbol>
+<stringConstant>  </stringConstant>
+<stringConstant>  </stringConstant>
+<stringConstant>  </stringConstant>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
 <symbol> = </symbol>
@@ -64,6 +70,9 @@
 <symbol> . </symbol>
 <keyword> int </keyword>
 <symbol> ( </symbol>
+<stringConstant>  </stringConstant>
+<stringConstant>  </stringConstant>
+<stringConstant>  </stringConstant>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
 <symbol> . </symbol>

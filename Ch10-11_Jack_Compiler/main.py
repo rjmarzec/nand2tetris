@@ -53,7 +53,8 @@ def tokenize(input_file_string, output_file_path):
 	while current_index < ending_index:
 		# Ignore spaces and newline characters when tokenizing
 		if input_file_string[current_index: current_index + 1] == ' ' or \
-				input_file_string[current_index: current_index + 1] == '\n':
+				input_file_string[current_index: current_index + 1] == '\n' or \
+				input_file_string[current_index: current_index + 1] == '\t':
 			current_index += 1
 		else:
 			# Tokenizing keywords
@@ -82,11 +83,32 @@ def tokenize(input_file_string, output_file_path):
 					temp_flag = True
 					break
 
+			"""
 			# Tokenizing integerConstants
+			try:
+				print('@@@@@@@@@@@@@@@@@@@@@@')
+				print(input_file_string[current_index:])
+				print(input_file_string[current_index: input_file_string[current_index:].index(' ')])
+				print('@@@@@@@@@@@@@@@@@@@@@@#')
+				if type(int(input_file_string[current_index: input_file_string[current_index:].index(' ')])) == int:
+					token_list.append(['integerConstant', int(input_file_string[current_index: input_file_string[current_index:].index(' ')])])
+			except :
+				print('error')
+				while True:
+					break
+			"""
 
 			# Tokenizing stringConstants
+			if input_file_string[current_index: current_index + 1] == '\"':
+				print(input_file_string[current_index:])
+				token_list.append(['stringConstant', input_file_string[current_index: input_file_string[current_index + 1:].index('\"')]])
 
+				current_index += len(input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"')]) + 2
+
+			"""
 			# Tokenizing identifiers
+			if true:
+			"""
 
 			# Handling the cases of specified tokens
 			if not temp_flag:
