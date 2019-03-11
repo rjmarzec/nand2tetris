@@ -27,7 +27,7 @@
 <symbol> ) </symbol>
 <symbol> ; </symbol>
 <symbol> = </symbol>
-<symbol> ; </symbol>
+<integerConstant> 0 </integerConstant>
 <keyword> while </keyword>
 <symbol> ( </symbol>
 <symbol> &lt; </symbol>
@@ -43,12 +43,12 @@
 <symbol> ; </symbol>
 <symbol> = </symbol>
 <symbol> + </symbol>
-<symbol> ; </symbol>
+<integerConstant> 1 </integerConstant>
 <symbol> } </symbol>
 <symbol> = </symbol>
-<symbol> ; </symbol>
+<integerConstant> 0 </integerConstant>
 <symbol> = </symbol>
-<symbol> ; </symbol>
+<integerConstant> 0 </integerConstant>
 <keyword> while </keyword>
 <symbol> ( </symbol>
 <symbol> &lt; </symbol>
@@ -61,7 +61,7 @@
 <symbol> ; </symbol>
 <symbol> = </symbol>
 <symbol> + </symbol>
-<symbol> ; </symbol>
+<integerConstant> 1 </integerConstant>
 <symbol> } </symbol>
 <symbol> . </symbol>
 <keyword> int </keyword>

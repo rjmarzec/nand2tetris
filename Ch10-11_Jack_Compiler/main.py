@@ -15,6 +15,7 @@ keyword_tokens = \
 	['class', 'constructor', 'function', 'method', 'field', 'static', 'var', 'int', 'char', 'boolean', 'void', 'true',
 		'if', 'else', 'while', 'return']
 symbol_tokens = ['{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~']
+integers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 
 #########################################
@@ -83,26 +84,23 @@ def tokenize(input_file_string, output_file_path):
 					temp_flag = True
 					break
 
-			"""
+
 			# Tokenizing integerConstants
-			try:
-				print('@@@@@@@@@@@@@@@@@@@@@@')
-				print(input_file_string[current_index:])
-				print(input_file_string[current_index: input_file_string[current_index:].index(' ')])
-				print('@@@@@@@@@@@@@@@@@@@@@@#')
-				if type(int(input_file_string[current_index: input_file_string[current_index:].index(' ')])) == int:
-					token_list.append(['integerConstant', int(input_file_string[current_index: input_file_string[current_index:].index(' ')])])
-			except :
-				print('error')
-				while True:
-					break
-			"""
+			temp_int_string = ''
+			while input_file_string[current_index: current_index + 1] in integers:
+				temp_int_string += input_file_string[current_index: current_index + 1]
+				current_index += 1
+			if temp_int_string != '':
+				token_list.append(['integerConstant', temp_int_string])
+			temp_int_string = ''
 
 			# Tokenizing stringConstants
 			if ending_index - current_index >= 2 and input_file_string[current_index: current_index + 1] == '\"':
-
+				# Extract the insides of the quotes from ...x"[stringConstant]"y... where everything before x is
+				# ignored using currentIndex, and everything after y is ignored.
 				token_list.append(['stringConstant', input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"') + 1 + current_index]])
 
+				# Take the length of the above and add it to the current index, +2 to account for the quotes
 				current_index += len(input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"') + 1 + current_index]) + 2
 
 			"""
