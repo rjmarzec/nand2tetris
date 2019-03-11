@@ -99,20 +99,20 @@ def tokenize(input_file_string, output_file_path):
 			"""
 
 			# Tokenizing stringConstants
-			if input_file_string[current_index: current_index + 1] == '\"':
-				print(input_file_string[current_index:])
-				token_list.append(['stringConstant', input_file_string[current_index: input_file_string[current_index + 1:].index('\"')]])
+			if ending_index - current_index >= 2 and input_file_string[current_index: current_index + 1] == '\"':
 
-				current_index += len(input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"')]) + 2
+				token_list.append(['stringConstant', input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"') + 1 + current_index]])
+
+				current_index += len(input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"') + 1 + current_index]) + 2
 
 			"""
 			# Tokenizing identifiers
 			if true:
 			"""
 
-			# Handling the cases of specified tokens
+			# Handling the cases of non-specified tokens
 			if not temp_flag:
-				print('Non-Specified Token Type Found. Try to account for it in the first search?')
+				#print('Non-Specified Token Type Found. Try to account for it in the first search?')
 				current_index += 1
 			else:
 				temp_flag = False
