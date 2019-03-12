@@ -16,6 +16,7 @@ keyword_tokens = \
 		'if', 'else', 'while', 'return']
 symbol_tokens = ['{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~']
 integers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+spaces = [' ', '\n', '\t', '']
 
 
 #########################################
@@ -49,13 +50,11 @@ def tokenize(input_file_string, output_file_path):
 	ending_index = len(input_file_string)
 	token_list = []
 
-	temp_flag = False
-
 	while current_index < ending_index:
+		token_found_this_loop = False
+
 		# Ignore spaces and newline characters when tokenizing
-		if input_file_string[current_index: current_index + 1] == ' ' or \
-				input_file_string[current_index: current_index + 1] == '\n' or \
-				input_file_string[current_index: current_index + 1] == '\t':
+		if input_file_string[current_index: current_index + 1] in spaces:
 			current_index += 1
 		else:
 			# Tokenizing keywords
@@ -63,8 +62,9 @@ def tokenize(input_file_string, output_file_path):
 				if len(input_file_string[current_index:]) >= len(keyword) and input_file_string[current_index: current_index + len(keyword)] == keyword:
 					current_index += len(keyword)
 					token_list.append(['keyword', keyword])
-					temp_flag = True
+					token_found_this_loop = True
 					break
+
 			# Tokenizing symbols
 			for symbol in symbol_tokens:
 				if input_file_string[current_index: current_index + 1] == symbol:
@@ -81,18 +81,19 @@ def tokenize(input_file_string, output_file_path):
 						token_list.append(['symbol', '&amp;'])
 					else:
 						token_list.append(['symbol', symbol])
-					temp_flag = True
+					token_found_this_loop = True
 					break
 
-
 			# Tokenizing integerConstants
-			temp_int_string = ''
-			while input_file_string[current_index: current_index + 1] in integers:
-				temp_int_string += input_file_string[current_index: current_index + 1]
-				current_index += 1
-			if temp_int_string != '':
-				token_list.append(['integerConstant', temp_int_string])
-			temp_int_string = ''
+			print(current_index < ending_index)
+			if current_index < ending_index:
+				temp_int_string = ''
+				while input_file_string[current_index: current_index + 1] in integers:
+					temp_int_string += input_file_string[current_index: current_index + 1]
+					current_index += 1
+				if temp_int_string != '':
+					token_list.append(['integerConstant', temp_int_string])
+					token_found_this_loop = True
 
 			# Tokenizing stringConstants
 			if ending_index - current_index >= 2 and input_file_string[current_index: current_index + 1] == '\"':
@@ -102,18 +103,30 @@ def tokenize(input_file_string, output_file_path):
 
 				# Take the length of the above and add it to the current index, +2 to account for the quotes
 				current_index += len(input_file_string[current_index + 1: input_file_string[current_index + 1:].index('\"') + 1 + current_index]) + 2
+				token_found_this_loop = True
 
-			"""
 			# Tokenizing identifiers
-			if true:
-			"""
+			if not token_found_this_loop:
+				# TODO: For some reason tabs or spaces still pass through here? Fix that
+				print('@@@@@@@@@@@@@@@@@@')
+				identifier_string = ''
+				while current_index < ending_index\
+					and not input_file_string[current_index: current_index + 1] in spaces\
+					and not input_file_string[current_index: current_index + 1] in symbol_tokens\
+					and not input_file_string[current_index: current_index + 1] in keyword_tokens:
+					identifier_string += input_file_string[current_index: current_index + 1]
+					current_index += 1
+				if identifier_string != '':
+					token_list.append(['identifier', identifier_string])
+					token_found_this_loop = True
 
 			# Handling the cases of non-specified tokens
-			if not temp_flag:
-				#print('Non-Specified Token Type Found. Try to account for it in the first search?')
+			if not token_found_this_loop:
+				print('Non-Specified Token Type Found. Try to account for it in the first search?')
+				print(input_file_string[current_index:current_index + 1])
 				current_index += 1
 			else:
-				temp_flag = False
+				Token = False
 
 	write_tokens_to_xml(token_list, output_file_path)
 
