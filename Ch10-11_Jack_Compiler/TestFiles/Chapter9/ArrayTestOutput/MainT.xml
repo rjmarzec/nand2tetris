@@ -1,37 +1,28 @@
 <tokens>
-<identifier>  </identifier>
-<identifier>  </identifier>
-<identifier>  </identifier>
 <keyword> class </keyword>
 <identifier> Main </identifier>
 <symbol> { </symbol>
-<identifier>  </identifier>
 <keyword> function </keyword>
 <keyword> void </keyword>
 <identifier> main </identifier>
 <symbol> ( </symbol>
 <symbol> ) </symbol>
 <symbol> { </symbol>
-<identifier>  </identifier>
 <keyword> var </keyword>
 <identifier> Array </identifier>
 <identifier> a </identifier>
 <symbol> ; </symbol>
-<identifier>  </identifier>
 <keyword> var </keyword>
 <keyword> int </keyword>
 <identifier> length </identifier>
 <symbol> ; </symbol>
-<identifier>  </identifier>
 <keyword> var </keyword>
 <keyword> int </keyword>
 <identifier> i </identifier>
 <symbol> , </symbol>
 <identifier> sum </identifier>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> length </identifier>
 <symbol> = </symbol>
 <identifier> Keyboard </identifier>
@@ -41,8 +32,7 @@
 <stringConstant> HOW MANY NUMBERS?  </stringConstant>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> a </identifier>
 <symbol> = </symbol>
 <identifier> Array </identifier>
@@ -52,14 +42,11 @@
 <identifier> length </identifier>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> i </identifier>
 <symbol> = </symbol>
 <integerConstant> 0 </integerConstant>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier>  </identifier>
 <keyword> while </keyword>
 <symbol> ( </symbol>
 <identifier> i </identifier>
@@ -67,8 +54,7 @@
 <identifier> length </identifier>
 <symbol> ) </symbol>
 <symbol> { </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> a </identifier>
 <symbol> [ </symbol>
 <identifier> i </identifier>
@@ -81,31 +67,24 @@
 <stringConstant> ENTER THE NEXT NUMBER:  </stringConstant>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> i </identifier>
 <symbol> = </symbol>
 <identifier> i </identifier>
 <symbol> + </symbol>
 <integerConstant> 1 </integerConstant>
 <symbol> ; </symbol>
-<identifier>  </identifier>
 <symbol> } </symbol>
-<identifier>  </identifier>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> i </identifier>
 <symbol> = </symbol>
 <integerConstant> 0 </integerConstant>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> sum </identifier>
 <symbol> = </symbol>
 <integerConstant> 0 </integerConstant>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier>  </identifier>
 <keyword> while </keyword>
 <symbol> ( </symbol>
 <identifier> i </identifier>
@@ -113,8 +92,7 @@
 <identifier> length </identifier>
 <symbol> ) </symbol>
 <symbol> { </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> sum </identifier>
 <symbol> = </symbol>
 <identifier> sum </identifier>
@@ -124,19 +102,15 @@
 <identifier> i </identifier>
 <symbol> ] </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> let </identifier>
+<keyword> let </keyword>
 <identifier> i </identifier>
 <symbol> = </symbol>
 <identifier> i </identifier>
 <symbol> + </symbol>
 <integerConstant> 1 </integerConstant>
 <symbol> ; </symbol>
-<identifier>  </identifier>
 <symbol> } </symbol>
-<identifier>  </identifier>
-<identifier>  </identifier>
-<identifier> do </identifier>
+<keyword> do </keyword>
 <identifier> Output </identifier>
 <symbol> . </symbol>
 <identifier> printString </identifier>
@@ -144,8 +118,7 @@
 <stringConstant> THE AVERAGE IS:  </stringConstant>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> do </identifier>
+<keyword> do </keyword>
 <identifier> Output </identifier>
 <symbol> . </symbol>
 <identifier> printInt </identifier>
@@ -155,21 +128,15 @@
 <identifier> length </identifier>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier> do </identifier>
+<keyword> do </keyword>
 <identifier> Output </identifier>
 <symbol> . </symbol>
 <identifier> println </identifier>
 <symbol> ( </symbol>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
-<identifier>  </identifier>
-<identifier>  </identifier>
 <keyword> return </keyword>
 <symbol> ; </symbol>
-<identifier>  </identifier>
 <symbol> } </symbol>
-<identifier>  </identifier>
 <symbol> } </symbol>
-<identifier>  </identifier>
 </tokens>

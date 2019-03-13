@@ -1,4 +1,5 @@
 import file_name_constants
+import re
 
 #########################################
 # Global Variables & Constants ##########
@@ -13,7 +14,7 @@ output_t_file_path_list = file_name_constants.ARRAY_TEST_OUT_T
 # Tokenizer Classifications
 keyword_tokens = \
 	['class', 'constructor', 'function', 'method', 'field', 'static', 'var', 'int', 'char', 'boolean', 'void', 'true',
-		'if', 'else', 'while', 'return']
+		'if', 'else', 'while', 'return', 'do', 'let']
 symbol_tokens = ['{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~']
 integers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 spaces = [' ', '\n', '\t', '']
@@ -85,7 +86,6 @@ def tokenize(input_file_string, output_file_path):
 					break
 
 			# Tokenizing integerConstants
-			print(current_index < ending_index)
 			if current_index < ending_index:
 				temp_int_string = ''
 				while input_file_string[current_index: current_index + 1] in integers:
@@ -107,26 +107,21 @@ def tokenize(input_file_string, output_file_path):
 
 			# Tokenizing identifiers
 			if not token_found_this_loop:
-				# TODO: For some reason tabs or spaces still pass through here? Fix that
-				print('@@@@@@@@@@@@@@@@@@')
 				identifier_string = ''
-				while current_index < ending_index\
-					and not input_file_string[current_index: current_index + 1] in spaces\
-					and not input_file_string[current_index: current_index + 1] in symbol_tokens\
-					and not input_file_string[current_index: current_index + 1] in keyword_tokens:
+				while current_index < ending_index \
+					and re.match('^[A-Za-z0-9_-]*$', input_file_string[current_index: current_index + 1]):
+					# This regex checks if the string is a letter, number, or underscore
 					identifier_string += input_file_string[current_index: current_index + 1]
 					current_index += 1
 				if identifier_string != '':
 					token_list.append(['identifier', identifier_string])
 					token_found_this_loop = True
 
-			# Handling the cases of non-specified tokens
+			# Handling the cases of non-specified tokens or strange characters
 			if not token_found_this_loop:
-				print('Non-Specified Token Type Found. Try to account for it in the first search?')
-				print(input_file_string[current_index:current_index + 1])
+				# print('Non-Specified Token Type Found. Try to account for it in the first search? Character:')
+				# print(input_file_string[current_index:current_index + 1])
 				current_index += 1
-			else:
-				Token = False
 
 	write_tokens_to_xml(token_list, output_file_path)
 
@@ -139,7 +134,7 @@ def write_tokens_to_xml(token_as_list, output_file_path):
 	for token in token_as_list:
 		output_file.write('<' + token[0] + '> ' + str(token[1]) + ' </' + token[0] + '>\n')
 
-	output_file.write('</tokens>')
+	output_file.write('</tokens>\n')
 	output_file.close()
 	return
 
@@ -199,15 +194,13 @@ def compile_op():
 
 
 #########################################
-# Testing Area ##########################
+# Testing/Running Area ##################
 #########################################
-
-print(file_name_constants.ARRAY_TEST_IN[0] + "\n")
 
 temp_string = ''
 for file_path in input_file_path_list:
 	temp_string = get_file_lines_as_string(file_path)
-	print(temp_string)
+	# print(temp_string)
 
 for file_path in output_t_file_path_list:
 	tokenize(temp_string, file_path)
