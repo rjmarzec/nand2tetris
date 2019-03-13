@@ -6,15 +6,15 @@ import re
 #########################################
 
 # Lists of the I/O file paths. The constant name needs to be changed to adjust which file is compiled.
-input_file_path_list = file_name_constants.ARRAY_TEST_IN
-output_file_path_list = file_name_constants.ARRAY_TEST_OUT
-output_t_file_path_list = file_name_constants.ARRAY_TEST_OUT_T
+input_file_path_list = file_name_constants.SQUARE_IN
+output_file_path_list = file_name_constants.SQUARE_OUT
+output_t_file_path_list = file_name_constants.SQUARE_OUT_T
 
 
 # Tokenizer Classifications
 keyword_tokens = \
 	['class', 'constructor', 'function', 'method', 'field', 'static', 'var', 'int', 'char', 'boolean', 'void', 'true',
-		'if', 'else', 'while', 'return', 'do', 'let']
+		'if', 'else', 'while', 'return', 'do', 'let', 'this', 'null', 'true', 'false']
 symbol_tokens = ['{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~']
 integers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 spaces = [' ', '\n', '\t', '']
@@ -46,7 +46,7 @@ def get_file_lines_as_string(file_path):
 # Tokenizer Functions ###################
 #########################################
 
-def tokenize(input_file_string, output_file_path):
+def get_tokenized_input_as_string(input_file_string):
 	current_index = 0
 	ending_index = len(input_file_string)
 	token_list = []
@@ -123,20 +123,17 @@ def tokenize(input_file_string, output_file_path):
 				# print(input_file_string[current_index:current_index + 1])
 				current_index += 1
 
-	write_tokens_to_xml(token_list, output_file_path)
+	return token_list_to_xml_string(token_list)
 
 
-def write_tokens_to_xml(token_as_list, output_file_path):
-	output_file = open(output_file_path, 'w')
-	output_file.write('<tokens>\n')
+def token_list_to_xml_string(token_as_list):
+	return_string = '<tokens>\n'
 
 	# Tokens in are formatted at [keyword type, data]
 	for token in token_as_list:
-		output_file.write('<' + token[0] + '> ' + str(token[1]) + ' </' + token[0] + '>\n')
+		return_string += ('<' + token[0] + '> ' + str(token[1]) + ' </' + token[0] + '>\n')
 
-	output_file.write('</tokens>\n')
-	output_file.close()
-	return
+	return return_string + '</tokens>\n'
 
 
 #########################################
@@ -198,11 +195,9 @@ def compile_op():
 #########################################
 
 temp_string = ''
-for file_path in input_file_path_list:
-	temp_string = get_file_lines_as_string(file_path)
-	# print(temp_string)
 
-for file_path in output_t_file_path_list:
-	tokenize(temp_string, file_path)
-
-
+for file_path_counter in range(0, len(input_file_path_list)):
+	tokenized_input_string = get_tokenized_input_as_string(get_file_lines_as_string(input_file_path_list[file_path_counter]))
+	t_output_file = open(output_t_file_path_list[file_path_counter], 'w')
+	t_output_file.write(tokenized_input_string)
+	t_output_file.close()
