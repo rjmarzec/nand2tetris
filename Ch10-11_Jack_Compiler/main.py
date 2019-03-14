@@ -5,10 +5,15 @@ import re
 # Global Variables & Constants ##########
 #########################################
 
-# Lists of the I/O file paths. The constant name needs to be changed to adjust which file is compiled.
-input_file_path_list = file_name_constants.SQUARE_IN
-output_file_path_list = file_name_constants.SQUARE_OUT
-output_t_file_path_list = file_name_constants.SQUARE_OUT_T
+# The program that is being compiled, as taken from file_name_constants.py
+# Needs to be changed manually to change the program being compiled
+program = file_name_constants.ARRAY_TEST
+
+
+# Lists of the I/O file paths. Changes based on the above variable.
+input_file_path_list = program[0]
+output_file_path_list = program[1]
+output_t_file_path_list = program[2]
 
 
 # Tokenizer Classifications

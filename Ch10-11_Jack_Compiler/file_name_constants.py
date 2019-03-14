@@ -6,7 +6,9 @@
 
 # Files Name ####################
 # ..._IN = ['TestFiles/Chapter.../.../....jack', '...']	(Input File Directory as a List)
-# ..._OUT = '.../.../....vm'	(Output File Directory as a List)
+# ..._OUT = ['.../.../....vm', '...']	(Output File Directory as a List)
+# ..._OUT_T = ['.../.../....vm', '...']	(Tokenizer Output File Directory as a List)
+# ... = [..._IN, ..._OUT, ..._OUT_T] (A collection of the above as a list, in the order shown above)
 
 #########################################
 # Chapter 9 Files #######################
@@ -19,6 +21,7 @@ ARRAY_TEST_OUT = \
 	['TestFiles/Chapter9/ArrayTestOutput/Main.xml']
 ARRAY_TEST_OUT_T = \
 	['TestFiles/Chapter9/ArrayTestOutput/MainT.xml']
+ARRAY_TEST = [ARRAY_TEST_IN, ARRAY_TEST_OUT, ARRAY_TEST_OUT_T]
 
 # ExpressionLessSquare
 EXPRESSION_LESS_SQUARE_IN = \
@@ -33,6 +36,7 @@ EXPRESSION_LESS_SQUARE_OUT_T = \
 	['TestFiles/Chapter9/ExpressionLessSquareOutput/MainT.xml',
 		'TestFiles/Chapter9/ExpressionLessSquareOutput/SquareT.xml',
 		'TestFiles/Chapter9/ExpressionLessSquareOutput/SquareGameT.xml']
+EXPRESSION_LESS_SQUARE = [EXPRESSION_LESS_SQUARE_IN, EXPRESSION_LESS_SQUARE_OUT, EXPRESSION_LESS_SQUARE_OUT_T]
 
 # Square
 SQUARE_IN = \
@@ -47,6 +51,7 @@ SQUARE_OUT_T = \
 	['TestFiles/Chapter9/SquareOutput/MainT.xml',
 		'TestFiles/Chapter9/SquareOutput/SquareT.xml',
 		'TestFiles/Chapter9/SquareOutput/SquareGameT.xml']
+SQUARE = [SQUARE_IN, SQUARE_OUT, SQUARE_OUT_T]
 
 #########################################
 # Chapter 10 Files ######################
