@@ -47,6 +47,23 @@ def get_file_lines_as_string(file_path):
 	return result_string
 
 
+def get_file_lines_as_list(file_path):
+	input_file = open(file_path, 'r')
+	result_list = input_file.readlines()
+	input_file.close()
+
+	return result_list
+
+
+def remove_tokenizer_tags(input_list):
+	result_list = []
+	# Loop through all the lines of the file
+	for i in range(1, len(input_list) - 1):
+		chopped_string = input_list[i][input_list[i].index('> ') + 2:]
+		result_list.append(chopped_string[:chopped_string.index(' </')])
+	return result_list
+
+
 #########################################
 # Tokenizer Functions ###################
 #########################################
@@ -201,8 +218,11 @@ def compile_op():
 
 temp_string = ''
 
+# Tokenize the Input File
 for file_path_counter in range(0, len(input_file_path_list)):
 	tokenized_input_string = get_tokenized_input_as_string(get_file_lines_as_string(input_file_path_list[file_path_counter]))
 	t_output_file = open(output_t_file_path_list[file_path_counter], 'w')
 	t_output_file.write(tokenized_input_string)
 	t_output_file.close()
+
+print(remove_tokenizer_tags(get_file_lines_as_list(output_t_file_path_list[0])))
