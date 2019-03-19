@@ -55,12 +55,13 @@ def get_file_lines_as_list(file_path):
 	return result_list
 
 
-def remove_tokenizer_tags(input_list):
+def get_token_value_pair_list(input_list):
 	result_list = []
 	# Loop through all the lines of the file
 	for i in range(1, len(input_list) - 1):
-		chopped_string = input_list[i][input_list[i].index('> ') + 2:]
-		result_list.append(chopped_string[:chopped_string.index(' </')])
+		pair_value = input_list[i][input_list[i].index('> ') + 2:input_list[i].index(' </')]
+		pair_token = input_list[i][input_list[i].index('<') + 1:input_list[i].index('> ')]
+		result_list.append([pair_token, pair_value])
 	return result_list
 
 
@@ -276,4 +277,4 @@ for file_path_counter in range(0, len(input_file_path_list)):
 	t_output_file.write(tokenized_input_string)
 	t_output_file.close()
 
-print(remove_tokenizer_tags(get_file_lines_as_list(output_t_file_path_list[0])))
+print(get_token_value_pair_list(get_file_lines_as_list(output_t_file_path_list[0])))
