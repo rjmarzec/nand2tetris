@@ -163,104 +163,179 @@ def token_list_to_xml_string(token_as_list):
 # Element Compiler ######################
 #########################################
 compiler_tab_counter = 0
+compilation_index_counter = 0
 
 
 # Program Structure #####################
-def compile_class():
+def compile_class(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
+	output_string = ''
+
+	return output_string
+
+
+def compile_class_var_dec(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_class_var_dec():
+def compile_type(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_type():
+def compile_subroutine_dec(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_subroutine_dec():
+def compile_parameter_list(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_parameter_list():
+def compile_subroutine_body(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_subroutine_body():
+def compile_var_dec(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_var_dec():
+def compile_class_name(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_class_name():
+def compile_subroutine_name(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_subroutine_name():
-	return
+def compile_var_name(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
 
-
-def compile_var_name():
 	return
 
 
 # Statements ############################
-def compile_statements():
+def compile_statements(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_statement():
+def compile_statement(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_let_statement():
+def compile_let_statement(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_if_statement():
+def compile_if_statement(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_while_statement():
+def compile_while_statement(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_do_statement():
+def compile_do_statement(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_return_statement():
+def compile_return_statement(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
 # Expressions ###########################
-def compile_expression():
+def compile_expression(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_term():
+def compile_term(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_subroutine_call():
+def compile_subroutine_call(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_expressions():
+def compile_expressions(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_op():
+def compile_op(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_unary_op():
+def compile_unary_op(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
-def compile_keyword_constant():
+def compile_keyword_constant(token_value_pairs):
+	global compilation_index_counter
+	global compiler_tab_counter
+
 	return
 
 
@@ -273,8 +348,18 @@ temp_string = ''
 # Tokenize the Input File
 for file_path_counter in range(0, len(input_file_path_list)):
 	tokenized_input_string = get_tokenized_input_as_string(get_file_lines_as_string(input_file_path_list[file_path_counter]))
+
 	t_output_file = open(output_t_file_path_list[file_path_counter], 'w')
 	t_output_file.write(tokenized_input_string)
 	t_output_file.close()
 
-print(get_token_value_pair_list(get_file_lines_as_list(output_t_file_path_list[0])))
+for file_path_counter in range(0, len(output_t_file_path_list)):
+	tokenized_input_string = get_file_lines_as_list(output_t_file_path_list[file_path_counter])
+	syntax_analyzer_output = compile_class(get_token_value_pair_list(tokenized_input_string))
+
+	syntax_analyzer_output_file = open(output_file_path_list[file_path_counter], 'w')
+	syntax_analyzer_output_file.write(syntax_analyzer_output)
+	syntax_analyzer_output_file.close()
+
+
+# print(get_token_value_pair_list(get_file_lines_as_list(output_t_file_path_list[0])))
