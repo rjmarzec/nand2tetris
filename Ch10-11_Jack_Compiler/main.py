@@ -161,54 +161,105 @@ def token_list_to_xml_string(token_as_list):
 #########################################
 # Element Compiler ######################
 #########################################
+compiler_tab_counter = 0
 
-def compile_statement():
-	# if_statement | while_statement | let statement
+
+# Program Structure #####################
+def compile_class():
 	return
 
 
-def compile_statements():
-	# statement*
+def compile_class_var_dec():
 	return
 
 
-def compile_if_statement():
-	# 'if' '(' expression ')' '{' statements '}'
+def compile_type():
 	return
 
 
-def compile_while_statement():
-	# 'if' '(' expression ')' '{' statements '}'
+def compile_subroutine_dec():
 	return
 
 
-def compile_let_statement():
-	# 'let' var_name '=' expressions ';'
+def compile_parameter_list():
 	return
 
 
-def compile_expression():
-	# term (op term)?
+def compile_subroutine_body():
 	return
 
 
-def compile_term():
-	# var_name | constant
+def compile_var_dec():
+	return
+
+
+def compile_class_name():
+	return
+
+
+def compile_subroutine_name():
 	return
 
 
 def compile_var_name():
-	# a string not beginning with a digit
 	return
 
 
-def compile_constant():
-	# a decimal number
+# Statements ############################
+def compile_statements():
+	return
+
+
+def compile_statement():
+	return
+
+
+def compile_let_statement():
+	return
+
+
+def compile_if_statement():
+	return
+
+
+def compile_while_statement():
+	return
+
+
+def compile_do_statement():
+	return
+
+
+def compile_return_statement():
+	return
+
+
+# Expressions ###########################
+def compile_expression():
+	return
+
+
+def compile_term():
+	return
+
+
+def compile_subroutine_call():
+	return
+
+
+def compile_expressions():
 	return
 
 
 def compile_op():
-	# '+' | '-' | '=' | '>' | '<'
+	return
+
+
+def compile_unary_op():
+	return
+
+
+def compile_keyword_constant():
 	return
 
 
