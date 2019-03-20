@@ -162,179 +162,200 @@ def token_list_to_xml_string(token_as_list):
 #########################################
 # Element Compiler ######################
 #########################################
-compiler_tab_counter = 0
 compilation_index_counter = 0
+compiler_tabs = ''
 
 
 # Program Structure #####################
-def compile_class(token_value_pairs):
+def compile_class(token_list_input):
+	# 'class' className '{' classVarDec* subroutineDec* '}'
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
-	output_string = ''
+	output_string = compiler_tabs + '<class>\n'
+	compiler_tabs += '\n'
+	compilation_index_counter += 1
 
+	output_string += compile_class_name(token_list_input)
+	# output_string += ...
+
+	compiler_tabs = compiler_tabs.replace('\n', '', 1)
+	output_string += '</class>\n'
 	return output_string
 
 
-def compile_class_var_dec(token_value_pairs):
+def compile_class_var_dec(token_list_input):
+	# ('static'|'field') type varName* (',' varName)* ';'
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_type(token_value_pairs):
+def compile_type(token_list_input):
+	# 'int'|'char'|'boolean'|className
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_subroutine_dec(token_value_pairs):
+def compile_subroutine_dec(token_list_input):
+	# ('constructor'|'function'|'method') ('void'|type) subroutineName '(' parameterList ')' subroutineBody
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_parameter_list(token_value_pairs):
+def compile_parameter_list(token_list_input):
+	# ((type varName) (',' type varName)*)?
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_subroutine_body(token_value_pairs):
+def compile_subroutine_body(token_list_input):
+	# '{' varDec* statements '}'
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_var_dec(token_value_pairs):
+def compile_var_dec(token_list_input):
+	# 'var' type varName (',' type varName)* ';'
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_class_name(token_value_pairs):
+def compile_class_name(token_list_input):
+	# identifier
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_subroutine_name(token_value_pairs):
+def compile_subroutine_name(token_list_input):
+	# identifier
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_var_name(token_value_pairs):
+def compile_var_name(token_list_input):
+	# identifier
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
 # Statements ############################
-def compile_statements(token_value_pairs):
+def compile_statements(token_list_input):
+	# statement*
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_statement(token_value_pairs):
+def compile_statement(token_list_input):
+	# letStatement|ifStatement|whileStatement|doStatement|returnStatement
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_let_statement(token_value_pairs):
+def compile_let_statement(token_list_input):
+	# 'let' varName ('[' expression ']')? '=' expression ';'
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_if_statement(token_value_pairs):
+def compile_if_statement(token_list_input):
+
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_while_statement(token_value_pairs):
+def compile_while_statement(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_do_statement(token_value_pairs):
+def compile_do_statement(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_return_statement(token_value_pairs):
+def compile_return_statement(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
 # Expressions ###########################
-def compile_expression(token_value_pairs):
+def compile_expression(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_term(token_value_pairs):
+def compile_term(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_subroutine_call(token_value_pairs):
+def compile_subroutine_call(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_expressions(token_value_pairs):
+def compile_expressions(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_op(token_value_pairs):
+def compile_op(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_unary_op(token_value_pairs):
+def compile_unary_op(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
 
-def compile_keyword_constant(token_value_pairs):
+def compile_keyword_constant(token_list_input):
 	global compilation_index_counter
-	global compiler_tab_counter
+	global compiler_tabs
 
 	return
 
@@ -353,6 +374,7 @@ for file_path_counter in range(0, len(input_file_path_list)):
 	t_output_file.write(tokenized_input_string)
 	t_output_file.close()
 
+# Syntax Analysis of the Tokenized Input
 for file_path_counter in range(0, len(output_t_file_path_list)):
 	tokenized_input_string = get_file_lines_as_list(output_t_file_path_list[file_path_counter])
 	syntax_analyzer_output = compile_class(get_token_value_pair_list(tokenized_input_string))
