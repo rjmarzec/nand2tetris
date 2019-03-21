@@ -238,7 +238,7 @@ def compile_class_name(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return compiler_tabs + token_list_input[2]
+	return compiler_tabs + token_list_input[compiler_index_counter][2]
 
 
 def compile_subroutine_name(token_list_input):
