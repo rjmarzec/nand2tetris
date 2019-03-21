@@ -282,7 +282,7 @@ def compile_let_statement(token_list_input):
 
 
 def compile_if_statement(token_list_input):
-
+	# 'if' '(' expression ('[' expression ']')? '=' expression ';'
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -290,6 +290,7 @@ def compile_if_statement(token_list_input):
 
 
 def compile_while_statement(token_list_input):
+	# 'while' '(' expression ')' '{' statements '}' 'else' '{' statements '}' )?
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -297,6 +298,7 @@ def compile_while_statement(token_list_input):
 
 
 def compile_do_statement(token_list_input):
+	# 'do' subroutineCall ';'
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -304,6 +306,7 @@ def compile_do_statement(token_list_input):
 
 
 def compile_return_statement(token_list_input):
+	# 'return' expression? ';'
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -312,6 +315,7 @@ def compile_return_statement(token_list_input):
 
 # Expressions ###########################
 def compile_expression(token_list_input):
+	# term (op term)*
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -319,6 +323,8 @@ def compile_expression(token_list_input):
 
 
 def compile_term(token_list_input):
+	# integerConstant | stringConstant | keywordConstant | varName | varName '[' expression ']' | subroutineCall |
+	# '(' expression ')' | unaryOp term
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -326,6 +332,7 @@ def compile_term(token_list_input):
 
 
 def compile_subroutine_call(token_list_input):
+	# subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -333,6 +340,7 @@ def compile_subroutine_call(token_list_input):
 
 
 def compile_expressions(token_list_input):
+	# (expression (',' expression)* )?
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -340,6 +348,7 @@ def compile_expressions(token_list_input):
 
 
 def compile_op(token_list_input):
+	# '+' | '-' | '*' | '/' | '&' | '|' | '<' | '>' | '='
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -347,6 +356,7 @@ def compile_op(token_list_input):
 
 
 def compile_unary_op(token_list_input):
+	# '-' | '~'
 	global compilation_index_counter
 	global compiler_tabs
 
@@ -354,6 +364,7 @@ def compile_unary_op(token_list_input):
 
 
 def compile_keyword_constant(token_list_input):
+	# 'true' | 'false' | 'null' | 'this'
 	global compilation_index_counter
 	global compiler_tabs
 
