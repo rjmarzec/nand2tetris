@@ -56,12 +56,13 @@ def get_file_lines_as_list(file_path):
 
 
 def get_token_value_pair_list(input_list):
+	# The output is formatted as [token type, value, full line]
 	result_list = []
 	# Loop through all the lines of the file
 	for i in range(1, len(input_list) - 1):
 		pair_value = input_list[i][input_list[i].index('> ') + 2:input_list[i].index(' </')]
 		pair_token = input_list[i][input_list[i].index('<') + 1:input_list[i].index('> ')]
-		result_list.append([pair_token, pair_value])
+		result_list.append([pair_token, pair_value, input_list[i]])
 	return result_list
 
 
@@ -146,13 +147,13 @@ def get_tokenized_input_as_string(input_file_string):
 				# print(input_file_string[current_index:current_index + 1])
 				current_index += 1
 
-	return token_list_to_xml_string(token_list)
+	return token_list_to_tokenizer_output(token_list)
 
 
-def token_list_to_xml_string(token_as_list):
+def token_list_to_tokenizer_output(token_as_list):
 	return_string = '<tokens>\n'
 
-	# Tokens in are formatted at [keyword type, data]
+	# Token list is formatted as: [keyword type, data]
 	for token in token_as_list:
 		return_string += ('<' + token[0] + '> ' + str(token[1]) + ' </' + token[0] + '>\n')
 
@@ -162,22 +163,22 @@ def token_list_to_xml_string(token_as_list):
 #########################################
 # Element Compiler ######################
 #########################################
-compilation_index_counter = 0
+compiler_index_counter = 0
 compiler_tabs = ''
 
 
 # Program Structure #####################
 def compile_class(token_list_input):
 	# 'class' className '{' classVarDec* subroutineDec* '}'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	output_string = compiler_tabs + '<class>\n'
 	compiler_tabs += '\n'
-	compilation_index_counter += 1
+	compiler_index_counter += 1
 
 	output_string += compile_class_name(token_list_input)
-	# output_string += ...
+	# output_string +=
 
 	compiler_tabs = compiler_tabs.replace('\n', '', 1)
 	output_string += '</class>\n'
@@ -186,7 +187,7 @@ def compile_class(token_list_input):
 
 def compile_class_var_dec(token_list_input):
 	# ('static'|'field') type varName* (',' varName)* ';'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -194,7 +195,7 @@ def compile_class_var_dec(token_list_input):
 
 def compile_type(token_list_input):
 	# 'int'|'char'|'boolean'|className
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -202,7 +203,7 @@ def compile_type(token_list_input):
 
 def compile_subroutine_dec(token_list_input):
 	# ('constructor'|'function'|'method') ('void'|type) subroutineName '(' parameterList ')' subroutineBody
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -210,7 +211,7 @@ def compile_subroutine_dec(token_list_input):
 
 def compile_parameter_list(token_list_input):
 	# ((type varName) (',' type varName)*)?
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -218,7 +219,7 @@ def compile_parameter_list(token_list_input):
 
 def compile_subroutine_body(token_list_input):
 	# '{' varDec* statements '}'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -226,7 +227,7 @@ def compile_subroutine_body(token_list_input):
 
 def compile_var_dec(token_list_input):
 	# 'var' type varName (',' type varName)* ';'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -234,15 +235,15 @@ def compile_var_dec(token_list_input):
 
 def compile_class_name(token_list_input):
 	# identifier
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return compiler_tabs + token_list_input[2]
 
 
 def compile_subroutine_name(token_list_input):
 	# identifier
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -250,7 +251,7 @@ def compile_subroutine_name(token_list_input):
 
 def compile_var_name(token_list_input):
 	# identifier
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -259,7 +260,7 @@ def compile_var_name(token_list_input):
 # Statements ############################
 def compile_statements(token_list_input):
 	# statement*
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -267,7 +268,7 @@ def compile_statements(token_list_input):
 
 def compile_statement(token_list_input):
 	# letStatement|ifStatement|whileStatement|doStatement|returnStatement
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -275,7 +276,7 @@ def compile_statement(token_list_input):
 
 def compile_let_statement(token_list_input):
 	# 'let' varName ('[' expression ']')? '=' expression ';'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -283,7 +284,7 @@ def compile_let_statement(token_list_input):
 
 def compile_if_statement(token_list_input):
 	# 'if' '(' expression ('[' expression ']')? '=' expression ';'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -291,7 +292,7 @@ def compile_if_statement(token_list_input):
 
 def compile_while_statement(token_list_input):
 	# 'while' '(' expression ')' '{' statements '}' 'else' '{' statements '}' )?
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -299,7 +300,7 @@ def compile_while_statement(token_list_input):
 
 def compile_do_statement(token_list_input):
 	# 'do' subroutineCall ';'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -307,7 +308,7 @@ def compile_do_statement(token_list_input):
 
 def compile_return_statement(token_list_input):
 	# 'return' expression? ';'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -316,7 +317,7 @@ def compile_return_statement(token_list_input):
 # Expressions ###########################
 def compile_expression(token_list_input):
 	# term (op term)*
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -325,7 +326,7 @@ def compile_expression(token_list_input):
 def compile_term(token_list_input):
 	# integerConstant | stringConstant | keywordConstant | varName | varName '[' expression ']' | subroutineCall |
 	# '(' expression ')' | unaryOp term
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -333,7 +334,7 @@ def compile_term(token_list_input):
 
 def compile_subroutine_call(token_list_input):
 	# subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -341,7 +342,7 @@ def compile_subroutine_call(token_list_input):
 
 def compile_expressions(token_list_input):
 	# (expression (',' expression)* )?
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -349,7 +350,7 @@ def compile_expressions(token_list_input):
 
 def compile_op(token_list_input):
 	# '+' | '-' | '*' | '/' | '&' | '|' | '<' | '>' | '='
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -357,7 +358,7 @@ def compile_op(token_list_input):
 
 def compile_unary_op(token_list_input):
 	# '-' | '~'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
@@ -365,7 +366,7 @@ def compile_unary_op(token_list_input):
 
 def compile_keyword_constant(token_list_input):
 	# 'true' | 'false' | 'null' | 'this'
-	global compilation_index_counter
+	global compiler_index_counter
 	global compiler_tabs
 
 	return
