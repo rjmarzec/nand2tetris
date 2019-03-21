@@ -178,6 +178,9 @@ def compile_class(token_list_input):
 	compiler_index_counter += 1
 
 	output_string += compile_class_name(token_list_input)
+
+	output_string += compile_lexical_element(token_list_input)
+
 	# output_string +=
 
 	compiler_tabs = compiler_tabs.replace('\n', '', 1)
@@ -238,7 +241,8 @@ def compile_class_name(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return compiler_tabs + token_list_input[compiler_index_counter][2]
+	compiler_index_counter += 1
+	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
 
 
 def compile_subroutine_name(token_list_input):
@@ -246,7 +250,8 @@ def compile_subroutine_name(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	compiler_index_counter += 1
+	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
 
 
 def compile_var_name(token_list_input):
@@ -254,7 +259,7 @@ def compile_var_name(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
 
 
 # Statements ############################
@@ -370,6 +375,16 @@ def compile_keyword_constant(token_list_input):
 	global compiler_tabs
 
 	return
+
+
+# Lexical elements
+def compile_lexical_element(token_list_input):
+	# keyword | symbol | integerConstant | StringConstant | identifier
+	global compiler_index_counter
+	global compiler_tabs
+
+	compiler_index_counter += 1
+	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
 
 
 #########################################
