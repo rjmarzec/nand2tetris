@@ -168,42 +168,73 @@ compiler_tabs = ''
 
 
 # Program Structure #####################
+# Note: Tokens are formatted as follows: [token type, value, full line
 def compile_class(token_list_input):
 	# 'class' className '{' classVarDec* subroutineDec* '}'
 	global compiler_index_counter
 	global compiler_tabs
 
 	output_string = compiler_tabs + '<class>\n'
-	compiler_tabs += '\n'
-	compiler_index_counter += 1
+	compiler_tabs += '\t'
+
+	output_string += compile_lexical_element(token_list_input)
 
 	output_string += compile_class_name(token_list_input)
 
 	output_string += compile_lexical_element(token_list_input)
 
-	# output_string +=
+	while token_list_input[compiler_index_counter][1] == 'static'\
+		or token_list_input[compiler_index_counter][1] == 'field':
+		output_string += compile_class_var_dec(token_list_input)
 
-	compiler_tabs = compiler_tabs.replace('\n', '', 1)
+	while token_list_input[compiler_index_counter][1] == 'constructor'\
+		or token_list_input[compiler_index_counter][1] == 'function'\
+		or token_list_input[compiler_index_counter][1] == 'method':
+		output_string += compile_subroutine_dec(token_list_input)
+
+	output_string += compile_lexical_element(token_list_input)
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += '</class>\n'
 	return output_string
 
 
 def compile_class_var_dec(token_list_input):
-	# TODO: Complete this method
 	# ('static'|'field') type varName* (',' varName)* ';'
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	output_string = compiler_tabs + '<classVarDec>\n'
+
+	output_string += compile_lexical_element(token_list_input)
+
+	output_string += compile_type(token_list_input)
+
+	while token_list_input[compiler_index_counter][0] == 'identifier':
+		output_string += compile_var_name(token_list_input)
+
+	while token_list_input[compiler_index_counter][1] == ',':
+		output_string += compile_lexical_element(token_list_input)
+		output_string += compile_var_name(token_list_input)
+
+	output_string += compile_lexical_element(token_list_input)
+
+	return output_string + compiler_tabs + '</classVarDec>\n'
 
 
 def compile_type(token_list_input):
-	# TODO: Complete this method
 	# 'int'|'char'|'boolean'|className
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	if token_list_input[compiler_index_counter][1] == 'int'\
+		or token_list_input[compiler_index_counter][1] == 'char' \
+		or token_list_input[compiler_index_counter][1] == 'bool':
+		output_string = compile_lexical_element(token_list_input)
+	else:
+		output_string = compile_class_name(token_list_input)
+
+	return output_string
 
 
 def compile_subroutine_dec(token_list_input):
@@ -212,7 +243,8 @@ def compile_subroutine_dec(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	compiler_index_counter += 1
+	return ""
 
 
 def compile_parameter_list(token_list_input):
@@ -265,6 +297,7 @@ def compile_var_name(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
+	compiler_index_counter += 1
 	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
 
 
