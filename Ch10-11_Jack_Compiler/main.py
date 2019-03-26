@@ -177,22 +177,20 @@ def compile_class(token_list_input):
 	output_string = compiler_tabs + '<class>\n'
 	compiler_tabs += '\t'
 
-	output_string += compile_lexical_element(token_list_input)
-
-	output_string += compile_class_name(token_list_input)
-
-	output_string += compile_lexical_element(token_list_input)
+	output_string += compile_lexical_element(token_list_input)  # 'class'
+	output_string += compile_class_name(token_list_input)  # className
+	output_string += compile_lexical_element(token_list_input)  # '{'
 
 	while token_list_input[compiler_index_counter][1] == 'static'\
 		or token_list_input[compiler_index_counter][1] == 'field':
-		output_string += compile_class_var_dec(token_list_input)
+		output_string += compile_class_var_dec(token_list_input)  # classVarDec*
 
 	while token_list_input[compiler_index_counter][1] == 'constructor'\
 		or token_list_input[compiler_index_counter][1] == 'function'\
 		or token_list_input[compiler_index_counter][1] == 'method':
-		output_string += compile_subroutine_dec(token_list_input)
+		output_string += compile_subroutine_dec(token_list_input)  # subroutineDec*
 
-	output_string += compile_lexical_element(token_list_input)
+	output_string += compile_lexical_element(token_list_input)  # '}'
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += '</class>\n'
@@ -206,18 +204,17 @@ def compile_class_var_dec(token_list_input):
 
 	output_string = compiler_tabs + '<classVarDec>\n'
 
-	output_string += compile_lexical_element(token_list_input)
-
-	output_string += compile_type(token_list_input)
+	output_string += compile_lexical_element(token_list_input)  # ('static'|'field')
+	output_string += compile_type(token_list_input)  # type
 
 	while token_list_input[compiler_index_counter][0] == 'identifier':
-		output_string += compile_var_name(token_list_input)
+		output_string += compile_var_name(token_list_input)  # varName*
 
 	while token_list_input[compiler_index_counter][1] == ',':
-		output_string += compile_lexical_element(token_list_input)
-		output_string += compile_var_name(token_list_input)
+		output_string += compile_lexical_element(token_list_input)  # (',' ...
+		output_string += compile_var_name(token_list_input)  # ...varName)*
 
-	output_string += compile_lexical_element(token_list_input)
+	output_string += compile_lexical_element(token_list_input)  # ';'
 
 	return output_string + compiler_tabs + '</classVarDec>\n'
 
@@ -230,21 +227,33 @@ def compile_type(token_list_input):
 	if token_list_input[compiler_index_counter][1] == 'int'\
 		or token_list_input[compiler_index_counter][1] == 'char' \
 		or token_list_input[compiler_index_counter][1] == 'bool':
-		output_string = compile_lexical_element(token_list_input)
+		output_string = compile_lexical_element(token_list_input)  # 'int'|'char'|'boolean'|...
 	else:
-		output_string = compile_class_name(token_list_input)
+		output_string = compile_class_name(token_list_input)  # ...|className
 
 	return output_string
 
 
 def compile_subroutine_dec(token_list_input):
-	# TODO: Complete this method
 	# ('constructor'|'function'|'method') ('void'|type) subroutineName '(' parameterList ')' subroutineBody
 	global compiler_index_counter
 	global compiler_tabs
 
+	output_string = compile_lexical_element(token_list_input)  # ('constructor'|'function'|'method')
+
+	if token_list_input[compiler_index_counter][1] == 'void':
+		output_string += compile_lexical_element(token_list_input)  # ('void'|...
+	else:
+		output_string += compile_type(token_list_input)  # ...|type)
+
+	output_string += compile_subroutine_name(token_list_input)  # subroutineName
+	output_string += compile_lexical_element(token_list_input)  # '('
+	output_string += compile_parameter_list(token_list_input)  # parameterList
+	output_string += compile_lexical_element(token_list_input)  # ')'
+	output_string += compile_subroutine_body(token_list_input)  # subroutineBody
+
 	compiler_index_counter += 1
-	return ""
+	return output_string
 
 
 def compile_parameter_list(token_list_input):
@@ -253,7 +262,19 @@ def compile_parameter_list(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	output_string = ''
+
+	# Checking to see if the next token is a type manually
+	if token_list_input[compiler_index_counter][1] == 'int'\
+		or token_list_input[compiler_index_counter][1] == 'char' \
+		or token_list_input[compiler_index_counter][1] == 'bool':
+
+		output_string += compile_type(token_list_input)
+
+		output_string += compile_var_name(token_list_input)
+
+
+	return output_string
 
 
 def compile_subroutine_body(token_list_input):
@@ -262,7 +283,7 @@ def compile_subroutine_body(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_var_dec(token_list_input):
@@ -271,7 +292,7 @@ def compile_var_dec(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_class_name(token_list_input):
@@ -308,7 +329,7 @@ def compile_statements(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_statement(token_list_input):
@@ -317,7 +338,7 @@ def compile_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_let_statement(token_list_input):
@@ -326,7 +347,7 @@ def compile_let_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_if_statement(token_list_input):
@@ -335,7 +356,7 @@ def compile_if_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_while_statement(token_list_input):
@@ -344,7 +365,7 @@ def compile_while_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_do_statement(token_list_input):
@@ -353,7 +374,7 @@ def compile_do_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_return_statement(token_list_input):
@@ -362,7 +383,7 @@ def compile_return_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 # Expressions ###########################
@@ -372,7 +393,7 @@ def compile_expression(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_term(token_list_input):
@@ -382,7 +403,7 @@ def compile_term(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_subroutine_call(token_list_input):
@@ -391,7 +412,7 @@ def compile_subroutine_call(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_expressions(token_list_input):
@@ -400,7 +421,7 @@ def compile_expressions(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_op(token_list_input):
@@ -409,7 +430,7 @@ def compile_op(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_unary_op(token_list_input):
@@ -418,7 +439,7 @@ def compile_unary_op(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 def compile_keyword_constant(token_list_input):
@@ -427,7 +448,7 @@ def compile_keyword_constant(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return
+	return ''
 
 
 # Lexical elements
