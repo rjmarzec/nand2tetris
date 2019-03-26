@@ -257,7 +257,6 @@ def compile_subroutine_dec(token_list_input):
 
 
 def compile_parameter_list(token_list_input):
-	# TODO: Complete this method
 	# ((type varName) (',' type varName)*)?
 	global compiler_index_counter
 	global compiler_tabs
@@ -267,32 +266,51 @@ def compile_parameter_list(token_list_input):
 	# Checking to see if the next token is a type manually
 	if token_list_input[compiler_index_counter][1] == 'int'\
 		or token_list_input[compiler_index_counter][1] == 'char' \
-		or token_list_input[compiler_index_counter][1] == 'bool':
+		or token_list_input[compiler_index_counter][1] == 'bool':  # (...)?
+		output_string += compile_type(token_list_input)  # (type ...
+		output_string += compile_var_name(token_list_input)  # ... varName)
 
-		output_string += compile_type(token_list_input)
-
-		output_string += compile_var_name(token_list_input)
-
+	while token_list_input[compiler_index_counter][1] == ',':
+		output_string += compile_lexical_element(token_list_input)  # ','
+		output_string += compile_type(token_list_input)  # type
+		output_string += compile_var_name(token_list_input)  # varName
 
 	return output_string
 
 
 def compile_subroutine_body(token_list_input):
-	# TODO: Complete this method
 	# '{' varDec* statements '}'
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compile_lexical_element(token_list_input)  # '{'
+
+	while token_list_input[compiler_index_counter][1] == 'var':
+		output_string += compile_var_dec(token_list_input)  # varDec*
+
+	output_string += compile_statements(token_list_input)  # statements
+	output_string += compile_lexical_element(token_list_input)  # '}'
+
+	return output_string
 
 
 def compile_var_dec(token_list_input):
-	# TODO: Complete this method
 	# 'var' type varName (',' type varName)* ';'
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compile_lexical_element(token_list_input)  # 'var'
+	output_string += compile_type(token_list_input)  # type
+	output_string += compile_var_name(token_list_input)  # varName
+
+	while token_list_input[compiler_index_counter][1] == ',':  # (...)*
+		output_string += compile_lexical_element(token_list_input)  # ','
+		output_string += compile_type(token_list_input)  # type
+		output_string += compile_var_name(token_list_input)  # varName
+
+	output_string += compile_lexical_element(token_list_input)  # ';'
+
+	return output_string
 
 
 def compile_class_name(token_list_input):
