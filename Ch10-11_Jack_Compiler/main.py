@@ -194,13 +194,15 @@ def compile_class(token_list_input):
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += '</class>\n'
-	return output_string
+	return output_string.replace('\t', '  ')
 
 
 def compile_class_var_dec(token_list_input):
 	# ('static'|'field') type varName* (',' varName)* ';'
 	global compiler_index_counter
 	global compiler_tabs
+
+	compiler_tabs += '\t'
 
 	output_string = compiler_tabs + '<classVarDec>\n'
 
@@ -216,6 +218,7 @@ def compile_class_var_dec(token_list_input):
 
 	output_string += compile_lexical_element(token_list_input)  # ';'
 
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	return output_string + compiler_tabs + '</classVarDec>\n'
 
 
@@ -239,7 +242,10 @@ def compile_subroutine_dec(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compile_lexical_element(token_list_input)  # ('constructor'|'function'|'method')
+	output_string = compiler_tabs + '<subroutineDec>\n'
+	compiler_tabs += '\t'
+
+	output_string += compile_lexical_element(token_list_input)  # ('constructor'|'function'|'method')
 
 	if token_list_input[compiler_index_counter][1] == 'void':
 		output_string += compile_lexical_element(token_list_input)  # ('void'|...
@@ -252,7 +258,10 @@ def compile_subroutine_dec(token_list_input):
 	output_string += compile_lexical_element(token_list_input)  # ')'
 	output_string += compile_subroutine_body(token_list_input)  # subroutineBody
 
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+
 	compiler_index_counter += 1
+	output_string += compiler_tabs + '</subroutineDec>\n'
 	return output_string
 
 
@@ -261,7 +270,8 @@ def compile_parameter_list(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = ''
+	output_string = compiler_tabs + '<parameterList>\n'
+	compiler_tabs += '\t'
 
 	# Checking to see if the next token is a type manually
 	if token_list_input[compiler_index_counter][1] == 'int'\
@@ -270,11 +280,13 @@ def compile_parameter_list(token_list_input):
 		output_string += compile_type(token_list_input)  # (type ...
 		output_string += compile_var_name(token_list_input)  # ... varName)
 
-	while token_list_input[compiler_index_counter][1] == ',':
-		output_string += compile_lexical_element(token_list_input)  # ','
-		output_string += compile_type(token_list_input)  # type
-		output_string += compile_var_name(token_list_input)  # varName
+		while token_list_input[compiler_index_counter][1] == ',':
+			output_string += compile_lexical_element(token_list_input)  # ','
+			output_string += compile_type(token_list_input)  # type
+			output_string += compile_var_name(token_list_input)  # varName
 
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</parameterList>\n'
 	return output_string
 
 
@@ -283,7 +295,10 @@ def compile_subroutine_body(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compile_lexical_element(token_list_input)  # '{'
+	output_string = compiler_tabs + '<subroutineBody>\n'
+	compiler_tabs += '\t'
+
+	output_string += compile_lexical_element(token_list_input)  # '{'
 
 	while token_list_input[compiler_index_counter][1] == 'var':
 		output_string += compile_var_dec(token_list_input)  # varDec*
@@ -291,25 +306,32 @@ def compile_subroutine_body(token_list_input):
 	output_string += compile_statements(token_list_input)  # statements
 	output_string += compile_lexical_element(token_list_input)  # '}'
 
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+
+	output_string += compiler_tabs + '</subroutineBody>\n'
 	return output_string
 
 
 def compile_var_dec(token_list_input):
-	# 'var' type varName (',' type varName)* ';'
+	# 'var' type varName (',' varName)* ';'
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compile_lexical_element(token_list_input)  # 'var'
+	output_string = compiler_tabs + '<varDec>\n'
+	compiler_tabs += '\t'
+
+	output_string += compile_lexical_element(token_list_input)  # 'var'
 	output_string += compile_type(token_list_input)  # type
 	output_string += compile_var_name(token_list_input)  # varName
 
 	while token_list_input[compiler_index_counter][1] == ',':  # (...)*
 		output_string += compile_lexical_element(token_list_input)  # ','
-		output_string += compile_type(token_list_input)  # type
 		output_string += compile_var_name(token_list_input)  # varName
 
 	output_string += compile_lexical_element(token_list_input)  # ';'
 
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</varDec>\n'
 	return output_string
 
 
@@ -342,39 +364,93 @@ def compile_var_name(token_list_input):
 
 # Statements ############################
 def compile_statements(token_list_input):
-	# TODO: Complete this method
 	# statement*
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statements>\n'
+	compiler_tabs += '\t'
+
+	while token_list_input[compiler_index_counter][1] == 'let' \
+		or token_list_input[compiler_index_counter][1] == 'if' \
+		or token_list_input[compiler_index_counter][1] == 'while'\
+		or token_list_input[compiler_index_counter][1] == 'do'\
+		or token_list_input[compiler_index_counter][1] == 'return':
+		output_string += compile_statement(token_list_input)  # statement*
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statements>\n'
+	return output_string
 
 
 def compile_statement(token_list_input):
-	# TODO: Complete this method
 	# letStatement|ifStatement|whileStatement|doStatement|returnStatement
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	if token_list_input[compiler_index_counter][1] == 'let':
+		output_string = compile_let_statement(token_list_input)  # letStatement|...
+	elif token_list_input[compiler_index_counter][1] == 'if':
+		output_string = compile_if_statement(token_list_input)  # ...|ifStatement|...
+	elif token_list_input[compiler_index_counter][1] == 'while':
+		output_string = compile_while_statement(token_list_input)  # ...|whileStatement|...
+	elif token_list_input[compiler_index_counter][1] == 'do':
+		output_string = compile_do_statement(token_list_input)  # ...|doStatement|...
+	else:
+		output_string = compile_return_statement(token_list_input)  # ...|returnStatement
+
+	return output_string
 
 
 def compile_let_statement(token_list_input):
-	# TODO: Complete this method
 	# 'let' varName ('[' expression ']')? '=' expression ';'
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<letStatement>\n'
+	compiler_tabs += '\t'
+
+	output_string += compile_lexical_element(token_list_input)  # 'let'
+	output_string += compile_var_name(token_list_input)  # varName
+
+	if token_list_input[compiler_index_counter][1] == '[':  # (...)?
+		output_string += compile_lexical_element(token_list_input)  # '['
+		output_string += compile_expression(token_list_input)  # expression
+		output_string += compile_lexical_element(token_list_input)  # ']'
+
+	output_string += compile_lexical_element(token_list_input)  # '='
+	output_string += compile_expression(token_list_input)   # expression
+	output_string += compile_lexical_element(token_list_input)  # ';'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</letStatement>\n'
+	return output_string
 
 
 def compile_if_statement(token_list_input):
-	# TODO: Complete this method
 	# 'if' '(' expression ('[' expression ']')? '=' expression ';'
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<ifStatement>\n'
+	compiler_tabs += '\t'
+
+	output_string += compile_lexical_element(token_list_input)  # 'if'
+	output_string += compile_lexical_element(token_list_input)  # '('
+	output_string += compile_expression(token_list_input)  # expression
+
+	if token_list_input[compiler_index_counter][1] == '[':  # (...)?
+		output_string += compile_lexical_element(token_list_input)  # '['
+		output_string += compile_expression(token_list_input)  # expression
+		output_string += compile_lexical_element(token_list_input)  # ']'
+
+	output_string += compile_lexical_element(token_list_input)  # '='
+	output_string += compile_expression(token_list_input)  # expression
+	output_string += compile_lexical_element(token_list_input)  # ';'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</ifStatement>\n'
+	return output_string
 
 
 def compile_while_statement(token_list_input):
@@ -383,7 +459,12 @@ def compile_while_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_do_statement(token_list_input):
@@ -392,7 +473,12 @@ def compile_do_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_return_statement(token_list_input):
@@ -401,7 +487,12 @@ def compile_return_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 # Expressions ###########################
@@ -411,7 +502,12 @@ def compile_expression(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_term(token_list_input):
@@ -421,7 +517,12 @@ def compile_term(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_subroutine_call(token_list_input):
@@ -430,7 +531,12 @@ def compile_subroutine_call(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_expressions(token_list_input):
@@ -439,7 +545,12 @@ def compile_expressions(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_op(token_list_input):
@@ -448,7 +559,12 @@ def compile_op(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_unary_op(token_list_input):
@@ -457,7 +573,12 @@ def compile_unary_op(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 def compile_keyword_constant(token_list_input):
@@ -466,7 +587,12 @@ def compile_keyword_constant(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	return ''
+	output_string = compiler_tabs + '<statement>\n'
+	compiler_tabs += '\t'
+
+	compiler_tabs = compiler_tabs.replace('\t', '', 1)
+	output_string += compiler_tabs + '</statement>\n'
+	return output_string
 
 
 # Lexical elements
