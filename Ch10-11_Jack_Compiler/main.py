@@ -454,30 +454,44 @@ def compile_if_statement(token_list_input):
 
 
 def compile_while_statement(token_list_input):
-	# TODO: Complete this method
-	# 'while' '(' expression ')' '{' statements '}' 'else' '{' statements '}' )?
+	# 'while' '(' expression ')' '{' statements '}' 'else' '{' statements '}'
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<whileStatement>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_lexical_element(token_list_input)  # 'if'
+	output_string += compile_lexical_element(token_list_input)  # '('
+	output_string += compile_expression(token_list_input)  # expression
+	output_string += compile_lexical_element(token_list_input)  # ')'
+	output_string += compile_lexical_element(token_list_input)  # '{'
+	output_string += compile_statements(token_list_input)  # statements
+	output_string += compile_lexical_element(token_list_input)  # '}'
+	output_string += compile_lexical_element(token_list_input)  # 'else'
+	output_string += compile_lexical_element(token_list_input)  # '{'
+	output_string += compile_statements(token_list_input)  # statements
+	output_string += compile_lexical_element(token_list_input)  # '}'
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</whileStatement>\n'
 	return output_string
 
 
 def compile_do_statement(token_list_input):
-	# TODO: Complete this method
 	# 'do' subroutineCall ';'
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<doStatement>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_lexical_element(token_list_input)  # 'do'
+	output_string += compile_subroutine_call(token_list_input)  # subroutine
+	output_string += compile_lexical_element()  # ';'
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</doStatement>\n'
 	return output_string
 
 
@@ -487,11 +501,16 @@ def compile_return_statement(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<returnStatement>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_lexical_element(token_list_input)  # 'return'
+
+	output_string += compile_expression(token_list_input)  # expression
+	output_string += compile_lexical_element(token_list_input)  # ';'
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</returnStatement>\n'
 	return output_string
 
 
@@ -587,11 +606,13 @@ def compile_keyword_constant(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<keywordConstant>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_lexical_element(token_list_input)
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</keywordConstant>\n'
 	return output_string
 
 
