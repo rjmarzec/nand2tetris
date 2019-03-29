@@ -521,11 +521,15 @@ def compile_expression(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<expression>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_term(token_list_input)
+
+	if
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</expression>\n'
 	return output_string
 
 
@@ -536,11 +540,11 @@ def compile_term(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<term>\n'
 	compiler_tabs += '\t'
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</term>\n'
 	return output_string
 
 
@@ -550,58 +554,59 @@ def compile_subroutine_call(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<subroutineCall>\n'
 	compiler_tabs += '\t'
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</subroutineCall>\n'
 	return output_string
 
 
-def compile_expressions(token_list_input):
+def compile_expression_list(token_list_input):
 	# TODO: Complete this method
 	# (expression (',' expression)* )?
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<expressionList>\n'
 	compiler_tabs += '\t'
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</expressionList>\n'
 	return output_string
 
 
 def compile_op(token_list_input):
-	# TODO: Complete this method
 	# '+' | '-' | '*' | '/' | '&' | '|' | '<' | '>' | '='
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<op>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_lexical_element(token_list_input)  # '+' | '-' | '*' | '/' | '&' | '|' | '<' | '>' | '='
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</op>\n'
 	return output_string
 
 
 def compile_unary_op(token_list_input):
-	# TODO: Complete this method
 	# '-' | '~'
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<statement>\n'
+	output_string = compiler_tabs + '<unaryOp>\n'
 	compiler_tabs += '\t'
 
+	output_string += compile_lexical_element(token_list_input)  # '-' | '~'
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</statement>\n'
+	output_string += compiler_tabs + '</unaryOp>\n'
 	return output_string
 
 
 def compile_keyword_constant(token_list_input):
-	# TODO: Complete this method
 	# 'true' | 'false' | 'null' | 'this'
 	global compiler_index_counter
 	global compiler_tabs
@@ -609,7 +614,7 @@ def compile_keyword_constant(token_list_input):
 	output_string = compiler_tabs + '<keywordConstant>\n'
 	compiler_tabs += '\t'
 
-	output_string += compile_lexical_element(token_list_input)
+	output_string += compile_lexical_element(token_list_input)  # 'true' | 'false' | 'null' | 'this'
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += compiler_tabs + '</keywordConstant>\n'
