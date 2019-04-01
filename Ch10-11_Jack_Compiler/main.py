@@ -524,9 +524,7 @@ def compile_expression(token_list_input):
 	output_string = compiler_tabs + '<expression>\n'
 	compiler_tabs += '\t'
 
-	output_string += compile_term(token_list_input)
-
-	if
+	output_string += compile_term(token_list_input)  #
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += compiler_tabs + '</expression>\n'
@@ -543,19 +541,42 @@ def compile_term(token_list_input):
 	output_string = compiler_tabs + '<term>\n'
 	compiler_tabs += '\t'
 
+	if token_list_input[compiler_index_counter][0] == 'integerConstant':  # integerConstant | ...
+		output_string += compile_lexical_element(token_list_input)
+	elif token_list_input[compiler_index_counter][0] == 'stringConstant':  # ... | stringConstant | ...
+		output_string += compile_lexical_element(token_list_input)
+	elif token_list_input[compiler_index_counter][0] == 'keywordConstant':  # ... | keywordConstant | ...
+		output_string += compile_lexical_element(token_list_input)
+	elif token_list_input[compiler_index_counter][0] == 'identifier':  # ... | varName ('[' expression ']')? | ...
+		output_string += compile_lexical_element(token_list_input)
+
+
+	output_string += compile_lexical_element(token_list_input)
+
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += compiler_tabs + '</term>\n'
 	return output_string
 
 
 def compile_subroutine_call(token_list_input):
-	# TODO: Complete this method
 	# subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
+	# which can be simplified to:
+	# ((className | varName) '.')? subroutineName '(' expressionList ')'
 	global compiler_index_counter
 	global compiler_tabs
 
 	output_string = compiler_tabs + '<subroutineCall>\n'
 	compiler_tabs += '\t'
+
+	if token_list_input[compiler_index_counter][0] == 'identifier':  # (...)?
+		# className and varName ultimately give the same output, so we don't care which one it really is
+		output_string += compile_class_name(token_list_input)  # (className | varName)
+		output_string += compile_lexical_element(token_list_input)  # '.'
+
+	output_string += compile_subroutine_name(token_list_input)  # subroutineName
+	output_string += compile_lexical_element(token_list_input)  # '('
+	output_string += compile_expression_list(token_list_input)  # expressionList
+	output_string += compile_lexical_element(token_list_input)  # ')'
 
 	compiler_tabs = compiler_tabs.replace('\t', '', 1)
 	output_string += compiler_tabs + '</subroutineCall>\n'
