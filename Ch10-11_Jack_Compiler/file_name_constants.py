@@ -33,7 +33,7 @@ EXPRESSION_LESS_SQUARE_OUT = \
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/Square.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/SquareGame.xml']
 EXPRESSION_LESS_SQUARE_OUT_T = \
-	['TestFiles/Chapter10i/ExpressionLessSquareOutput/MainT.xml',
+	['TestFiles/Chapter10/ExpressionLessSquareOutput/MainT.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/SquareT.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/SquareGameT.xml']
 EXPRESSION_LESS_SQUARE = [EXPRESSION_LESS_SQUARE_IN, EXPRESSION_LESS_SQUARE_OUT, EXPRESSION_LESS_SQUARE_OUT_T]
