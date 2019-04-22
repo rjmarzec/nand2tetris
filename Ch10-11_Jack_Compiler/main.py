@@ -7,7 +7,7 @@ import re
 
 # The program that is being compiled, as taken from file_name_constants.py
 # Needs to be changed manually to change the program being compiled
-program = file_name_constants.EXPRESSION_LESS_SQUARE
+program = file_name_constants.ARRAY_TEST
 
 
 # Lists of the I/O file paths. Changes based on the above variable.
@@ -425,8 +425,7 @@ def compile_let_statement(token_list_input):
 
 
 def compile_if_statement(token_list_input):
-	# 'if' '(' expression' ')' '{' statements '}' ('else' '{' statements '}')?
-	# 'if' '(' expression ')' ({' statements'}')? '=' expression ';'
+	# 'if' '(' expression ')' '{' statements '}' ('else' '{' statements '}')?
 	global compiler_index_counter
 	global compiler_tabs
 
@@ -560,7 +559,8 @@ def compile_term(token_list_input):
 		output_string += compile_lexical_element(token_list_input)
 
 	# ... | keywordConstant | ...
-	elif token_list_input[compiler_index_counter][0] == 'keywordConstant':
+	elif token_list_input[compiler_index_counter][0] == 'keywordConstant'\
+		or token_list_input[compiler_index_counter][0] == 'keyword':
 		output_string += compile_lexical_element(token_list_input)
 
 	# ... | varName ('[' expression ']')? | subroutineCall | ...
@@ -604,7 +604,7 @@ def compile_subroutine_call(token_list_input):
 	# compiler_tabs += '\t'
 	output_string = ''
 
-	if token_list_input[compiler_index_counter][0] == 'identifier':  # (...)?
+	if token_list_input[compiler_index_counter + 1][1] == '.':  # (...)?
 		# className and varName ultimately give the same output, so we don't care which one it really is
 		output_string += compile_class_name(token_list_input)  # (className | varName)
 		output_string += compile_lexical_element(token_list_input)  # '.'
@@ -629,7 +629,8 @@ def compile_expression_list(token_list_input):
 
 	if token_list_input[compiler_index_counter][0] == 'integerConstant'\
 		or token_list_input[compiler_index_counter][0] == 'stringConstant'\
-		or token_list_input[compiler_index_counter][0] == 'keywordConstant'\
+		or token_list_input[compiler_index_counter][0] == 'keywordConstant' \
+		or token_list_input[compiler_index_counter][0] == 'keyword' \
 		or token_list_input[compiler_index_counter][0] == 'identifier'\
 		or token_list_input[compiler_index_counter][1] == '('\
 		or token_list_input[compiler_index_counter][1] == '-' \
@@ -665,13 +666,8 @@ def compile_unary_op(token_list_input):
 	global compiler_index_counter
 	global compiler_tabs
 
-	output_string = compiler_tabs + '<unaryOp>\n'
-	compiler_tabs += '\t'
+	output_string = compile_lexical_element(token_list_input)  # '-' | '~'
 
-	output_string += compile_lexical_element(token_list_input)  # '-' | '~'
-
-	compiler_tabs = compiler_tabs.replace('\t', '', 1)
-	output_string += compiler_tabs + '</unaryOp>\n'
 	return output_string
 
 
@@ -718,10 +714,6 @@ for file_path_counter in range(0, len(input_file_path_list)):
 for file_path_counter in range(0, len(output_t_file_path_list)):
 	tokenized_input_string = get_file_lines_as_list(output_t_file_path_list[file_path_counter])
 	syntax_analyzer_output = compile_class(get_token_value_pair_list(tokenized_input_string))
-
-	print('..........')
-	print(tokenized_input_string)
-	print(syntax_analyzer_output)
 
 	syntax_analyzer_output_file = open(output_file_path_list[file_path_counter], 'w')
 	syntax_analyzer_output_file.write(syntax_analyzer_output)
