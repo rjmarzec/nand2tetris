@@ -84,7 +84,8 @@ def get_tokenized_input_as_string(input_file_string):
 		else:
 			# Tokenizing keywords
 			for keyword in keyword_tokens:
-				if len(input_file_string[current_index:]) >= len(keyword) and input_file_string[current_index: current_index + len(keyword)] == keyword:
+				if len(input_file_string[current_index:]) >= len(keyword) \
+					and input_file_string[current_index: current_index + len(keyword)] == keyword:
 					current_index += len(keyword)
 					token_list.append(['keyword', keyword])
 					token_found_this_loop = True
