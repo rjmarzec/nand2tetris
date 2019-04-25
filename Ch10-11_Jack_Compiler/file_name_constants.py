@@ -5,53 +5,53 @@
 #########################################
 
 # Files Name ####################
-# ..._IN = ['TestFiles/Chapter.../.../....jack', '...']	(Input File Directory as a List)
-# ..._OUT = ['.../.../....vm', '...']	(Output File Directory as a List)
-# ..._OUT_T = ['.../.../....vm', '...']	(Tokenizer Output File Directory as a List)
-# ... = [..._IN, ..._OUT, ..._OUT_T] (A collection of the above as a list, in the order shown above)
+# ..._in = ['TestFiles/Chapter.../.../....jack', '...']	(Input File Directory as a List)
+# ..._out = ['.../.../....vm', '...']	(Output File Directory as a List)
+# ..._out_t = ['.../.../....vm', '...']	(Tokenizer Output File Directory as a List)
+# ... = [..._in, ..._out, ..._out_t] (A public collection of the above as a list, in the order shown above)
 
 #########################################
-# Chapter 9 Files #######################
+# Chapter 10 Files #######################
 #########################################
 
 # ArrayTest
-ARRAY_TEST_IN = \
+array_test_in = \
 	['TestFiles/Chapter10/ArrayTest/Main.jack']
-ARRAY_TEST_OUT = \
+array_test_out = \
 	['TestFiles/Chapter10/ArrayTestOutput/Main.xml']
-ARRAY_TEST_OUT_T = \
+array_test_out_t = \
 	['TestFiles/Chapter10/ArrayTestOutput/MainT.xml']
-ARRAY_TEST = [ARRAY_TEST_IN, ARRAY_TEST_OUT, ARRAY_TEST_OUT_T]
+ARRAY_TEST = [array_test_in, array_test_out, array_test_out_t]
 
 # ExpressionLessSquare
-EXPRESSION_LESS_SQUARE_IN = \
+expression_less_square_in = \
 	['TestFiles/Chapter10/ExpressionLessSquare/Main.jack',
 		'TestFiles/Chapter10/ExpressionLessSquare/Square.jack',
 		'TestFiles/Chapter10/ExpressionLessSquare/SquareGame.jack']
-EXPRESSION_LESS_SQUARE_OUT = \
+expression_less_square_out = \
 	['TestFiles/Chapter10/ExpressionLessSquareOutput/Main.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/Square.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/SquareGame.xml']
-EXPRESSION_LESS_SQUARE_OUT_T = \
+expression_less_square_out_t = \
 	['TestFiles/Chapter10/ExpressionLessSquareOutput/MainT.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/SquareT.xml',
 		'TestFiles/Chapter10/ExpressionLessSquareOutput/SquareGameT.xml']
-EXPRESSION_LESS_SQUARE = [EXPRESSION_LESS_SQUARE_IN, EXPRESSION_LESS_SQUARE_OUT, EXPRESSION_LESS_SQUARE_OUT_T]
+EXPRESSION_LESS_SQUARE = [expression_less_square_in, expression_less_square_out, expression_less_square_out_t]
 
 # Square
-SQUARE_IN = \
+square_in = \
 	['TestFiles/Chapter10/Square/Main.jack',
 		'TestFiles/Chapter10/Square/Square.jack',
 		'TestFiles/Chapter10/Square/SquareGame.jack']
-SQUARE_OUT = \
+square_out = \
 	['TestFiles/Chapter10/SquareOutput/Main.xml',
 		'TestFiles/Chapter10/SquareOutput/Square.xml',
 		'TestFiles/Chapter10/SquareOutput/SquareGame.xml']
-SQUARE_OUT_T = \
+square_out_t = \
 	['TestFiles/Chapter10/SquareOutput/MainT.xml',
 		'TestFiles/Chapter10/SquareOutput/SquareT.xml',
 		'TestFiles/Chapter10/SquareOutput/SquareGameT.xml']
-SQUARE = [SQUARE_IN, SQUARE_OUT, SQUARE_OUT_T]
+SQUARE = [square_in, square_out, square_out_t]
 
 #########################################
 # Chapter 10 Files ######################
