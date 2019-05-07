@@ -701,24 +701,29 @@ def compile_lexical_element(token_list_input):
 # Testing/Running Area ##################
 #########################################
 
-temp_string = ''
 
-# Tokenize the Input File
-for file_path_counter in range(0, len(input_file_path_list)):
-	tokenized_input_string = get_tokenized_input_as_string(get_file_lines_as_string(input_file_path_list[file_path_counter]))
+def main():
+	# Tokenize the Input File
+	for file_path_counter in range(0, len(input_file_path_list)):
+		tokenized_input_string = get_tokenized_input_as_string(get_file_lines_as_string(input_file_path_list[file_path_counter]))
 
-	t_output_file = open(output_t_file_path_list[file_path_counter], 'w')
-	t_output_file.write(tokenized_input_string)
-	t_output_file.close()
+		t_output_file = open(output_t_file_path_list[file_path_counter], 'w')
+		t_output_file.write(tokenized_input_string)
+		t_output_file.close()
 
-# Syntax Analysis of the Tokenized Input
-for file_path_counter in range(0, len(output_t_file_path_list)):
-	tokenized_input_string = get_file_lines_as_list(output_t_file_path_list[file_path_counter])
-	syntax_analyzer_output = compile_class(get_token_value_pair_list(tokenized_input_string))
+	# Syntax Analysis of the Tokenized Input
+	for file_path_counter in range(0, len(output_t_file_path_list)):
+		tokenized_input_string = get_file_lines_as_list(output_t_file_path_list[file_path_counter])
+		syntax_analyzer_output = compile_class(get_token_value_pair_list(tokenized_input_string))
 
-	syntax_analyzer_output_file = open(output_file_path_list[file_path_counter], 'w')
-	syntax_analyzer_output_file.write(syntax_analyzer_output)
-	syntax_analyzer_output_file.close()
+		syntax_analyzer_output_file = open(output_file_path_list[file_path_counter], 'w')
+		syntax_analyzer_output_file.write(syntax_analyzer_output)
+		syntax_analyzer_output_file.close()
+
+	# Translate the .jack file to .vm using the .xml translation
+	for file_path_counter in range(0, len(output_t_file_path_list)):
+		print(file_path_counter)
+		# something
 
 
-# print(get_token_value_pair_list(get_file_lines_as_list(output_t_file_path_list[0])))
+main()
