@@ -7,7 +7,7 @@ import re
 
 # The program that is being compiled, as taken from file_name_constants.py
 # Needs to be changed manually to change the program being compiled
-program = file_name_constants.ARRAY_TEST
+program = file_name_constants.SEVEN
 
 
 # Lists of the I/O file paths. Changes based on the above variable.
@@ -361,6 +361,7 @@ def compile_var_name(token_list_input):
 
 
 # Statements ############################
+
 def compile_statements(token_list_input):
 	# statement*
 	global compiler_index_counter
@@ -512,6 +513,7 @@ def compile_return_statement(token_list_input):
 
 
 # Expressions ###########################
+
 def compile_expression(token_list_input):
 	# term (op term)*
 	global compiler_index_counter
@@ -695,6 +697,118 @@ def compile_lexical_element(token_list_input):
 
 	compiler_index_counter += 1
 	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
+
+
+#########################################
+# Symbol Table Builder ##################
+#########################################
+# name => (String)
+# type => (String)
+# kind => (STATIC, FIELD, ARG, or VAR)
+
+
+def start_subroutine():
+	# starts a new subroutine scope
+	# (i.e., resets the subroutine's symbol table)
+
+	return  # void
+
+
+def define(name, type, kind):
+	# defines a new identifier of a given name, type and kind and assigns it a running index.
+	# STATIC anf FIELD identifiers have a class scope, while ARG and VAR identifiers have a subroutine scope
+
+	return  # void
+
+
+def var_count(kind):
+	# returns the number of variables of the given kind already defined in the current scope
+
+	# returns int
+	return 0
+
+
+def kind_of(name):
+	# returns the kind of the named identifier in the current scope.
+	# if the identifier is unknown in the current scope, return NONE.
+
+	# returns STATIC, FIELD, ARG, VAR, or NONE
+	return
+
+
+def type_of(name):
+	# returns the type of the named identifier in the current scope
+
+	# returns int
+	return 0
+
+
+def index_of(name):
+	# returns the index assigned to the named identifier
+
+	# returns int
+	return 0
+
+
+#########################################
+# VM Writer #############################
+#########################################
+# segment => (CONST, ARG, LOCAL, STATIC, THIS, THAT, POINTER, TEMP)
+# command => (String)
+
+
+def write_push(segment, index):
+	# writes a VM push command
+
+	return
+
+
+def write_pop(segment, index):
+	# writes a VM pop command
+
+	return
+
+
+def write_arithmetic(command):
+	# writes a VM arithmetic command
+
+	return
+
+
+def write_label(label):
+	# writes a VM label command
+
+	return
+
+
+def write_goto(label):
+	# writes a VM goto command
+
+	return
+
+
+def write_if(label):
+	# writes a VM if-goto command
+
+	return
+
+
+def write_call(name, nArgs):
+	# writes a VM call command
+
+	return
+
+
+def write_function(name, nLocals):
+	# writes a VM function command
+
+	return
+
+
+def write_return():
+	# writes a VM function command
+
+	return
 
 
 #########################################
