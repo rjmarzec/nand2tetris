@@ -839,55 +839,55 @@ def index_of(name):
 def write_push(segment, index):
 	# writes a VM push command
 
-	return
+	return 'push {!s} {!s}'.format(segment, index)
 
 
 def write_pop(segment, index):
 	# writes a VM pop command
 
-	return
+	return 'pop {!s} {!s}'.format(segment, index)
 
 
 def write_arithmetic(command):
 	# writes a VM arithmetic command
 
-	return
+	return command.lower()
 
 
 def write_label(label):
 	# writes a VM label command
 
-	return
+	return 'label {!s}'.format(label)
 
 
 def write_goto(label):
 	# writes a VM goto command
 
-	return
+	return 'goto {!s}'.format(label)
 
 
 def write_if(label):
 	# writes a VM if-goto command
 
-	return
+	return 'if-goto {!s}'.format(label)
 
 
 def write_call(name, nArgs):
 	# writes a VM call command
 
-	return
+	return 'call {!s} {!s}'.format(name, nArgs)
 
 
 def write_function(name, nLocals):
 	# writes a VM function command
 
-	return
+	return 'function {!s} {!s}'.format(name, nLocals)
 
 
 def write_return():
 	# writes a VM function command
 
-	return
+	return 'return'
 
 
 #########################################
@@ -920,3 +920,4 @@ def main():
 
 
 main()
+# TODO: unit test the VMWriter and SymbolTable modules
