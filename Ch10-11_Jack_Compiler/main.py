@@ -706,48 +706,127 @@ def compile_lexical_element(token_list_input):
 # type => (String)
 # kind => (STATIC, FIELD, ARG, or VAR)
 
+# The static and field symbol tables are wiped per-class
+static_symbol_table = {}
+field_symbol_table = {}
+# The argument and var symbol tables are wiped per-method/function/constructor
+argument_symbol_table = {}
+var_symbol_table = {}
+
+
+def reset_symbol_table():
+	# resets the entire symbol table
+	global static_symbol_table
+	global field_symbol_table
+
+	static_symbol_table = {}
+	field_symbol_table = {}
+
+	start_subroutine()
+
+	return  # void
+
 
 def start_subroutine():
 	# starts a new subroutine scope
 	# (i.e., resets the subroutine's symbol table)
+	global argument_symbol_table
+	global var_symbol_table
+
+	argument_symbol_table = []
+	var_symbol_table = []
 
 	return  # void
 
 
 def define(name, type, kind):
 	# defines a new identifier of a given name, type and kind and assigns it a running index.
-	# STATIC anf FIELD identifiers have a class scope, while ARG and VAR identifiers have a subroutine scope
+	# STATIC and FIELD identifiers have a class scope, while ARG and VAR identifiers have a subroutine scope
+	global static_symbol_table
+	global field_symbol_table
+	global argument_symbol_table
+	global var_symbol_table
 
+	if kind == 'STATIC':
+		static_symbol_table.update({name: type})
+	elif kind == 'FIELD':
+		field_symbol_table.update({name: type})
+	elif kind == 'ARG':
+		argument_symbol_table.update({name: type})
+	else:  # kind == 'VAR'
+		var_symbol_table.update({name: type})
 	return  # void
 
 
 def var_count(kind):
 	# returns the number of variables of the given kind already defined in the current scope
+	global static_symbol_table
+	global field_symbol_table
+	global argument_symbol_table
+	global var_symbol_table
 
-	# returns int
-	return 0
+	if kind == 'STATIC':
+		return len(static_symbol_table)
+	elif kind == 'FIELD':
+		return len(field_symbol_table)
+	elif kind == 'ARG':
+		return len(argument_symbol_table)
+	else:  # kind == 'VAR'
+		return len(var_symbol_table)
 
 
 def kind_of(name):
 	# returns the kind of the named identifier in the current scope.
 	# if the identifier is unknown in the current scope, return NONE.
+	global static_symbol_table
+	global field_symbol_table
+	global argument_symbol_table
+	global var_symbol_table
 
-	# returns STATIC, FIELD, ARG, VAR, or NONE
-	return
+	if name in static_symbol_table:
+		return 'STATIC'
+	if name in field_symbol_table:
+		return 'FIELD'
+	if name in argument_symbol_table:
+		return 'ARG'
+	if name in var_symbol_table:
+		return 'VAR'
+	else:
+		return 'NONE'
 
 
 def type_of(name):
 	# returns the type of the named identifier in the current scope
+	global static_symbol_table
+	global field_symbol_table
+	global argument_symbol_table
+	global var_symbol_table
 
-	# returns int
-	return 0
+	if name in static_symbol_table:
+		return static_symbol_table.get(name)
+	elif name in field_symbol_table:
+		return field_symbol_table.get(name)
+	elif name in argument_symbol_table:
+		return argument_symbol_table.get(name)
+	else:  # name in var_symbol_table:
+		return var_symbol_table.get(name)
 
 
 def index_of(name):
 	# returns the index assigned to the named identifier
+	global static_symbol_table
+	global field_symbol_table
+	global argument_symbol_table
+	global var_symbol_table
 
-	# returns int
-	return 0
+	if name in static_symbol_table:
+		return static_symbol_table.indexOf(name)
+	elif name in field_symbol_table:
+		return field_symbol_table.indexOf(name)
+	elif name in argument_symbol_table:
+		return argument_symbol_table.indexOf(name)
+	else:  # name in var_symbol_table:
+		return var_symbol_table.indexOf(name)
 
 
 #########################################
