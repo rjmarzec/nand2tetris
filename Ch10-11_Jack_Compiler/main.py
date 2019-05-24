@@ -14,6 +14,7 @@ program = file_name_constants.SEVEN
 input_file_path_list = program[0]
 output_file_path_list = program[1]
 output_t_file_path_list = program[2]
+output_vm_file_path_list = program[3]
 
 
 # Tokenizer Classifications
@@ -164,6 +165,7 @@ def token_list_to_tokenizer_output(token_as_list):
 #########################################
 # Element Compiler ######################
 #########################################
+vm_output = ''
 compiler_index_counter = 0
 compiler_tabs = ''
 
@@ -174,6 +176,8 @@ def compile_class(token_list_input):
 	# 'class' className '{' classVarDec* subroutineDec* '}'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
+	
 
 	output_string = compiler_tabs + '<class>\n'
 	compiler_tabs += '\t'
@@ -205,6 +209,7 @@ def compile_class_var_dec(token_list_input):
 	# ('static'|'field') type varName* (',' varName)* ';'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<classVarDec>\n'
 	compiler_tabs += '\t'
@@ -229,6 +234,7 @@ def compile_type(token_list_input):
 	# 'int'|'char'|'boolean'|className
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	if token_list_input[compiler_index_counter][1] == 'int'\
 		or token_list_input[compiler_index_counter][1] == 'char' \
@@ -244,6 +250,7 @@ def compile_subroutine_dec(token_list_input):
 	# ('constructor'|'function'|'method') ('void'|type) subroutineName '(' parameterList ')' subroutineBody
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<subroutineDec>\n'
 	compiler_tabs += '\t'
@@ -270,6 +277,7 @@ def compile_parameter_list(token_list_input):
 	# ((type varName) (',' type varName)*)?
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<parameterList>\n'
 	compiler_tabs += '\t'
@@ -295,6 +303,7 @@ def compile_subroutine_body(token_list_input):
 	# '{' varDec* statements '}'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<subroutineBody>\n'
 	compiler_tabs += '\t'
@@ -317,6 +326,7 @@ def compile_var_dec(token_list_input):
 	# 'var' type varName (',' varName)* ';'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<varDec>\n'
 	compiler_tabs += '\t'
@@ -340,6 +350,7 @@ def compile_class_name(token_list_input):
 	# identifier
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	return compile_lexical_element(token_list_input)
 
@@ -348,6 +359,7 @@ def compile_subroutine_name(token_list_input):
 	# identifier
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	return compile_lexical_element(token_list_input)
 
@@ -356,6 +368,7 @@ def compile_var_name(token_list_input):
 	# identifier
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	return compile_lexical_element(token_list_input)
 
@@ -366,6 +379,7 @@ def compile_statements(token_list_input):
 	# statement*
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<statements>\n'
 	compiler_tabs += '\t'
@@ -386,6 +400,7 @@ def compile_statement(token_list_input):
 	# letStatement|ifStatement|whileStatement|doStatement|returnStatement
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	if token_list_input[compiler_index_counter][1] == 'let':
 		output_string = compile_let_statement(token_list_input)  # letStatement|...
@@ -405,6 +420,7 @@ def compile_let_statement(token_list_input):
 	# 'let' varName ('[' expression ']')? '=' expression ';'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<letStatement>\n'
 	compiler_tabs += '\t'
@@ -430,6 +446,7 @@ def compile_if_statement(token_list_input):
 	# 'if' '(' expression ')' '{' statements '}' ('else' '{' statements '}')?
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<ifStatement>\n'
 	compiler_tabs += '\t'
@@ -458,6 +475,7 @@ def compile_while_statement(token_list_input):
 	# 'while' '(' expression ')' '{' statements '}'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<whileStatement>\n'
 	compiler_tabs += '\t'
@@ -479,6 +497,7 @@ def compile_do_statement(token_list_input):
 	# 'do' subroutineCall ';'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<doStatement>\n'
 	compiler_tabs += '\t'
@@ -496,6 +515,7 @@ def compile_return_statement(token_list_input):
 	# 'return' expression? ';'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<returnStatement>\n'
 	compiler_tabs += '\t'
@@ -518,6 +538,7 @@ def compile_expression(token_list_input):
 	# term (op term)*
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<expression>\n'
 	compiler_tabs += '\t'
@@ -549,6 +570,7 @@ def compile_term(token_list_input):
 	# '(' expression ')' | unaryOp term
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<term>\n'
 	compiler_tabs += '\t'
@@ -602,6 +624,7 @@ def compile_subroutine_call(token_list_input):
 	# ((className | varName) '.')? subroutineName '(' expressionList ')'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	# output_string = compiler_tabs + '<subroutineCall>\n'
 	# compiler_tabs += '\t'
@@ -626,6 +649,7 @@ def compile_expression_list(token_list_input):
 	# (expression (',' expression)* )?
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<expressionList>\n'
 	compiler_tabs += '\t'
@@ -653,6 +677,7 @@ def compile_op(token_list_input):
 	# '+' | '-' | '*' | '/' | '&' | '|' | '<' | '>' | '='
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<op>\n'
 	compiler_tabs += '\t'
@@ -668,6 +693,7 @@ def compile_unary_op(token_list_input):
 	# '-' | '~'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compile_lexical_element(token_list_input)  # '-' | '~'
 
@@ -678,6 +704,7 @@ def compile_keyword_constant(token_list_input):
 	# 'true' | 'false' | 'null' | 'this'
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	output_string = compiler_tabs + '<keywordConstant>\n'
 	compiler_tabs += '\t'
@@ -694,14 +721,21 @@ def compile_lexical_element(token_list_input):
 	# keyword | symbol | integerConstant | StringConstant | identifier
 	global compiler_index_counter
 	global compiler_tabs
+	global vm_output
 
 	compiler_index_counter += 1
 	return compiler_tabs + token_list_input[compiler_index_counter - 1][2]
 
 
 #########################################
-# Symbol Table Builder ##################
+# VM Translator #########################
 #########################################
+
+# Used to determine in what scope variables exist
+scope_stack = []
+
+
+# Symbol Table Builder ##################
 # name => (String)
 # type => (String)
 # kind => (STATIC, FIELD, ARG, or VAR)
@@ -709,6 +743,7 @@ def compile_lexical_element(token_list_input):
 # The static and field symbol tables are wiped per-class
 static_symbol_table = {}
 field_symbol_table = {}
+
 # The argument and var symbol tables are wiped per-method/function/constructor
 argument_symbol_table = {}
 var_symbol_table = {}
@@ -829,9 +864,7 @@ def index_of(name):
 		return var_symbol_table.indexOf(name)
 
 
-#########################################
 # VM Writer #############################
-#########################################
 # segment => (CONST, ARG, LOCAL, STATIC, THIS, THAT, POINTER, TEMP)
 # command => (String)
 
@@ -896,6 +929,8 @@ def write_return():
 
 
 def main():
+	global vm_output
+
 	# Tokenize the Input File
 	for file_path_counter in range(0, len(input_file_path_list)):
 		tokenized_input_string = get_tokenized_input_as_string(get_file_lines_as_string(input_file_path_list[file_path_counter]))
@@ -905,6 +940,7 @@ def main():
 		t_output_file.close()
 
 	# Syntax Analysis of the Tokenized Input
+	# Also contains to the process for the ch 11 .jack to .vm compiler
 	for file_path_counter in range(0, len(output_t_file_path_list)):
 		tokenized_input_string = get_file_lines_as_list(output_t_file_path_list[file_path_counter])
 		syntax_analyzer_output = compile_class(get_token_value_pair_list(tokenized_input_string))
@@ -913,11 +949,15 @@ def main():
 		syntax_analyzer_output_file.write(syntax_analyzer_output)
 		syntax_analyzer_output_file.close()
 
-	# Translate the .jack file to .vm using the .xml translation
-	for file_path_counter in range(0, len(output_t_file_path_list)):
-		print(file_path_counter)
-		# something
+		vm_output_file = open(output_vm_file_path_list[file_path_counter], 'w')
+		vm_output_file.write(vm_output)
+		vm_output_file.close()
 
 
 main()
-# TODO: unit test the VMWriter and SymbolTable modules
+
+# TODO: What needs to get done:
+# TODO: The compiler put together in chapter 10 needs to have sections added to it that call chapter 11 methods
+# TODO: in order to add to the "vm_output" global string.
+# TODO: For example, when compile_subroutine_dec is called, the symbol table should be wiped.
+# TODO: Likewise, when compile_var_dex is called, the symbol table should be updated.
